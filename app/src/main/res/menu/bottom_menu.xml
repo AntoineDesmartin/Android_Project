@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"
+        android:title="Home"
+        ></item>
+    <item
+        android:id="@+id/nav_notifications"
+        android:icon="@drawable/notification"
+        android:title="Notifications"
+        ></item>
+    <item
+        android:id="@+id/nav_create"
+        android:icon="@drawable/add"
+        android:title="Create"
+        ></item>
+    <item
+        android:id="@+id/nav_mesSignalement"
+        android:icon="@drawable/bars"
+        android:title="Signalements"
+        ></item>
+    <item
+        android:id="@+id/nav_compte"
+        android:icon="@drawable/user"
+        android:title="Compte"
+        ></item>
+</menu>
