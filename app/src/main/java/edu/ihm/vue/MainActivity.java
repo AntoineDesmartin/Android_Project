@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -13,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.nav_notifications) {
                     moveToFragment(new NotificationsFragment());
                 } else if (itemId == R.id.nav_create) {
-                    moveToFragment(new CreateFragment());
+                    Intent intent = new Intent(getApplicationContext(), SignalementActivity.class);
+                    startActivity(intent);
                 } else if (itemId == R.id.nav_mesSignalement) {
                     moveToFragment(new MesSignalementsFragment());
                 } else if (itemId == R.id.nav_compte) {
@@ -39,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
 
     private void moveToFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_View,fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_View, fragment).commit();
     }
 }

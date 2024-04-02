@@ -6,4 +6,8 @@
     <color name="green2">#4fbb68</color>
     <color name="yellow">#fbff29</color>
     <color name="red">#F44336</color>
+
+    <color name="s_gray">#828282</color>
+    <color name="s_green">#26BB97</color>
+    <color name="s_red">#FD4889</color>
 </resources>
