@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -41,18 +39,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
-
-
-
-
-
     }
 
     private void moveToFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.container_View,fragment).commit();
     }
-
-
 }

@@ -18,8 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/green"
-        android:id="@+id/top"
-        >
+        android:id="@+id/top">
 
         <ImageView
             android:id="@+id/imageView"
@@ -29,8 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"

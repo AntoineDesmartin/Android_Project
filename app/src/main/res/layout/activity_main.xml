@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/container_View"
+        android:background="@color/white"
         ></FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,10 +21,12 @@
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottom_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/bottom_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-    </RelativeLayout>
+</RelativeLayout>
 
 
 
