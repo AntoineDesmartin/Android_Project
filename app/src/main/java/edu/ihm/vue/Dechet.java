@@ -7,9 +7,7 @@ public class Dechet {
     private String title;
     private Date date;
     private String type;
-
     private String adress;
-
     private String photo;
 
 

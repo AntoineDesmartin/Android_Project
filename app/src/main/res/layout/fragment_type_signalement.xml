@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/titresignalement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:text="Quel est le type de votre singalement :"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textColor="@color/s_gray"
+        />
+    <TextView
+        android:id="@+id/titresignalementdisplay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titresignalement"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textColor="@color/s_red"
+        />
+
+
+
+    <Button
+        android:id="@+id/annuler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/s_red"
+        android:text="Annuler"
+        android:drawableEnd="@drawable/close"
+        android:drawableTint="@color/white"
+        >
+    </Button>
+
+    <Button
+        android:id="@+id/retour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/s_red"
+        android:text="Retour"
+        app:icon="@drawable/arrow_back"
+        android:drawableTint="@color/white"
+        >
+    </Button>
+
+    <ImageButton
+        android:id="@+id/dechetButton"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:src="@drawable/dechet_button"
+        android:scaleType="centerCrop"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titresignalementdisplay"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/dechettext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DECHETS"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="@id/dechetButton"
+        app:layout_constraintBottom_toBottomOf="@id/dechetButton"
+        app:layout_constraintStart_toStartOf="@id/dechetButton"
+        app:layout_constraintEnd_toEndOf="@id/dechetButton"
+        android:textSize="40dp"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textStyle="bold"
+        android:shadowColor="@color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
+        />
+
+    <ImageButton
+        android:id="@+id/encombrementButton"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:src="@drawable/encombrement_button"
+        android:scaleType="centerCrop"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dechetButton"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/encompbrementtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ENCOOMBREMENT"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="@id/encombrementButton"
+        app:layout_constraintBottom_toBottomOf="@id/encombrementButton"
+        app:layout_constraintStart_toStartOf="@id/encombrementButton"
+        app:layout_constraintEnd_toEndOf="@id/encombrementButton"
+        android:textSize="35dp"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textStyle="bold"
+        android:shadowColor="@color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
+        />
+
+        <View
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:background="@color/green"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="50dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
