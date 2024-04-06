@@ -1,54 +1,57 @@
 package edu.ihm.vue.signalemet_fragment;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.icu.util.Calendar;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
+import android.widget.ImageView;
 
-import java.text.SimpleDateFormat;
+import android.Manifest;
 
+import edu.ihm.vue.IPictureActivity;
 import edu.ihm.vue.R;
 import edu.ihm.vue.SignalementListener;
 
-
-public class DateSignalement extends Fragment {
-
-
-    private String date;
+public class CameraSignalement extends Fragment {
+    ImageView imageView;
     private SignalementListener mListener;
+    Bitmap image;
 
-    public DateSignalement() {
+    public CameraSignalement() {
     }
-
-    public DateSignalement(String date) {
-        this.date=date;
+    public CameraSignalement(Bitmap image) {
+        this.image=image;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_date_signalement, container, false);
-        EditText dateEditText = rootView.findViewById(R.id.dateEditText);
-        if (date.length()>0) {
-            dateEditText.setText(date);
-        }
-        dateEditText.setOnClickListener(new View.OnClickListener() {
+        View rootView = inflater.inflate(R.layout.fragment_camera_signalement, container, false);
+        imageView = rootView.findViewById(R.id.photoincident);
+        if(this.image!=null)
+            setImage(image);
+        rootView.findViewById(R.id.prendrephoto).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.CAMERA},
+                            IPictureActivity.REQUEST_CAMERA);
+                } else {
+                    takePicture();
+                }
             }
         });
-
         Button buttonAnnuler = rootView.findViewById(R.id.annuler);
         buttonAnnuler.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +67,7 @@ public class DateSignalement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.backToTypeSignalementFragment(String.valueOf(dateEditText.getText()));
+                    mListener.backToDateSignalementFragment();
                 }
             }
 
@@ -75,13 +78,21 @@ public class DateSignalement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.goToCameraSignalementFragment(String.valueOf(dateEditText.getText()));
+                    mListener.goToAdresseSignalementFragment();
                 }
             }
-
         });
-
         return rootView;
+    }
+
+
+    public void takePicture() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        getActivity().startActivityForResult(intent, IPictureActivity.REQUEST_CAMERA);
+    }
+
+    public void setImage(Bitmap image) {
+        imageView.setImageBitmap(image);
     }
 
     @Override
@@ -94,23 +105,4 @@ public class DateSignalement extends Fragment {
                     + " must implement SignalementListener");
         }
     }
-
-    public void showDatePickerDialog() {
-        final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                        EditText dateEditText = getView().findViewById(R.id.dateEditText);
-                        dateEditText.setText(selectedDate);
-                    }
-                }, year, month, dayOfMonth);
-        datePickerDialog.show();
-    }
-
 }

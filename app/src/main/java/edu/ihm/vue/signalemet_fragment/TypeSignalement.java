@@ -17,18 +17,8 @@ import edu.ihm.vue.SignalementListener;
 import edu.ihm.vue.SignalementListener;
 import edu.ihm.vue.models.Signalement;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TypeSignalement#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TypeSignalement extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-
-    // TODO: Rename and change types of parameters
     private String titre;
     SignalementListener mListener;
 
@@ -36,29 +26,10 @@ public class TypeSignalement extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment TypeSignalement.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TypeSignalement newInstance(String param1) {
-        TypeSignalement fragment = new TypeSignalement();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
-        return fragment;
+    public TypeSignalement(String titre) {
+        this.titre = titre;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            titre = getArguments().getString(ARG_PARAM1);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,18 +37,20 @@ public class TypeSignalement extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_type_signalement, container, false);
         TextView titreTextView = rootView.findViewById(R.id.titresignalementdisplay);
-        titreTextView.setText(this.titre);
+        if (this.titre != null)
+            titreTextView.setText(this.titre);
         Button back = rootView.findViewById(R.id.retour);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.BackToTitreSignalementFragment();
+                    mListener.backToTitreSignalementFragment();
                 }
             }
 
         });
-        Button buttonAnnuler=rootView.findViewById(R.id.annuler);
+        //BUTTON ANNULER
+        Button buttonAnnuler = rootView.findViewById(R.id.annuler);
         buttonAnnuler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,22 +59,23 @@ public class TypeSignalement extends Fragment {
                 }
             }
         });
-        ImageButton dechetButton=rootView.findViewById(R.id.dechetButton);
+        //BUTTON DECHET
+        ImageButton dechetButton = rootView.findViewById(R.id.dechetButton);
         dechetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.goToDateFragement(Signalement.TypeSignalement.DECHETS);
+                    mListener.goToDateSignalementFragment(Signalement.TypeSignalement.DECHETS);
                 }
             }
         });
-
-        ImageButton encombrementButton=rootView.findViewById(R.id.encombrementButton);
+        //BUTTON ENCOMBREMENT
+        ImageButton encombrementButton = rootView.findViewById(R.id.encombrementButton);
         encombrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.goToDateFragement(Signalement.TypeSignalement.ENCOMBREMENTS);
+                    mListener.goToDateSignalementFragment(Signalement.TypeSignalement.ENCOMBREMENTS);
                 }
             }
         });
