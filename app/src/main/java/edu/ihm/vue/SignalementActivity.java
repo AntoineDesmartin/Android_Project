@@ -110,7 +110,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         } catch (ParseException e) {
             Log.d(TAG, "Can not parse date", e);
         }
-        cameraSignalement=new CameraSignalement(nouveauSignalement.getPhoto());
+        cameraSignalement = new CameraSignalement(nouveauSignalement.getPhoto());
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
                 .replace(R.id.fragment_container, cameraSignalement)
@@ -121,9 +121,9 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void backToCameraSignalementFragment(String adr, String vil, String code) {
         nouveauSignalement.setAdresse(adr);
         nouveauSignalement.setVille(vil);
-        if(code.length()>0)
-        nouveauSignalement.setCodePostal(Integer.parseInt(code));
-        cameraSignalement=new CameraSignalement(nouveauSignalement.getPhoto());
+        if (code.length() > 0)
+            nouveauSignalement.setCodePostal(Integer.parseInt(code));
+        cameraSignalement = new CameraSignalement(nouveauSignalement.getPhoto());
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
                 .replace(R.id.fragment_container, cameraSignalement)
