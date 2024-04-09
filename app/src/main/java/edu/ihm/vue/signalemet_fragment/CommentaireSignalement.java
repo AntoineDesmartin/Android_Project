@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.IOException;
+
 import edu.ihm.vue.R;
 import edu.ihm.vue.SignalementListener;
 
@@ -58,7 +60,11 @@ public class CommentaireSignalement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.finishSignalement();
+                    try {
+                        mListener.finishSignalement();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         });

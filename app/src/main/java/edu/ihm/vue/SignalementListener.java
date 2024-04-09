@@ -1,5 +1,10 @@
 package edu.ihm.vue;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import edu.ihm.vue.models.Signalement;
 
 public interface SignalementListener {
@@ -14,5 +19,5 @@ public interface SignalementListener {
    void backToCameraSignalementFragment(String adr, String vil, String code);
    void goToCommentaireSignalementFragment(String adr, String vil, String code);
    void backToAdresseSignalementFragment();
-   void finishSignalement();
+   void finishSignalement() throws IOException;
 }

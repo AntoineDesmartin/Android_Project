@@ -9,9 +9,21 @@ import android.util.Log;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+
 
 import edu.ihm.vue.models.Signalement;
 import edu.ihm.vue.signalemet_fragment.AdresseSignalement;
@@ -53,7 +65,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void backToTitreSignalementFragment() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
-                .replace(R.id.fragment_container, new TitreSignalement(nouveauSignalement.getTitreSignalement()))
+                .replace(R.id.fragment_container, new TitreSignalement(nouveauSignalement.getTitle()))
                 .commit();
     }
 
@@ -63,22 +75,22 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date parsedDate = sdf.parse(date);
-            nouveauSignalement.setDateSignalement(parsedDate);
+            nouveauSignalement.setDate(parsedDate);
         } catch (ParseException e) {
             Log.d(TAG, "Can not parse date", e);
         }
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
-                .replace(R.id.fragment_container, new TypeSignalement(nouveauSignalement.getTitreSignalement()))
+                .replace(R.id.fragment_container, new TypeSignalement(nouveauSignalement.getTitle()))
                 .commit();
     }
 
     @Override
     public void goToTypeSignalementFragment(String titre) {
-        nouveauSignalement.setTitreSignalement(titre);
+        nouveauSignalement.setTitle(titre);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new TypeSignalement(nouveauSignalement.getTitreSignalement()))
+                .replace(R.id.fragment_container, new TypeSignalement(nouveauSignalement.getTitle()))
                 .commit();
     }
 
@@ -88,7 +100,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         nouveauSignalement.setTypeSignalement(type);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new DateSignalement(nouveauSignalement.getDateSignalement()))
+                .replace(R.id.fragment_container, new DateSignalement(nouveauSignalement.getDate()))
                 .commit();
     }
 
@@ -96,7 +108,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void backToDateSignalementFragment() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
-                .replace(R.id.fragment_container, new DateSignalement(nouveauSignalement.getDateSignalement()))
+                .replace(R.id.fragment_container, new DateSignalement(nouveauSignalement.getDate()))
                 .commit();
     }
 
@@ -106,7 +118,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date parsedDate = sdf.parse(date);
-            nouveauSignalement.setDateSignalement(parsedDate);
+            nouveauSignalement.setDate(parsedDate);
         } catch (ParseException e) {
             Log.d(TAG, "Can not parse date", e);
         }
@@ -119,10 +131,10 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
 
     @Override
     public void backToCameraSignalementFragment(String adr, String vil, String code) {
-        nouveauSignalement.setAdresse(adr);
-        nouveauSignalement.setVille(vil);
+        nouveauSignalement.setAddress(adr);
+        nouveauSignalement.setCity(vil);
         if (code.length() > 0)
-            nouveauSignalement.setCodePostal(Integer.parseInt(code));
+            nouveauSignalement.setZipCode(Integer.parseInt(code));
         cameraSignalement = new CameraSignalement(nouveauSignalement.getPhoto());
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
@@ -136,7 +148,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void goToAdresseSignalementFragment() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new AdresseSignalement(nouveauSignalement.getAdresse(), nouveauSignalement.getVille(), nouveauSignalement.getCodePostal()))
+                .replace(R.id.fragment_container, new AdresseSignalement(nouveauSignalement.getAddress(), nouveauSignalement.getCity(), nouveauSignalement.getZipCode()))
                 .commit();
     }
 
@@ -144,7 +156,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void backToAdresseSignalementFragment() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
-                .replace(R.id.fragment_container, new AdresseSignalement(nouveauSignalement.getAdresse(), nouveauSignalement.getVille(), nouveauSignalement.getCodePostal()))
+                .replace(R.id.fragment_container, new AdresseSignalement(nouveauSignalement.getAddress(), nouveauSignalement.getCity(), nouveauSignalement.getZipCode()))
                 .commit();
     }
 
@@ -152,12 +164,12 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     //COMMENTAIRE SIGNALEMENT
     @Override
     public void goToCommentaireSignalementFragment(String adr, String vil, String code) {
-        nouveauSignalement.setAdresse(adr);
-        nouveauSignalement.setVille(vil);
-        nouveauSignalement.setCodePostal(Integer.parseInt(code));
+        nouveauSignalement.setAddress(adr);
+        nouveauSignalement.setCity(vil);
+        nouveauSignalement.setZipCode(Integer.parseInt(code));
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new CommentaireSignalement(nouveauSignalement.getCommentaire()))
+                .replace(R.id.fragment_container, new CommentaireSignalement(nouveauSignalement.getDescription()))
                 .commit();
     }
 
@@ -185,8 +197,33 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     }
 
     @Override
-    public void finishSignalement() {
-        //REQUETTE HTTP A AJOUTER
+    public void finishSignalement() throws IOException {
+        nouveauSignalement.setBlockage();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(nouveauSignalement);
+
+        // temporary url
+        String url = "http://10.212.118.125:3333/reports";
+        URL truc = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) truc.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setRequestProperty("Authorization", "Bearer oat_MTI.bHZ5dldndnA0c1dtQjB6SG1CYmIxV2NHYVdnT3FZbE9MbWFBRWR4VTM0MjI1NzUwOTY");
+        con.setDoOutput(true);
+        try(OutputStream os=con.getOutputStream()){
+            byte[] input=json.getBytes("utf-8");
+            os.write(input,0,input.length);
+        }
+        try(BufferedReader br = new BufferedReader(
+                new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            System.out.println(response.toString());
+        }
+
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }

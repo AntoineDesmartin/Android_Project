@@ -1,34 +1,47 @@
 package edu.ihm.vue.models;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Signalement {
-    private String titreSignalement;
+    private String title;
     private TypeSignalement typeSignalement;
-    private Date dateSignalement=null;
+
+    public void setBlockage() {
+        isBlockage = (typeSignalement==TypeSignalement.ENCOMBREMENTS);
+    }
+
+    public boolean isBlockage() {
+        return isBlockage;
+    }
+
+    public void setBlockage(boolean blockage) {
+        isBlockage = blockage;
+    }
+
+    boolean isBlockage;
+    private Date date =null;
     private Bitmap photo=null;
-    private String Adresse;
-    private String ville;
-    private int codePostal;
-    private String commentaire;
+    private String address;
+    private String city;
+    private int zipCode;
+    private String description;
 
-    public String getCommentaire() {
-        return commentaire;
+    public String getDescription() {
+        return description;
     }
-    public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
-    }
-
-    public String getTitreSignalement() {
-        return titreSignalement;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setTitreSignalement(String titreSignalement) {
-        this.titreSignalement = titreSignalement;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
     public TypeSignalement getTypeSignalement() {
         return typeSignalement;
@@ -38,17 +51,17 @@ public class Signalement {
         this.typeSignalement = typeSignalement;
     }
 
-    public String getDateSignalement() {
-        if (dateSignalement != null) {
+    public String getDate() {
+        if (date != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            return sdf.format(dateSignalement);
+            return sdf.format(date);
         } else {
             return "";
         }
     }
 
-    public void setDateSignalement(Date dateSignalement) {
-        this.dateSignalement = dateSignalement;
+    public void setDate(Date dateSignalement) {
+        this.date = dateSignalement;
     }
 
     public Bitmap getPhoto() {
@@ -57,28 +70,28 @@ public class Signalement {
     public void setPhoto(Bitmap photo) {
         this.photo = photo;
     }
-    public String getAdresse() {
-        return Adresse;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdresse(String adresse) {
-        Adresse = adresse;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getVille() {
-        return ville;
+    public String getCity() {
+        return city;
     }
 
-    public void setVille(String ville) {
-        this.ville = ville;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public int getCodePostal() {
-        return codePostal;
+    public int getZipCode() {
+        return zipCode;
     }
 
-    public void setCodePostal(int codePostal) {
-        this.codePostal = codePostal;
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
     }
 
     public enum TypeSignalement{DECHETS, ENCOMBREMENTS}
