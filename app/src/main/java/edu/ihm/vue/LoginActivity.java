@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
         Button mairie = findViewById(R.id.mairie);
         Button particulier = findViewById(R.id.particulier);
         mairie.setOnClickListener((click)->{
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AgentActivity.class);
             startActivity(intent);
         });
         particulier.setOnClickListener((click)->{

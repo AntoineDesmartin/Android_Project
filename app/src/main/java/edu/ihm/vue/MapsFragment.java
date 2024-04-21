@@ -16,7 +16,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsFragment extends Fragment {
+public class MapsFragment extends Fragment implements OnMapReadyCallback{
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -48,10 +48,14 @@ public class MapsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+
     }
 }
