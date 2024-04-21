@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 int itemId = item.getItemId();
-                System.out.println(item.getItemId());
                 if (itemId == R.id.nav_home) {
                     moveToFragment(new HomeFragment());
                 } else if (itemId == R.id.nav_notifications) {

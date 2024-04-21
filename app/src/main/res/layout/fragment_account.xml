@@ -71,27 +71,21 @@
 
 
 
+
+
     <Button
-        android:id="@+id/btnSetBirthday"
+        android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Birthday"
-        android:textSize="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/horizontalSeparator"
-        app:layout_constraintBottom_toBottomOf="@+id/horizontalSeparator" />
+        app:layout_constraintTop_toBottomOf="@id/userName"
+        android:text="log out"
+        android:layout_marginTop="200dp"
+        ></Button>
 
 
 
-    <!-- Rectangle gris horizontal -->
-    <View
-        android:id="@+id/horizontalSeparator"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@id/fragmentMenu"
-        android:layout_marginTop="50dp"/>
 
 
 
