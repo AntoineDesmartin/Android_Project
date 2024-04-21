@@ -1,59 +1,67 @@
 package edu.ihm.vue;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class DechetAdapter extends RecyclerView.Adapter<DechetAdapter.ViewHolder> {
+public class DechetAdapter extends BaseAdapter {
+    private final String TAG = "fredrallo "+getClass().getSimpleName();
+
     private List<Dechet> dechets;
+    private Context context;
+    private LayoutInflater mInflater;
+    private DechetListenerAdapter listener;
 
-    public DechetAdapter(List<Dechet> dechets) {
+
+    public DechetAdapter(Context context, List<Dechet> dechets, DechetListenerAdapter listener) {
+        this.context = context;
         this.dechets = dechets;
+        this.listener = listener;
+        mInflater = LayoutInflater.from(this.context);
+
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.dechet_item, parent, false);
-        return new ViewHolder(view);
-    }
+
+
+
+
+
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Dechet dechet = dechets.get(position);
-        holder.nomDechetTextView.setText(dechet.getTitle());
-        holder.dateTextView.setText(dechet.getDate().toString());
-        
-        // Ajoutez d'autres attributs de Dechet à lier avec les vues ici
-    }
-
-    @Override
-    public int getItemCount() {
+    public int getCount() {
         return dechets.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nomDechetTextView;
-        TextView dateTextView;
-        TextView typeTextView;
-        TextView adresseTextView;
-        TextView photoTextView;
-
-
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            nomDechetTextView = itemView.findViewById(R.id.nomDechetTextView);
-            dateTextView = itemView.findViewById(R.id.dateTextView);
-
-            // Initialisez d'autres vues ici si nécessaire
-        }
+    @Override
+    public Object getItem(int i) {
+        return dechets.get(i);
     }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int i, View convertView, ViewGroup parent) {
+        View layoutItem;
+        layoutItem = (convertView == null ? mInflater.inflate(R.layout.dechet_item, parent, false) : convertView);
+        TextView title = (TextView) layoutItem.findViewById(R.id.nomDechetTextView);
+        title.setText(dechets.get(i).getTitle());
+
+        layoutItem.setOnClickListener((click)->{
+            Log.d(TAG, "getView: "+dechets.get(i).getTitle());
+            listener.onClickDechet(dechets.get(i));
+        });
+
+        return layoutItem;
+    }
+
+
 }
