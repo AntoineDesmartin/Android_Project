@@ -55,6 +55,9 @@ public class DechetAdapter extends BaseAdapter {
         TextView title = (TextView) layoutItem.findViewById(R.id.nomDechetTextView);
         title.setText(dechets.get(i).getTitle());
 
+
+
+
         layoutItem.setOnClickListener((click)->{
             Log.d(TAG, "getView: "+dechets.get(i).getTitle());
             listener.onClickDechet(dechets.get(i));
