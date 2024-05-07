@@ -73,6 +73,4 @@
             app:layout_constraintVertical_bias="0.97"></TextView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Ajoutez les autres vues pour afficher d'autres détails du déchet si nécessaire -->
-
 </LinearLayout>

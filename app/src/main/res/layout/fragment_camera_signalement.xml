@@ -4,15 +4,15 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/datesignalementfragment">
+    android:id="@+id/camerasignalementfragment">
 
 
     <TextView
-        android:id="@+id/titresignalement"
+        android:id="@+id/prendrephototext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.8"
-        android:text="Quel est la date de votre signalement :"
+        android:text="Prenez une photo de l'incident"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,43 +23,53 @@
         android:textColor="@color/s_gray"
         />
 
-    <EditText
-        android:id="@+id/dateEditText"
+    <ImageView
+        android:id="@+id/photoincident"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.8"
-        android:hint="Selectionner une date"
-        android:focusable="false"
-        android:inputType="none"
-        android:onClick="showDatePickerDialog"
+        app:layout_constraintHeight_percent="0.4"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titresignalement"
-        android:layout_marginTop="50dp"
-        android:textColor="@color/s_gray"
-        android:background="@drawable/edittext_border"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:imeOptions="actionNone"
-        />
+        app:layout_constraintTop_toBottomOf="@id/prendrephototext"
+        android:background="@drawable/image_view_border"
+        >
+    </ImageView>
 
 
+    <Button
+        android:id="@+id/prendrephoto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/photoincident"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
+        android:text="Prendre une photo"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textSize="20sp"
+        android:drawableEnd="@drawable/photo_camera"
+        android:drawableTint="@color/white">
+    </Button>
     <Button
         android:id="@+id/suivant"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/green"
-        android:drawableEnd="@drawable/arrow_forward"
-        android:drawableTint="@color/white"
-        android:fontFamily="@font/jetbrains_mono"
-        android:text="Suivant"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateEditText"
-        app:layout_constraintVertical_bias="0.75"
-        app:layout_constraintWidth_percent="0.8"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/prendrephoto"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
+        android:text="Suivant"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textSize="20sp"
+        android:drawableEnd="@drawable/arrow_forward"
+        android:drawableTint="@color/white">
+    </Button>
 
     <Button
         android:id="@+id/annuler"
@@ -91,13 +101,14 @@
         >
     </Button>
 
+
     <View
         android:layout_width="0dp"
         android:layout_height="8dp"
         android:background="@color/green"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="50dp"
-        app:layout_constraintWidth_percent="0.35"
+        app:layout_constraintWidth_percent="0.4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />

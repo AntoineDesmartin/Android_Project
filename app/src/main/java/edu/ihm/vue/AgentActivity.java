@@ -4,22 +4,31 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class AgentActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    BottomNavigationView bottomNavigationView;
 
+    private BottomNavigationView bottomNavigationView;
+    private SupportMapFragment mapFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_agent);
+
+        OnMapReadyCallback onMapReadyCallback = this;
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,12 +39,11 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.nav_home) {
                     moveToFragment(new HomeFragment());
                 } else if (itemId == R.id.nav_notifications) {
+
                     moveToFragment(new NotificationsFragment());
-                } else if (itemId == R.id.nav_create) {
-                    Intent intent = new Intent(getApplicationContext(), SignalementActivity.class);
-                    startActivity(intent);
-                } else if (itemId == R.id.nav_mesSignalement) {
-                    moveToFragment(new MesSignalementsFragment());
+                } else if (itemId == R.id.nav_map) {
+
+                    moveToFragment(new MapsFragment());
                 } else if (itemId == R.id.nav_compte) {
                     moveToFragment(new AccountFragment());
                 }
@@ -44,12 +52,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+
     }
 
     private void moveToFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.container_View, fragment).commit();
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng paris = new LatLng(48.8566, 2.3522);
+        googleMap.addMarker(new MarkerOptions().position(paris).title("Marker in Paris"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(paris, 12));
 
+
+    }
 
 }
