@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import edu.ihm.vue.main_activities.MainActivity;
 import edu.ihm.vue.models.Signalement;
 import edu.ihm.vue.signalemet_fragment.AdresseSignalement;
 import edu.ihm.vue.signalemet_fragment.CameraSignalement;

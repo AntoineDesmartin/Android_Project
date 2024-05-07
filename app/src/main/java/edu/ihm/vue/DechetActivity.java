@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import edu.ihm.vue.Dechet;
+import edu.ihm.vue.R;
+
 public class DechetActivity extends AppCompatActivity {
 
     private Dechet dechet;

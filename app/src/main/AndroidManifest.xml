@@ -28,10 +28,10 @@
             android:value="AIzaSyCJLgvC-42ZKPg3B5Svb6XqaIHzkNdEwRc" />
 
         <activity
-            android:name=".AgentActivity"
+            android:name=".main_activities.AgentActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".main_activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +46,7 @@
             android:name=".SignalementActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main_activities.MainActivity"
             android:exported="true" />
     </application>
 

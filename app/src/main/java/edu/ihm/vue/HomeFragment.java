@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment implements DechetListenerAdapter {
 
     @Override
     public void onClickDechet(Dechet item) {
-        Intent intent = new Intent(getContext(),DechetActivity.class);
+        Intent intent = new Intent(getContext(), DechetActivity.class);
         intent.putExtra("dechet",(Parcelable) item);
         startActivity(intent);
     }

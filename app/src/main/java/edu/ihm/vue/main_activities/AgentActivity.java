@@ -1,4 +1,4 @@
-package edu.ihm.vue;
+package edu.ihm.vue.main_activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import edu.ihm.vue.AccountFragment;
+import edu.ihm.vue.HomeFragment;
+import edu.ihm.vue.MapsFragment;
+import edu.ihm.vue.NotificationsFragment;
+import edu.ihm.vue.R;
 
 public class AgentActivity extends AppCompatActivity implements OnMapReadyCallback{
 
