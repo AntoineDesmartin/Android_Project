@@ -1,4 +1,4 @@
-package edu.ihm.vue.signalemet_fragment;
+package edu.ihm.vue.signalemet_fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -48,7 +48,7 @@ public class CommentaireSignalement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.backToAdresseSignalementFragment();
+                    mListener.backToAdresseSignalementFragment(commentaire.getText().toString());
                 }
             }
         });
@@ -58,7 +58,7 @@ public class CommentaireSignalement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.finishSignalement();
+                    mListener.finishSignalement(commentaire.getText().toString());
                 }
             }
         });

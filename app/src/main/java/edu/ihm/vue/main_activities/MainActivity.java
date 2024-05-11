@@ -4,16 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.ihm.vue.AccountFragment;
-import edu.ihm.vue.HomeFragment;
+import edu.ihm.vue.old_signalements_view.HomeFragment;
 import edu.ihm.vue.MesSignalementsFragment;
 import edu.ihm.vue.NotificationsFragment;
 import edu.ihm.vue.R;

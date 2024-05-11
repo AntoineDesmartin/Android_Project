@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +22,13 @@
         android:theme="@style/Theme.Vue"
         tools:targetApi="31">
         <activity
-            android:name=".DechetActivity"
+            android:name=".UserSignalementInfoDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".signalements_view.AgentSignalementInfoDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".old_signalements_view.DechetActivity"
             android:exported="false" />
 
         <meta-data
@@ -39,9 +47,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AgentHomeActivity"
-            android:exported="true"></activity>
         <activity
             android:name=".SignalementActivity"
             android:exported="true" />

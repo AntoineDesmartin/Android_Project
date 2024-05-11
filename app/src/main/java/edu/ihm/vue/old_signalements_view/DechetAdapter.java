@@ -1,4 +1,4 @@
-package edu.ihm.vue;
+package edu.ihm.vue.old_signalements_view;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import edu.ihm.vue.R;
 
 public class DechetAdapter extends BaseAdapter {
     private final String TAG = "fredrallo "+getClass().getSimpleName();

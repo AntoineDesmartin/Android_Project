@@ -1,4 +1,4 @@
-package edu.ihm.vue;
+package edu.ihm.vue.old_signalements_view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import edu.ihm.vue.R;
 
 /**
  * A simple {@link Fragment} subclass.

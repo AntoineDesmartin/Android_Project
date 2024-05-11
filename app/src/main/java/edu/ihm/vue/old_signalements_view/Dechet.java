@@ -1,4 +1,4 @@
-package edu.ihm.vue;
+package edu.ihm.vue.old_signalements_view;
 
 import android.os.Parcel;
 import android.os.Parcelable;
