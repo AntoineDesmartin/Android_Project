@@ -1,4 +1,4 @@
-package edu.ihm.vue.signalemet_fragment;
+package edu.ihm.vue.signalemet_fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-
-import java.text.SimpleDateFormat;
 
 import edu.ihm.vue.R;
 import edu.ihm.vue.SignalementListener;
