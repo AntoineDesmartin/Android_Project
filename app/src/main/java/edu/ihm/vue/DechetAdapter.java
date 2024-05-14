@@ -17,12 +17,14 @@ public class DechetAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater mInflater;
     private DechetListenerAdapter listener;
+    private String agent_or_not;
 
 
-    public DechetAdapter(Context context, List<Dechet> dechets, DechetListenerAdapter listener) {
+    public DechetAdapter(Context context, List<Dechet> dechets, DechetListenerAdapter listener,String agent_or_not) {
         this.context = context;
         this.dechets = dechets;
         this.listener = listener;
+        this.agent_or_not=agent_or_not;
         mInflater = LayoutInflater.from(this.context);
 
     }
@@ -52,6 +54,13 @@ public class DechetAdapter extends BaseAdapter {
     public View getView(int i, View convertView, ViewGroup parent) {
         View layoutItem;
         layoutItem = (convertView == null ? mInflater.inflate(R.layout.dechet_item, parent, false) : convertView);
+        Log.d(TAG, "getView: fuck"+agent_or_not);
+
+        if(agent_or_not.equals("agent")){
+            layoutItem = (convertView == null ? mInflater.inflate(R.layout.dechet_item_agent, parent, false) : convertView);
+
+            //on peut récup le button ici et faire un setOnclickListener pour assigner la tache
+        }
         TextView title = (TextView) layoutItem.findViewById(R.id.nomDechetTextView);
         title.setText(dechets.get(i).getTitle());
 

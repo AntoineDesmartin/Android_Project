@@ -1,4 +1,4 @@
-package edu.ihm.vue;
+package edu.ihm.vue.agent_fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,39 +6,37 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomeFragment extends Fragment implements DechetListenerAdapter {
+import edu.ihm.vue.Dechet;
+import edu.ihm.vue.DechetActivity;
+import edu.ihm.vue.DechetAdapter;
+import edu.ihm.vue.DechetListenerAdapter;
+import edu.ihm.vue.R;
 
 
-    private TextView textView;
-
+public class DechetListFragment extends Fragment implements DechetListenerAdapter {
+    private final String TAG = "fredrallo "+getClass().getSimpleName();
 
     List<Dechet> baseDeDonnees = new ArrayList<>();
-   private ListView listview;
+    private ListView listview;
     private DechetAdapter adapter;
 
-
-    public HomeFragment() {
+    public DechetListFragment() {
         // Required empty public constructor
-
     }
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+
+    public static DechetListFragment newInstance(String param1, String param2) {
+        DechetListFragment fragment = new DechetListFragment();
 
         return fragment;
     }
@@ -49,13 +47,11 @@ public class HomeFragment extends Fragment implements DechetListenerAdapter {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view =  inflater.inflate(R.layout.fragment_dechet_list, container, false);
 
-        // Créez des objets Dechet
         Dechet d1 = new Dechet("Verre a Biot", new Date(2024, 4, 12), "dangereux", "Biot", "poub.jpg");
         Dechet d2 = new Dechet("Verre a Biot2", new Date(2024, 4, 12), "dangereux2", "Biot2", "poub.jpg");
 
@@ -63,18 +59,15 @@ public class HomeFragment extends Fragment implements DechetListenerAdapter {
         baseDeDonnees.add(d1);
         baseDeDonnees.add(d2);
 
-        listview = view.findViewById(R.id.listView);
-        adapter = new DechetAdapter(getContext(),baseDeDonnees, this,"not");
+        listview = view.findViewById(R.id.dechetListAgent);
+        adapter = new DechetAdapter(getContext(),baseDeDonnees, this,"agent");
         listview.setAdapter(adapter);
-
-
 
         return view;
     }
-
     @Override
     public void onClickDechet(Dechet item) {
-        Intent intent = new Intent(getContext(),DechetActivity.class);
+        Intent intent = new Intent(getContext(), DechetActivity.class);
         intent.putExtra("dechet",(Parcelable) item);
         startActivity(intent);
     }

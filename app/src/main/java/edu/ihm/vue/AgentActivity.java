@@ -18,7 +18,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class AgentActivity extends AppCompatActivity implements OnMapReadyCallback{
+import edu.ihm.vue.agent_fragment.DechetListFragment;
+
+public class AgentActivity extends AppCompatActivity {
 
 
     private BottomNavigationView bottomNavigationView;
@@ -28,7 +30,6 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent);
 
-        OnMapReadyCallback onMapReadyCallback = this;
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -37,7 +38,7 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
 
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
-                    moveToFragment(new HomeFragment());
+                    moveToFragment(new DechetListFragment());
                 } else if (itemId == R.id.nav_notifications) {
 
                     moveToFragment(new NotificationsFragment());
@@ -60,13 +61,6 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         getSupportFragmentManager().beginTransaction().replace(R.id.container_View, fragment).commit();
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        LatLng paris = new LatLng(48.8566, 2.3522);
-        googleMap.addMarker(new MarkerOptions().position(paris).title("Marker in Paris"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(paris, 12));
 
-
-    }
 
 }
