@@ -16,11 +16,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import edu.ihm.vue.Dechet;
-import edu.ihm.vue.DechetActivity;
-import edu.ihm.vue.DechetAdapter;
-import edu.ihm.vue.DechetListenerAdapter;
+
 import edu.ihm.vue.R;
+import edu.ihm.vue.old_signalements_view.Dechet;
+import edu.ihm.vue.old_signalements_view.DechetActivity;
+import edu.ihm.vue.old_signalements_view.DechetAdapter;
+import edu.ihm.vue.old_signalements_view.DechetListenerAdapter;
 
 
 public class DechetListFragment extends Fragment implements DechetListenerAdapter {

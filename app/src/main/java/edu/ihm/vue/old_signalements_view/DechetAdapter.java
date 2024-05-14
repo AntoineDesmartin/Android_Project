@@ -13,7 +13,7 @@ import java.util.List;
 import edu.ihm.vue.R;
 
 public class DechetAdapter extends BaseAdapter {
-    private final String TAG = "fredrallo "+getClass().getSimpleName();
+    private final String TAG = "tonio "+getClass().getSimpleName();
 
     private List<Dechet> dechets;
     private Context context;
