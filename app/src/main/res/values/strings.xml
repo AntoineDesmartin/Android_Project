@@ -5,4 +5,9 @@
     <string name="maj_photo">Changer de photo de profil</string>
     <string name="valider">Enregister</string>
     <string name="log_out">Se déconnecter</string>
+    <string name="select_start_time">Sélectionnez l\'heure de début</string>
+    <string name="select_end_time">Sélectionnez l\'heure de fin</string>
+    <string name="add_to_agenda">Ajouter à agenda</string>
+    <string name="collect_date">A quelle date voulez vous réaliser la tâche ?</string>
+    <string name="select_date">Selectionnez la date</string>
 </resources>

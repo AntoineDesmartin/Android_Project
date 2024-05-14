@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/AgentAddToAgendaFragment">
+
+
+    <TextView
+        android:id="@+id/titresignalement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:text="@string/collect_date"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textColor="@color/s_gray"
+        />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:hint="@string/select_date"
+        android:focusable="false"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titresignalement"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/s_gray"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:imeOptions="actionNone"
+        />
+
+
+    <EditText
+        android:id="@+id/start_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:hint="Sélectionnez l'heure de début"
+        android:focusable="false"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/s_gray"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:imeOptions="actionNone"
+        />
+
+
+    <EditText
+        android:id="@+id/end_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:hint="@string/select_end_time"
+        android:focusable="false"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_time"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/s_gray"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:imeOptions="actionNone"
+        />
+
+
+    <Button
+        android:id="@+id/btn_add_to_agenda"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:drawableEnd="@drawable/arrow_forward"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/jetbrains_mono"
+        android:text="@string/add_to_agenda"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/end_time"
+        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintWidth_percent="0.8" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
