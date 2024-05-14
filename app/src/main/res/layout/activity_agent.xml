@@ -1,35 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main_activities.AgentActivity">
+
+    <include layout="@layout/title_bar"
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/container_View"
-        android:background="@color/white"
-        ></FrameLayout>
-
-
-
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.75"
+        app:layout_constraintTop_toBottomOf="@id/title_bar"
+        >
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/green"
-        app:itemIconTint="@color/white"
+        android:background="@drawable/gradient_green_background"
+        app:itemBackground="@drawable/bottom_nav_item_selector"
+        app:itemIconTint="@color/bottom_nav_icon_color_selector"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/agent_menu">
+        app:layout_constraintTop_toBottomOf="@id/container_View"
+        app:layout_constraintHeight_percent="0.12"
+        app:menu="@menu/agent_menu"
+        style="@style/BottomNavIconSize">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

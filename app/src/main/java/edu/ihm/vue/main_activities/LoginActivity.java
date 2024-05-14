@@ -1,10 +1,12 @@
-package edu.ihm.vue;
+package edu.ihm.vue.main_activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import edu.ihm.vue.R;
 
 public class LoginActivity extends AppCompatActivity {
 

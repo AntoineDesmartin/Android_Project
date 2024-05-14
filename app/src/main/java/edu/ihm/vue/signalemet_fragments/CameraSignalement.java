@@ -1,4 +1,4 @@
-package edu.ihm.vue.signalemet_fragment;
+package edu.ihm.vue.signalemet_fragments;
 
 import android.content.Context;
 import android.content.Intent;

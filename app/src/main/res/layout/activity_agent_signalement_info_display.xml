@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signalements_view.AgentSignalementInfoDisplayActivity">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.13"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_bar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp">
+
+            <TextView
+                android:id="@+id/titre_signalement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/jetbrains_mono"
+                android:text="Titre de l'incident"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <ImageView
+                android:id="@+id/image_signalement"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                app:layout_constraintTop_toBottomOf="@id/titre_signalement"></ImageView>
+
+            <LinearLayout
+                android:id="@+id/type_signalement_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/image_signalement">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Type :"
+                    android:textColor="@color/s_gray"
+                    android:textSize="17sp"></TextView>
+
+                <TextView
+                    android:id="@+id/type_signalement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="type incident"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"></TextView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/type_divider"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/type_signalement_linearLayout" />
+            <LinearLayout
+                android:id="@+id/date_signalement_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/type_divider">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Date :"
+                    android:textColor="@color/s_gray"
+                    android:textSize="17sp"></TextView>
+
+                <TextView
+                    android:id="@+id/date_signalement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="date_signalement"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"></TextView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/date_divider"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_signalement_linearLayout" />
+
+            <LinearLayout
+                android:id="@+id/adresse_signalement_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/date_divider">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Adresse :"
+                    android:textColor="@color/s_gray"
+                    android:textSize="17sp"></TextView>
+
+                <TextView
+                    android:id="@+id/adresse_signalement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Adresse"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"></TextView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/adresse_divider"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/adresse_signalement_linearLayout" />
+
+            <LinearLayout
+                android:id="@+id/description_signalement_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/adresse_divider">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Description :"
+                    android:textColor="@color/s_gray"
+                    android:textSize="17sp"></TextView>
+
+                <TextView
+                    android:id="@+id/description_signalement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="description"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"></TextView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/description_divider"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description_signalement_linearLayout" />
+            <LinearLayout
+                android:id="@+id/niveau_signalement_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/description_divider">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Niveau :"
+                    android:textColor="@color/s_gray"
+                    android:textSize="17sp"></TextView>
+
+                <TextView
+                    android:id="@+id/niveau_signalement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="niveau"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"></TextView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/niveau_divider"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/niveau_signalement_linearLayout" />
+
+            <LinearLayout
+                android:id="@+id/equipements_signalement_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/niveau_divider">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Equiepments :"
+                    android:textColor="@color/s_gray"
+                    android:textSize="17sp"></TextView>
+
+                <TextView
+                    android:id="@+id/equipements_signalement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Equipements"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"></TextView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/equipements_divider"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/equipements_signalement_linearLayout" />
+            <LinearLayout
+                android:id="@+id/intervenant_signalement_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/equipements_divider">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Intervenant :"
+                    android:textColor="@color/s_gray"
+                    android:textSize="17sp"></TextView>
+
+                <TextView
+                    android:id="@+id/intervenant_signalement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Intervenant"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"></TextView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/intervenant_divider"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/intervenant_signalement_linearLayout" />
+            <LinearLayout
+                android:id="@+id/intervention_signalement_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/intervenant_divider">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Intervention :"
+                    android:textColor="@color/s_gray"
+                    android:textSize="17sp"></TextView>
+
+                <TextView
+                    android:id="@+id/intervention_signalement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:paddingLeft="20sp"
+                    android:text="Intervention"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"></TextView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/intervention_divider"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.9"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/intervention_signalement_linearLayout"/>
+
+            <Button
+                android:id="@+id/massigner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/intervention_divider"
+                app:layout_constraintWidth_percent="0.8"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/green"
+                android:text="M'assigner"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="20sp"
+                android:drawableEnd="@drawable/photo_camera"
+                android:drawableTint="@color/white">
+            </Button>
+            <Button
+                android:id="@+id/completer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/massigner"
+                app:layout_constraintWidth_percent="0.8"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/green"
+                android:text="Compléter"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="20sp"
+                android:drawableEnd="@drawable/file"
+                android:drawableTint="@color/white">
+            </Button>
+            <Button
+                android:id="@+id/ajouter_agenda"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/completer"
+                app:layout_constraintWidth_percent="0.8"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/green"
+                android:text="Ajouter à l'agenda"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="20sp"
+                android:drawableEnd="@drawable/calendar"
+                android:drawableTint="@color/white">
+            </Button>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:layout_constraintTop_toBottomOf="@id/ajouter_agenda">
+            </View>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

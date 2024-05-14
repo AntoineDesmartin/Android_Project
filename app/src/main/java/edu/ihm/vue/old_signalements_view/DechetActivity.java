@@ -1,10 +1,12 @@
-package edu.ihm.vue;
+package edu.ihm.vue.old_signalements_view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import edu.ihm.vue.R;
 
 public class DechetActivity extends AppCompatActivity {
 
