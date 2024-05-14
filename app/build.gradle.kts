@@ -39,4 +39,6 @@ dependencies {
     implementation ("com.fasterxml.jackson.core:jackson-core:2.12.3")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.12.3")
     implementation ("com.fasterxml.jackson.core:jackson-annotations:2.12.3")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-jackson:2.11.0")
 }

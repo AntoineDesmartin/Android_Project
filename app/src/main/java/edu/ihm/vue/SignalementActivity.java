@@ -4,21 +4,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +24,11 @@ import edu.ihm.vue.signalemet_fragment.CommentaireSignalement;
 import edu.ihm.vue.signalemet_fragment.DateSignalement;
 import edu.ihm.vue.signalemet_fragment.TitreSignalement;
 import edu.ihm.vue.signalemet_fragment.TypeSignalement;
+import edu.ihm.vue.web_service.GreenTrackAPI;
+import edu.ihm.vue.web_service.WebService;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class SignalementActivity extends AppCompatActivity implements SignalementListener, IPictureActivity {
 
@@ -46,6 +43,15 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // This is to avoid thread error when performing HTTP request
+        // TODO: launch new thread for request
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signalement);
@@ -134,7 +140,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         nouveauSignalement.setAddress(adr);
         nouveauSignalement.setCity(vil);
         if (code.length() > 0)
-            nouveauSignalement.setZipCode(Integer.parseInt(code));
+            nouveauSignalement.setZipCode(code);
         cameraSignalement = new CameraSignalement(nouveauSignalement.getPhoto());
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
@@ -153,7 +159,8 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     }
 
     @Override
-    public void backToAdresseSignalementFragment() {
+    public void backToAdresseSignalementFragment(String comm) {
+        nouveauSignalement.setDescription(comm);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
                 .replace(R.id.fragment_container, new AdresseSignalement(nouveauSignalement.getAddress(), nouveauSignalement.getCity(), nouveauSignalement.getZipCode()))
@@ -166,7 +173,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void goToCommentaireSignalementFragment(String adr, String vil, String code) {
         nouveauSignalement.setAddress(adr);
         nouveauSignalement.setCity(vil);
-        nouveauSignalement.setZipCode(Integer.parseInt(code));
+        nouveauSignalement.setZipCode(code);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
                 .replace(R.id.fragment_container, new CommentaireSignalement(nouveauSignalement.getDescription()))
@@ -197,32 +204,12 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     }
 
     @Override
-    public void finishSignalement() throws IOException {
+    public void finishSignalement(String comm) throws IOException {
+        nouveauSignalement.setDescription(comm);
         nouveauSignalement.setBlockage();
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(nouveauSignalement);
 
-        // temporary url
-        String url = "http://10.212.118.125:3333/reports";
-        URL truc = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) truc.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setRequestProperty("Authorization", "Bearer oat_MTI.bHZ5dldndnA0c1dtQjB6SG1CYmIxV2NHYVdnT3FZbE9MbWFBRWR4VTM0MjI1NzUwOTY");
-        con.setDoOutput(true);
-        try(OutputStream os=con.getOutputStream()){
-            byte[] input=json.getBytes("utf-8");
-            os.write(input,0,input.length);
-        }
-        try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            System.out.println(response.toString());
-        }
+        Call<Signalement> call = WebService.getInstance().getService().createReport(nouveauSignalement, "Bearer oat_MTI.bHZ5dldndnA0c1dtQjB6SG1CYmIxV2NHYVdnT3FZbE9MbWFBRWR4VTM0MjI1NzUwOTY");
+        call.execute();
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);

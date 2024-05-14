@@ -50,7 +50,7 @@ public class CommentaireSignalement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.backToAdresseSignalementFragment();
+                    mListener.backToAdresseSignalementFragment(commentaire.getText().toString());
                 }
             }
         });
@@ -61,7 +61,7 @@ public class CommentaireSignalement extends Fragment {
             public void onClick(View v) {
                 if (mListener != null) {
                     try {
-                        mListener.finishSignalement();
+                        mListener.finishSignalement(commentaire.getText().toString());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
