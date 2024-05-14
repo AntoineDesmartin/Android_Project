@@ -73,6 +73,7 @@ public class AgentSignalementsDisplayFragment extends Fragment implements Clicka
                     niveauSensor.setNiveauMinimal(currentLevel + 1);
                 }
             }
+
         });
         minus.setOnClickListener(new View.OnClickListener() {
             @Override

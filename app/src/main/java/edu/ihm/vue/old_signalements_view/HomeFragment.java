@@ -25,9 +25,7 @@ import edu.ihm.vue.R;
  */
 public class HomeFragment extends Fragment implements DechetListenerAdapter {
 
-
     private TextView textView;
-
 
     List<Dechet> baseDeDonnees = new ArrayList<>();
     Dechet d1 = new Dechet("Verre a Biot",new Date(12,4,2024),"dangereux","Biot","poub.jpg");

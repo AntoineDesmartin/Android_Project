@@ -20,7 +20,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.ihm.vue.AccountFragment;
 import edu.ihm.vue.mocks.Signalements;
-import edu.ihm.vue.old_signalements_view.HomeFragment;
 import edu.ihm.vue.MapsFragment;
 import edu.ihm.vue.NotificationsFragment;
 import edu.ihm.vue.R;
@@ -37,7 +36,7 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent);
         signalements = new Signalements(getApplicationContext());
-        Log.d("radhi",signalements.signalementsMock.get(0).getDateSignalement());
+        Log.d("radhi",signalements.signalementsMock.get(0).getDateIncident());
         moveToFragment(new AgentSignalementsDisplayFragment());
         OnMapReadyCallback onMapReadyCallback = this;
         bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -48,7 +47,7 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
                     moveToFragment(new AgentSignalementsDisplayFragment());
-                } else if (itemId == R.id.nav_notifications) {
+                } else if (itemId == R.id.nav_mes_signalements) {
 
                     moveToFragment(new NotificationsFragment());
                 } else if (itemId == R.id.nav_map) {
@@ -73,8 +72,12 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         LatLng paris = new LatLng(48.8566, 2.3522);
         googleMap.addMarker(new MarkerOptions().position(paris).title("Marker in Paris"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(paris, 12));
-
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        moveToFragment(new AgentSignalementsDisplayFragment());
+    }
 }

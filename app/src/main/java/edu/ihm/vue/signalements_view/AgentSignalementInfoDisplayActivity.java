@@ -3,7 +3,6 @@ package edu.ihm.vue.signalements_view;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.ihm.vue.R;
@@ -31,7 +30,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         type.setText(signalement.getTypeSignalement().toString());
         titre.setText(signalement.getTitreSignalement());
         image.setImageBitmap(signalement.getPhoto());
-        date.setText(signalement.getDateSignalement());
+        date.setText(signalement.getDateIncident());
         adresse.setText(signalement.getAdresse()+", "+signalement.getVille()+", "+signalement.getCodePostal());
         niveau.setText(Integer.toString(signalement.getNiveau()));
         equipements.setText(signalement.getEquipements());

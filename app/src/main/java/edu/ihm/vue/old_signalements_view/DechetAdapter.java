@@ -31,10 +31,6 @@ public class DechetAdapter extends BaseAdapter {
 
 
 
-
-
-
-
     @Override
     public int getCount() {
         return dechets.size();

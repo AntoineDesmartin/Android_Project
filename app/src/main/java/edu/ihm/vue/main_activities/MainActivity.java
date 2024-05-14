@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
+        moveToFragment(new HomeFragment());
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -34,12 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
                     moveToFragment(new HomeFragment());
-                } else if (itemId == R.id.nav_notifications) {
-                    moveToFragment(new NotificationsFragment());
                 } else if (itemId == R.id.nav_create) {
                     Intent intent = new Intent(getApplicationContext(), SignalementActivity.class);
                     startActivity(intent);
-                } else if (itemId == R.id.nav_mesSignalement) {
+                } else if (itemId == R.id.nav_mes_signalements) {
                     moveToFragment(new MesSignalementsFragment());
                 } else if (itemId == R.id.nav_compte) {
                     moveToFragment(new AccountFragment());
@@ -49,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        moveToFragment(new HomeFragment());
     }
 
     private void moveToFragment(Fragment fragment) {

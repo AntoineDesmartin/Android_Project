@@ -8,9 +8,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import edu.ihm.vue.main_activities.MainActivity;
 import edu.ihm.vue.models.Signalement;
@@ -34,7 +31,7 @@ public class UserSignalementInfoDisplayActivity extends AppCompatActivity {
         type.setText(signalement.getTypeSignalement().toString());
         titre.setText(signalement.getTitreSignalement());
         image.setImageBitmap(signalement.getPhoto());
-        date.setText(signalement.getDateSignalement());
+        date.setText(signalement.getDateIncident());
         adresse.setText(signalement.getAdresse()+", "+signalement.getVille()+", "+signalement.getCodePostal());
         intervention.setText(signalement.getIntervention());
         findViewById(R.id.retour).setOnClickListener(new View.OnClickListener() {

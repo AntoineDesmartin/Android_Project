@@ -10,8 +10,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
@@ -24,7 +26,10 @@ import java.util.Date;
 import java.util.Random;
 
 import edu.ihm.vue.main_activities.MainActivity;
+import edu.ihm.vue.models.NormalSignalementFactory;
 import edu.ihm.vue.models.Signalement;
+import edu.ihm.vue.models.SignalementFactory;
+import edu.ihm.vue.models.UrgentSignalementFactory;
 import edu.ihm.vue.signalemet_fragments.AdresseSignalement;
 import edu.ihm.vue.signalemet_fragments.CameraSignalement;
 import edu.ihm.vue.signalemet_fragments.CommentaireSignalement;
@@ -36,12 +41,21 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
 
     private final String TAG = "Green Track " + getClass().getSimpleName();
     ;
-    int enterAnimation = R.anim.slide_in_right;
-    int exitAnimation = R.anim.slide_out_left;
-    int enterAnimationBack = R.anim.slide_in_left;
-    int exitAnimationBack = R.anim.slide_out_right;
+    private int enterAnimation = R.anim.slide_in_right;
+    private int exitAnimation = R.anim.slide_out_left;
+    private int enterAnimationBack = R.anim.slide_in_left;
+    private int exitAnimationBack = R.anim.slide_out_right;
     private Signalement nouveauSignalement;
     private CameraSignalement cameraSignalement;
+
+    private String titre_signalement="";
+    private int type_signalement;
+    private String date_incident ="";
+    private Bitmap photo=null;
+    private String adresse="";
+    private String ville="";
+    private int code;
+    private String commentaire="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +64,6 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         setContentView(R.layout.activity_signalement);
         getSupportFragmentManager().beginTransaction().
                 add(R.id.fragment_container, new TitreSignalement()).commit();
-        nouveauSignalement = new Signalement();
     }
 
     @Override
@@ -64,42 +77,42 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void backToTitreSignalementFragment() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
-                .replace(R.id.fragment_container, new TitreSignalement(nouveauSignalement.getTitreSignalement()))
+                .replace(R.id.fragment_container, new TitreSignalement(this.titre_signalement))
                 .commit();
     }
 
     //TYPE SIGNALEMENT
     @Override
     public void backToTypeSignalementFragment(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date parsedDate = sdf.parse(date);
             nouveauSignalement.setDateSignalement(parsedDate);
         } catch (ParseException e) {
             Log.d(TAG, "Can not parse date", e);
-        }
+        }*/
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
-                .replace(R.id.fragment_container, new TypeSignalement(nouveauSignalement.getTitreSignalement()))
+                .replace(R.id.fragment_container, new TypeSignalement(this.titre_signalement))
                 .commit();
     }
 
     @Override
     public void goToTypeSignalementFragment(String titre) {
-        nouveauSignalement.setTitreSignalement(titre);
+        this.titre_signalement=titre;
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new TypeSignalement(nouveauSignalement.getTitreSignalement()))
+                .replace(R.id.fragment_container, new TypeSignalement(this.titre_signalement))
                 .commit();
     }
 
     //DATE SIGNALEMENT
     @Override
-    public void goToDateSignalementFragment(Signalement.TypeSignalement type) {
-        nouveauSignalement.setTypeSignalement(type);
+    public void goToDateSignalementFragment(int type) {
+        this.type_signalement=type;
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new DateSignalement(nouveauSignalement.getDateSignalement()))
+                .replace(R.id.fragment_container, new DateSignalement(this.date_incident))
                 .commit();
     }
 
@@ -107,21 +120,22 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void backToDateSignalementFragment() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
-                .replace(R.id.fragment_container, new DateSignalement(nouveauSignalement.getDateSignalement()))
+                .replace(R.id.fragment_container, new DateSignalement(this.date_incident))
                 .commit();
     }
 
     //CAMERA SIGNALEMENT
     @Override
     public void goToCameraSignalementFragment(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date parsedDate = sdf.parse(date);
             nouveauSignalement.setDateSignalement(parsedDate);
         } catch (ParseException e) {
             Log.d(TAG, "Can not parse date", e);
-        }
-        cameraSignalement = new CameraSignalement(nouveauSignalement.getPhoto());
+        }*/
+        this.date_incident =date;
+        cameraSignalement = new CameraSignalement(this.photo);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
                 .replace(R.id.fragment_container, cameraSignalement)
@@ -130,11 +144,11 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
 
     @Override
     public void backToCameraSignalementFragment(String adr, String vil, String code) {
-        nouveauSignalement.setAdresse(adr);
-        nouveauSignalement.setVille(vil);
+        this.adresse=adr;
+        this.ville=vil;
         if (code.length() > 0)
-            nouveauSignalement.setCodePostal(Integer.parseInt(code));
-        cameraSignalement = new CameraSignalement(nouveauSignalement.getPhoto());
+            this.code=Integer.parseInt(code);
+        cameraSignalement = new CameraSignalement(this.photo);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
                 .replace(R.id.fragment_container, cameraSignalement)
@@ -147,7 +161,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void goToAdresseSignalementFragment() {
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new AdresseSignalement(nouveauSignalement.getAdresse(), nouveauSignalement.getVille(), nouveauSignalement.getCodePostal()))
+                .replace(R.id.fragment_container, new AdresseSignalement(this.adresse, this.ville, this.code))
                 .commit();
     }
 
@@ -156,7 +170,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         nouveauSignalement.setCommentaire(comm);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
-                .replace(R.id.fragment_container, new AdresseSignalement(nouveauSignalement.getAdresse(), nouveauSignalement.getVille(), nouveauSignalement.getCodePostal()))
+                .replace(R.id.fragment_container, new AdresseSignalement(this.adresse, this.ville, this.code))
                 .commit();
     }
 
@@ -164,12 +178,12 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     //COMMENTAIRE SIGNALEMENT
     @Override
     public void goToCommentaireSignalementFragment(String adr, String vil, String code) {
-        nouveauSignalement.setAdresse(adr);
-        nouveauSignalement.setVille(vil);
-        nouveauSignalement.setCodePostal(Integer.parseInt(code));
+        this.adresse=adr;
+        this.ville=vil;
+        this.code=Integer.parseInt(code);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new CommentaireSignalement(nouveauSignalement.getCommentaire()))
+                .replace(R.id.fragment_container, new CommentaireSignalement(this.commentaire))
                 .commit();
     }
 
@@ -190,15 +204,44 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
-                nouveauSignalement.setPhoto((Bitmap) data.getExtras().get("data"));
-                cameraSignalement.setImage(nouveauSignalement.getPhoto());
+                this.photo=((Bitmap) data.getExtras().get("data"));
+                cameraSignalement.setImage(this.photo);
             }
         }
     }
 
     @Override
     public void finishSignalement(String comm) {
-        nouveauSignalement.setCommentaire(comm);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date parsedDate = null;
+        try {
+            parsedDate = sdf.parse(this.date_incident);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(parsedDate);
+            calendar.add(Calendar.WEEK_OF_YEAR, 1);
+            Date oneWeekAfter = calendar.getTime();
+            Date currentDate = new Date();
+
+            if (currentDate.after(oneWeekAfter)) {
+                SignalementFactory factory=new UrgentSignalementFactory();
+                nouveauSignalement=factory.build(this.type_signalement);
+            } else {
+                SignalementFactory factory=new NormalSignalementFactory();
+                nouveauSignalement=factory.build(this.type_signalement);
+            }
+        } catch (ParseException e) {
+            Log.d(TAG, "Can not parse date", e);
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+        nouveauSignalement.setTitreSignalement(this.titre_signalement);
+        nouveauSignalement.setDateIncident(parsedDate);
+        nouveauSignalement.setPhoto(this.photo);
+        nouveauSignalement.setAdresse(this.adresse);
+        nouveauSignalement.setVille(this.ville);
+        nouveauSignalement.setCodePostal(this.code);
+
+
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         showNotification();
@@ -209,7 +252,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         String channelId = "notifications_channel_1";
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Intent intent = new Intent(getApplicationContext(), UserSignalementInfoDisplayActivity.class);
-        intent.putExtra("signalement", nouveauSignalement);
+        intent.putExtra("signalement", (Parcelable) nouveauSignalement);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = getActivity(getApplicationContext(), 0, intent, FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
@@ -218,7 +261,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         builder.setSmallIcon(R.drawable.eco);
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         builder.setContentTitle("Votre signalement a été pris en compte");
-        builder.setContentText("Votre signalement :" + nouveauSignalement.getTitreSignalement() + " réalisé à la date de " + nouveauSignalement.getDateSignalement()
+        builder.setContentText("Votre signalement :" + nouveauSignalement.getTitreSignalement() + " réalisé à la date de " + nouveauSignalement.getDateIncident()
                 + " a été enregistré et sera traité prochainement");
         builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(nouveauSignalement.getPhoto()));
         builder.setContentIntent(pendingIntent);

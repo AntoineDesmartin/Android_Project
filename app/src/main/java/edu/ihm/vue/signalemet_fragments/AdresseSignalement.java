@@ -18,10 +18,7 @@ public class AdresseSignalement extends Fragment {
     private String adresse;
     private String ville;
     private int codePostal;
-
-
     private SignalementListener mListener;
-
     public AdresseSignalement() {
 
     }
