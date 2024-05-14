@@ -64,7 +64,7 @@ public class TypeSignalement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.goToDateSignalementFragment(Signalement.TypeSignalement.DECHETS);
+                    mListener.goToDateSignalementFragment(1);
                 }
             }
         });
@@ -74,7 +74,7 @@ public class TypeSignalement extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.goToDateSignalementFragment(Signalement.TypeSignalement.ENCOMBREMENTS);
+                    mListener.goToDateSignalementFragment(2);
                 }
             }
         });

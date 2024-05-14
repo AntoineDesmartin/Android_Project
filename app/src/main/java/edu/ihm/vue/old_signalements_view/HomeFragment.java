@@ -25,9 +25,7 @@ import edu.ihm.vue.R;
  */
 public class HomeFragment extends Fragment implements DechetListenerAdapter {
 
-
     private TextView textView;
-
 
     List<Dechet> baseDeDonnees = new ArrayList<>();
    private ListView listview;
