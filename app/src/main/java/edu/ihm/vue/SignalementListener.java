@@ -13,6 +13,6 @@ public interface SignalementListener {
    void goToAdresseSignalementFragment();
    void backToCameraSignalementFragment(String adr, String vil, String code);
    void goToCommentaireSignalementFragment(String adr, String vil, String code);
-   void backToAdresseSignalementFragment();
-   void finishSignalement();
+   void backToAdresseSignalementFragment(String comm);
+   void finishSignalement(String comm);
 }
