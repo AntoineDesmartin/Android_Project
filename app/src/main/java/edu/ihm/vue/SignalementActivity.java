@@ -254,19 +254,19 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         Intent intent = new Intent(getApplicationContext(), UserSignalementInfoDisplayActivity.class);
         intent.putExtra("signalement", (Parcelable) nouveauSignalement);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = getActivity(getApplicationContext(), 0, intent, FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                getApplicationContext(), channelId
-        );
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
         builder.setSmallIcon(R.drawable.eco);
+        builder.setLargeIcon(nouveauSignalement.getPhoto());
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         builder.setContentTitle("Votre signalement a été pris en compte");
-        builder.setContentText("Votre signalement :" + nouveauSignalement.getTitreSignalement() + " réalisé à la date de " + nouveauSignalement.getDateIncident()
+        builder.setContentText("Votre signalement : " + nouveauSignalement.getTitreSignalement() + " réalisé à la date de " + nouveauSignalement.getDateIncident()
                 + " a été enregistré et sera traité prochainement");
-        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(nouveauSignalement.getPhoto()));
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (notificationManager != null && notificationManager.getNotificationChannel(channelId) == null){
                 NotificationChannel notificationChannel = new NotificationChannel(channelId,"Notification_channel_1",NotificationManager.IMPORTANCE_HIGH);
@@ -276,9 +276,10 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
                 notificationManager.createNotificationChannel(notificationChannel);
             }
         }
+
         Notification notification = builder.build();
-        if(notificationManager !=null){
-            notificationManager.notify(notificationId,notification);
+        if (notificationManager != null) {
+            notificationManager.notify(notificationId, notification);
         }
     }
 }
