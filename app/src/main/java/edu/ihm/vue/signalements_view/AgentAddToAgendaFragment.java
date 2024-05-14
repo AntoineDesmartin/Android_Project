@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class AgentAddToAgendaFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_agent_add_to_agenda, container, false);
 
         titreSignalement = AgentSignalementInfoDisplayActivity.signalementTitre;
-        //logger.info("titre du signalement in fragment : "+ titreSignalement);
+        logger.info("titre du signalement in fragment : "+ titreSignalement);
 
 
 
@@ -90,12 +91,16 @@ public class AgentAddToAgendaFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkDataAreFilled();
+                if(!checkEmpty(date) && !checkEmpty(start_time) && !checkEmpty(end_time)){
 
-                logger.info("Selected date: "+ date.getText().toString() + "\n" +
-                        "Selected start time : " + start_time.getText().toString() +"\n" +
-                        "Selected end time : "+ end_time.getText().toString());
+                    logger.info("Selected date: "+ date.getText().toString() + "\n" +
+                            "Selected start time : " + start_time.getText().toString() +"\n" +
+                            "Selected end time : "+ end_time.getText().toString());
 
-                updateCalendar(date,start_time,end_time);
+                    updateCalendar(date,start_time,end_time);
+                }
+
 
             }
         });
@@ -103,6 +108,26 @@ public class AgentAddToAgendaFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+
+    public void checkDataAreFilled(){
+        if(checkEmpty(date)){
+            date.setError("Date doit être renseignée");
+        }
+        if(checkEmpty(start_time)){
+            start_time.setError("Heure de début doit être renseignée");
+        }
+        if(checkEmpty(end_time)){
+            end_time.setError("Heure de fin doit être renseignée");
+        }
+
+    }
+
+    // Check if the data field is empty
+    boolean checkEmpty(EditText text) {
+        CharSequence str = text.getText().toString();
+        return TextUtils.isEmpty(str);
     }
 
 
