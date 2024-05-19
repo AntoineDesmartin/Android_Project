@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Vue</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="maj_photo">Changer de photo de profil</string>
     <string name="valider">Enregister</string>
     <string name="log_out">Se déconnecter</string>
+    <string name="underlined_text"><u>Enregistrement</u></string>
 </resources>

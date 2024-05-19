@@ -78,8 +78,6 @@ public class AgentSignalementsDisplayFragment extends Fragment implements Clicka
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle minus button click
-                // Example: Decrease level
                 int currentLevel = niveauSensor.getNiveauMinimal();
                 if (currentLevel > MIN_LEVEL) {
                     niveauSensor.setNiveauMinimal(currentLevel - 1);

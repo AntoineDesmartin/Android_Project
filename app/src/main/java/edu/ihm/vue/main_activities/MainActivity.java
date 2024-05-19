@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.ihm.vue.AccountFragment;
+import edu.ihm.vue.models.User;
 import edu.ihm.vue.old_signalements_view.HomeFragment;
 import edu.ihm.vue.MesSignalementsFragment;
 import edu.ihm.vue.NotificationsFragment;
@@ -20,12 +21,13 @@ import edu.ihm.vue.SignalementActivity;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        user=getIntent().getParcelableExtra("user");
         bottomNavigationView = findViewById(R.id.bottom_nav);
         moveToFragment(new HomeFragment());
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.nav_mes_signalements) {
                     moveToFragment(new MesSignalementsFragment());
                 } else if (itemId == R.id.nav_compte) {
-                    moveToFragment(new AccountFragment());
+                    moveToFragment(new AccountFragment(user));
                 }
                 return true;
             }

@@ -1,4 +1,4 @@
-package edu.ihm.vue.agent_fragment;
+package edu.ihm.vue.old_signalements_view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,6 @@ import java.util.List;
 
 
 import edu.ihm.vue.R;
-import edu.ihm.vue.old_signalements_view.Dechet;
-import edu.ihm.vue.old_signalements_view.DechetActivity;
-import edu.ihm.vue.old_signalements_view.DechetAdapter;
-import edu.ihm.vue.old_signalements_view.DechetListenerAdapter;
 
 
 public class DechetListFragment extends Fragment implements DechetListenerAdapter {

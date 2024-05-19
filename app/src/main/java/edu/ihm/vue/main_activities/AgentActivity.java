@@ -23,11 +23,13 @@ import edu.ihm.vue.mocks.Signalements;
 import edu.ihm.vue.MapsFragment;
 import edu.ihm.vue.NotificationsFragment;
 import edu.ihm.vue.R;
+import edu.ihm.vue.models.User;
 import edu.ihm.vue.signalements_view.AgentSignalementsDisplayFragment;
 
 public class AgentActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     Signalements signalements;
+    User user;
     private BottomNavigationView bottomNavigationView;
     private SupportMapFragment mapFragment;
 
@@ -35,6 +37,7 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent);
+        user=getIntent().getParcelableExtra("user");
         signalements = new Signalements(getApplicationContext());
         Log.d("radhi",signalements.signalementsMock.get(0).getDateIncident());
         moveToFragment(new AgentSignalementsDisplayFragment());
@@ -54,7 +57,7 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
 
                     moveToFragment(new MapsFragment());
                 } else if (itemId == R.id.nav_compte) {
-                    moveToFragment(new AccountFragment());
+                    moveToFragment(new AccountFragment(user));
                 }
                 return true;
             }

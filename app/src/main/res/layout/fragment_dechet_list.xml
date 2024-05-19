@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".agent_fragment.DechetListFragment">
+    tools:context=".old_signalements_view.DechetListFragment">
 
     <ListView
         android:layout_width="match_parent"

@@ -119,39 +119,30 @@ public abstract class Signalement {
     public void setDateIncident(Date dateIncident) {
         this.dateIncident = dateIncident;
     }
-
     public Bitmap getPhoto() {
         return photo;
     }
-
     public void setPhoto(Bitmap photo) {
         this.photo = photo;
     }
-
     public String getAdresse() {
         return adresse;
     }
-
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
-
     public String getVille() {
         return ville;
     }
-
     public void setVille(String ville) {
         this.ville = ville;
     }
-
     public int getCodePostal() {
         return codePostal;
     }
-
     public void setCodePostal(int codePostal) {
         this.codePostal = codePostal;
     }
-
     public enum TypeSignalement {DECHETS, ENCOMBREMENTS}
 
 }
