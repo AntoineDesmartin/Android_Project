@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/titre_layout"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="50dp"
+        android:background="@drawable/top_rounded_corner_titre_signalement"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/titre_signalement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="Titre de l'incident"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/etat_signalement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="Nouveau"
+            android:textColor="@color/yellow"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_weight="0"
+            android:src="@drawable/alert_icon"
+            android:tint="@color/yellow"
+            tools:ignore="UseAppTint"></ImageView>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image_signalement"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titre_layout"
+        app:layout_constraintWidth_percent="0.8"
+        android:scaleType="fitXY"></ImageView>
+
+    <Button
+        android:id="@+id/visualiser"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_rounded_corners_button_visualiser"
+        android:text="Visualiser"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:backgroundTint="@color/green2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_signalement"
+        ></Button>
+</androidx.constraintlayout.widget.ConstraintLayout>

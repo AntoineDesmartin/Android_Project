@@ -1,4 +1,4 @@
-package edu.ihm.vue.signalemet_fragments;
+package edu.ihm.vue.create_signalemet_fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,8 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import edu.ihm.vue.R;
 import edu.ihm.vue.SignalementListener;
-
-import edu.ihm.vue.models.Signalement;
 
 public class TypeSignalement extends Fragment {
 

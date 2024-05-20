@@ -1,12 +1,9 @@
-package edu.ihm.vue;
-
-import static edu.ihm.vue.signalements_view.AgentSignalementsDisplayFragment.signalementsToDisplay;
+package edu.ihm.vue.agent_map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -15,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -27,20 +23,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
-import edu.ihm.vue.main_activities.MainActivity;
-import edu.ihm.vue.mocks.Signalements;
+import edu.ihm.vue.R;
+import edu.ihm.vue.main_activities.AgentActivity;
 import edu.ihm.vue.models.Signalement;
-import edu.ihm.vue.old_signalements_view.Dechet;
-import edu.ihm.vue.old_signalements_view.DechetActivity;
-import edu.ihm.vue.old_signalements_view.DechetListenerAdapter;
-import edu.ihm.vue.signalements_view.AgentSignalementInfoDisplayActivity;
-import edu.ihm.vue.signalements_view.Clickable;
+import edu.ihm.vue.agent_signalements_view.AgentSignalementInfoDisplayActivity;
+import edu.ihm.vue.agent_signalements_view.Clickable;
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback,DechetListenerAdapter,Clickable{
+public class MapsFragment extends Fragment implements OnMapReadyCallback,SignalementListenerAdapter,Clickable{
 
-    private DechetListenerAdapter listener=this;
+    private SignalementListenerAdapter listener=this;
     private Clickable clickable = this;
     private final String TAG = "tonio "+getClass().getSimpleName();
 
@@ -79,7 +71,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,DechetL
         }*/
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            List<Dechet> dechets = new ArrayList<>();
+            /*List<Dechet> dechets = new ArrayList<>();
             // Ajout d'un déchet à la liste
             Dechet d1 = new Dechet("testmap", new Date(), "gros", "nice");
             dechets.add(d1);
@@ -87,14 +79,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,DechetL
             // Ajout d'autres déchets à la liste
             dechets.add(new Dechet("dechet2", new Date(), "petit", "paris"));
             dechets.add(new Dechet("dechet3", new Date(), "moyen", "berlin"));
-            dechets.add(new Dechet("dechet4", new Date(), "gros", "londres"));
+            dechets.add(new Dechet("dechet4", new Date(), "gros", "londres"));*/
 
             float zoomLevel = 12.0f;
 
            // googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
 
-            for (int i = 0; i < dechets.size(); i++) {
-                Dechet dechet = dechets.get(i);
+            for (int i = 0; i < AgentActivity.mesSignalements.size(); i++) {
+                Signalement dechet = AgentActivity.mesSignalements.get(i);
                 //EPHEMERE :
                 //------------------------------------------------------------
                 Random random = new Random();
@@ -105,14 +97,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,DechetL
                 //----------------------------------------------------
                 //LatLng dechetPosition = new LatLng(getLat(),getLon());
                 LatLng dechetPosition = new LatLng(lat,lon);
-                MarkerOptions markerOptions = new MarkerOptions().position(dechetPosition).title(dechet.getTitle());
+                MarkerOptions markerOptions = new MarkerOptions().position(dechetPosition).title(dechet.getTitreSignalement());
                 googleMap.addMarker(markerOptions);
             }
 
             googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
-                    int i = getIndexOfDechet(marker.getPosition(), dechets);
+                    int i = getIndexOfDechet(marker.getPosition(), AgentActivity.mesSignalements);
                     if (i != -1) {
                         clickable.onClickButton(i);
                         //listener.onClickDechet(dechets.get(i));
@@ -122,9 +114,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,DechetL
         }
 
         // Méthode pour obtenir l'indice du déchet associé à une position de marqueur
-        private int getIndexOfDechet(LatLng position, List<Dechet> dechets) {
+        private int getIndexOfDechet(LatLng position, List<Signalement> dechets) {
             for (int i = 0; i < dechets.size(); i++) {
-                Dechet dechet = dechets.get(i);
+                Signalement dechet = dechets.get(i);
                 LatLng dechetPosition = new LatLng(dechet.getLat(), dechet.getLon());
                 if (position.equals(dechetPosition)) {
                     return i;
@@ -160,18 +152,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,DechetL
     }
 
     @Override
-    public void onClickDechet(Dechet item) {
+    public void onClickDechet(Signalement item) {
         Log.d(TAG, "getView: "+item);
 
-        Intent intent = new Intent(getContext(), DechetActivity.class);
-        intent.putExtra("dechet", item);
+        Intent intent = new Intent(getContext(), AgentSignalementInfoDisplayActivity.class);
+        intent.putExtra("Signalement", (Parcelable) item );
         startActivity(intent);
     }
 
     @Override
     public void onClickButton(int position) {
         Intent intent = new Intent(getContext(), AgentSignalementInfoDisplayActivity.class);
-        intent.putExtra("signalement",(Parcelable) Signalements.signalementsMock.get(position));
+        intent.putExtra("signalement",(Parcelable) AgentActivity.mesSignalements.get(position));
         startActivity(intent);
     }
 }
