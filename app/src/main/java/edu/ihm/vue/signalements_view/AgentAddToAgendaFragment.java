@@ -171,6 +171,15 @@ public class AgentAddToAgendaFragment extends Fragment {
     }
 
 
+
+    public void updateSignalement(EditText date, EditText start_time, EditText end_time){
+
+
+
+    }
+
+
+
     public void updateCalendar(EditText date, EditText start_time, EditText end_time){
         // Analyse de la DateFragment et de l'heure
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss");
@@ -184,11 +193,6 @@ public class AgentAddToAgendaFragment extends Fragment {
 
         String startTime = dateInString+"T"+start_timeInString+":00";
         String endTime   = dateInString+"T"+end_timeInString+":00";
-
-
-
-
-
 
 
 

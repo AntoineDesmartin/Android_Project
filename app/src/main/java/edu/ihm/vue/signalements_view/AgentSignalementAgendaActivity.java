@@ -8,8 +8,10 @@ import android.os.Bundle;
 import java.util.logging.Logger;
 
 import edu.ihm.vue.R;
+import edu.ihm.vue.models.Signalement;
 
 public class AgentSignalementAgendaActivity extends AppCompatActivity {
+    Signalement signalement;
 
     Logger logger = Logger.getLogger("MyLog");
 
@@ -18,6 +20,12 @@ public class AgentSignalementAgendaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent_signalement_agenda);
         Intent intent = getIntent();
-        final String titre = intent.getStringExtra(AgentSignalementInfoDisplayActivity.signalementTitre);
+        signalement=getIntent().getParcelableExtra("signalement");
+
+        logger.info("titre du signalement in agendaActivity : "+signalement.toString());
+
+        final String titre = signalement.getTitreSignalement();
+
+
     }
 }

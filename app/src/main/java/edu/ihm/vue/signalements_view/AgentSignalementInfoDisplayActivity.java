@@ -2,6 +2,7 @@ package edu.ihm.vue.signalements_view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,11 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.logging.Logger;
 
 import edu.ihm.vue.R;
+import edu.ihm.vue.mocks.Signalements;
 import edu.ihm.vue.models.Signalement;
 
 public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
     Signalement signalement;
     Button btnAjouterAagenda;
+    Button btnMassigner;
 
     public static String signalementTitre;
     Logger logger = Logger.getLogger("MyLog");
@@ -43,6 +46,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
 
 
         btnAjouterAagenda=findViewById(R.id.ajouter_agenda);
+        btnMassigner=findViewById(R.id.massigner);
 
 
         description.setText(signalement.getCommentaire());
@@ -60,7 +64,16 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         signalementTitre= signalement.getTitreSignalement().trim();
 
 
-        btnAjouterAagenda.setOnClickListener(new View.OnClickListener() {
+        btnMassigner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AgentSignalementAgendaActivity.class);
+                intent.putExtra("signalement",(Parcelable) signalement);
+                startActivity(intent);
+            }
+        });
+
+        /*btnAjouterAagenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //logger.info("titre du signalement in from : "+signalementTitre);
@@ -69,6 +82,6 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
                 intent.putExtra(signalementTitre, String.valueOf(signalement.getTitreSignalement()));
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }

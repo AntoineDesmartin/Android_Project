@@ -390,11 +390,11 @@
                 app:layout_constraintWidth_percent="0.8"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/green"
-                android:text="M'assigner"
+                android:text="@string/assign_to_myyself"
                 android:fontFamily="@font/jetbrains_mono"
-                android:textSize="20sp"
-                android:drawableEnd="@drawable/photo_camera"
-                android:drawableTint="@color/white">
+                android:textSize="20sp">
+                <!--android:drawableEnd="@drawable/photo_camera"
+                android:drawableTint="@color/white"-->
             </Button>
             <Button
                 android:id="@+id/completer"
