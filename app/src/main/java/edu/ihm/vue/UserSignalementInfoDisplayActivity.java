@@ -27,12 +27,12 @@ public class UserSignalementInfoDisplayActivity extends AppCompatActivity {
         TextView date=findViewById(R.id.date_signalement);
         TextView adresse=findViewById(R.id.adresse_signalement);
         TextView intervention=findViewById(R.id.intervention_signalement);
-        description.setText(signalement.getCommentaire());
+        description.setText(signalement.getDescription());
         type.setText(signalement.getTypeSignalement().toString());
-        titre.setText(signalement.getTitreSignalement());
+        titre.setText(signalement.getTitle());
         image.setImageBitmap(signalement.getPhoto());
         date.setText(signalement.getDateIncident());
-        adresse.setText(signalement.getAdresse()+", "+signalement.getVille()+", "+signalement.getCodePostal());
+        adresse.setText(signalement.getAddress()+", "+signalement.getCity()+", "+signalement.getZipCode());
         intervention.setText(signalement.getIntervention());
         findViewById(R.id.retour).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -82,7 +82,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,Signale
                 //----------------------------------------------------
                 //LatLng dechetPosition = new LatLng(getLat(),getLon());
                 LatLng dechetPosition = new LatLng(lat,lon);
-                MarkerOptions markerOptions = new MarkerOptions().position(dechetPosition).title(dechet.getTitreSignalement());
+                MarkerOptions markerOptions = new MarkerOptions().position(dechetPosition).title(dechet.getTitle());
                 googleMap.addMarker(markerOptions);
             }
 

@@ -48,7 +48,7 @@ public class MonSignalementForUserAdapter extends BaseAdapter {
         ImageView imageSignalement=layoutItem.findViewById(R.id.image_signalement);
         Button buttonVisualiser= layoutItem.findViewById(R.id.visualiser);
 
-        titreSignalement.setText(MainActivity.mesSignalements.get(position).getTitreSignalement());
+        titreSignalement.setText(MainActivity.mesSignalements.get(position).getTitle());
         String dateIntervention = MainActivity.mesSignalements.get(position).getIntervention();
         etatSignalement.setText(dateIntervention.isEmpty()?"Nouveau":"En Cours");
         imageSignalement.setImageBitmap(MainActivity.mesSignalements.get(position).getPhoto());

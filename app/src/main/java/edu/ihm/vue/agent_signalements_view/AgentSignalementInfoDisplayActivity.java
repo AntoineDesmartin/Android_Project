@@ -26,12 +26,12 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         TextView equipements=findViewById(R.id.equipements_signalement);
         TextView intervenant=findViewById(R.id.intervenant_signalement);
         TextView intervention=findViewById(R.id.intervention_signalement);
-        description.setText(signalement.getCommentaire());
+        description.setText(signalement.getDescription());
         type.setText(signalement.getTypeSignalement().toString());
-        titre.setText(signalement.getTitreSignalement());
+        titre.setText(signalement.getTitle());
         image.setImageBitmap(signalement.getPhoto());
         date.setText(signalement.getDateIncident());
-        adresse.setText(signalement.getAdresse()+", "+signalement.getVille()+", "+signalement.getCodePostal());
+        adresse.setText(signalement.getAddress()+", "+signalement.getCity()+", "+signalement.getZipCode());
         niveau.setText(Integer.toString(signalement.getNiveau()));
         equipements.setText(signalement.getEquipements());
         intervenant.setText(signalement.getIntervenant());
