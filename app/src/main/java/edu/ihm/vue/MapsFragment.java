@@ -91,7 +91,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,DechetL
 
             float zoomLevel = 12.0f;
 
-           // googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
 
             for (int i = 0; i < dechets.size(); i++) {
                 Dechet dechet = dechets.get(i);
