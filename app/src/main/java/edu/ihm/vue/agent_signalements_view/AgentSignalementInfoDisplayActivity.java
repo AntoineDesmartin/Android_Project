@@ -5,17 +5,23 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+
+import java.util.Date;
 import java.util.logging.Logger;
 
 import edu.ihm.vue.R;
 import edu.ihm.vue.mocks.Signalements;
 import edu.ihm.vue.models.Signalement;
-
+import edu.ihm.vue.agent_signalements_view.AgentSignalementAgendaActivity;
 public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
     Signalement signalement;
     Button btnAjouterAagenda;
@@ -31,6 +37,8 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_agent_signalement_info_display);
         signalement=getIntent().getParcelableExtra("signalement");
+
+        //logger.info("titre du signalement in infoDisplayActivity : "+signalement.getInterventioninFull());
 
         TextView titre=findViewById(R.id.titre_signalement);
         TextView type=findViewById(R.id.type_signalement);
@@ -57,8 +65,8 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         niveau.setText(Integer.toString(signalement.getNiveau()));
         equipements.setText(signalement.getEquipements());
         intervenant.setText(signalement.getIntervenant());
+        //intervention.setText(signalement.getIntervention());
         intervention.setText(signalement.getIntervention());
-
 
         signalementTitre= signalement.getTitreSignalement().trim();
 
@@ -72,15 +80,42 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
             }
         });
 
-        /*btnAjouterAagenda.setOnClickListener(new View.OnClickListener() {
+        btnAjouterAagenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //logger.info("titre du signalement in from : "+signalementTitre);
-                Intent intent = new Intent(getApplicationContext(), AgentSignalementAgendaActivity.class);
-                signalementTitre = signalement.getTitreSignalement();
-                intent.putExtra(signalementTitre, String.valueOf(signalement.getTitreSignalement()));
-                startActivity(intent);
+                addToCalendar(signalement);
             }
-        });*/
+        });
     }
+
+    public void addToCalendar(Signalement s){
+        Date start_time = s.getInterventioninFull();
+
+
+
+        // Lors du clic sur le bouton, l'Intent est démarré -> pour créer un événement dans l'agenda avec l'heure donnée
+        Date mStartTime = null;
+        Date mEndTime = null;
+        int delay = 1800000;
+
+        mStartTime = start_time;
+        mEndTime = new Date(mStartTime.getTime() + delay);
+
+        Date finalMStartTime = mStartTime;
+        Date finalMEndTime = mEndTime;
+
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime", finalMStartTime.getTime());
+        intent.putExtra("time", true);
+        intent.putExtra("rule", "FREQ=YEARLY");
+        intent.putExtra("endTime", finalMEndTime.getTime());
+        intent.putExtra("title", signalement.getTitreSignalement());
+        startActivity(intent);
+
+
+    }
+
+
+
 }

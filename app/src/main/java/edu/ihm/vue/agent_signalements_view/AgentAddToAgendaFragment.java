@@ -1,4 +1,4 @@
-package edu.ihm.vue.signalements_view;
+package edu.ihm.vue.agent_signalements_view;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import edu.ihm.vue.R;
+import edu.ihm.vue.agent_signalements_view.AgentSignalementInfoDisplayActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -170,12 +171,7 @@ public class AgentAddToAgendaFragment extends Fragment {
         datePickerDialog.show();
     }
 
-
-
     public void updateSignalement(EditText date, EditText start_time, EditText end_time){
-
-
-
     }
 
 

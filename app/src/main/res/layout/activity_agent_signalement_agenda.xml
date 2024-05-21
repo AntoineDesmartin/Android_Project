@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signalements_view.AgentSignalementAgendaActivity">
+    tools:context=".agent_signalements_view.AgentSignalementAgendaActivity">
 
     <include layout="@layout/title_bar"
         android:id="@+id/title_bar"
@@ -15,13 +15,82 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_view"
-        android:name="edu.ihm.vue.signalements_view.AgentAddToAgendaFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.75"
-        app:layout_constraintTop_toBottomOf="@id/title_bar"
-    />
+
+    <TextView
+        android:id="@+id/titresignalement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:text="@string/collect_date"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textColor="@color/s_gray"
+        />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:hint="@string/select_date"
+        android:focusable="false"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titresignalement"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/s_gray"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:imeOptions="actionNone"
+        />
+
+
+    <EditText
+        android:id="@+id/start_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:hint="Sélectionnez l'heure d'intervention"
+        android:focusable="false"
+        android:inputType="none"
+        android:onClick="showDatePickerDialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/s_gray"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:imeOptions="actionNone"
+        />
+
+
+
+
+    <Button
+        android:id="@+id/btn_add_to_agenda"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:drawableEnd="@drawable/arrow_forward"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/jetbrains_mono"
+        android:text="@string/valider"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_time"
+        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintWidth_percent="0.8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
