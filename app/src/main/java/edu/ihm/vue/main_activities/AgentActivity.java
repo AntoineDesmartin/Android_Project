@@ -18,17 +18,23 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import edu.ihm.vue.AccountFragment;
+import edu.ihm.vue.agent_mes_signalements_view.AgentMesSignalementsDisplayFragment;
 import edu.ihm.vue.mocks.Signalements;
-import edu.ihm.vue.old_signalements_view.HomeFragment;
-import edu.ihm.vue.MapsFragment;
-import edu.ihm.vue.NotificationsFragment;
+import edu.ihm.vue.agent_map.MapsFragment;
 import edu.ihm.vue.R;
-import edu.ihm.vue.signalements_view.AgentSignalementsDisplayFragment;
+import edu.ihm.vue.models.Signalement;
+import edu.ihm.vue.models.User;
+import edu.ihm.vue.agent_signalements_view.AgentSignalementsDisplayFragment;
 
 public class AgentActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    Signalements signalements;
+    public static Signalements signalements;
+    public static List<Signalement> mesSignalements;
+    public static User user;
     private BottomNavigationView bottomNavigationView;
     private SupportMapFragment mapFragment;
 
@@ -36,10 +42,12 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent);
+        user=getIntent().getParcelableExtra("user");
         signalements = new Signalements(getApplicationContext());
-        Log.d("radhi",signalements.signalementsMock.get(0).getDateSignalement());
+        Log.d("radhi",signalements.signalementsMock.get(0).getDateIncident());
         moveToFragment(new AgentSignalementsDisplayFragment());
         OnMapReadyCallback onMapReadyCallback = this;
+        mesSignalements=Signalements.signalementsMock.stream().filter(t->t.getIntervenant().equals(AgentActivity.user.getId())).collect(Collectors.toList());
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -48,14 +56,12 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
                     moveToFragment(new AgentSignalementsDisplayFragment());
-                } else if (itemId == R.id.nav_notifications) {
-
-                    moveToFragment(new NotificationsFragment());
+                } else if (itemId == R.id.nav_mes_signalements) {
+                    moveToFragment(new AgentMesSignalementsDisplayFragment());
                 } else if (itemId == R.id.nav_map) {
-
                     moveToFragment(new MapsFragment());
                 } else if (itemId == R.id.nav_compte) {
-                    moveToFragment(new AccountFragment());
+                    moveToFragment(new AccountFragment(user));
                 }
                 return true;
             }
@@ -73,8 +79,7 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         LatLng paris = new LatLng(48.8566, 2.3522);
         googleMap.addMarker(new MarkerOptions().position(paris).title("Marker in Paris"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(paris, 12));
-
-
     }
+
 
 }

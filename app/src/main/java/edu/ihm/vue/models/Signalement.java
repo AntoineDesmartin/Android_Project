@@ -1,28 +1,45 @@
 package edu.ihm.vue.models;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Parcel;
-import android.os.Parcelable;
 
-import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Signalement implements Parcelable {
-    private String titreSignalement;
-    private TypeSignalement typeSignalement;
-    private Date dateSignalement = null;
-    private Bitmap photo = null;
-    private String adresse;
-    private String ville;
-    private int codePostal;
-    private String commentaire;
-    private int niveau = 0;
-    private String intervenant = "";
-    private Date intervention = null;
-    private boolean completed = false;
-    private String equipements="";
+public abstract class Signalement {
+    protected String titreSignalement;
+    protected TypeSignalement typeSignalement;
+    protected Date dateIncident = null;
+    protected Bitmap photo = null;
+    protected String adresse;
+    protected String ville;
+    protected int codePostal;
+    protected String commentaire;
+    protected int niveau = 0;
+    protected String intervenant = "";
+    protected String auteur = "";
+    protected Date intervention = null;
+    protected boolean completed = false;
+    protected String equipements = "";
+    protected double lat = 0;
+    protected double lon = 0;
+
+
+    public Signalement() {
+
+    }
+
+    public Signalement(String titre, TypeSignalement ty, Date d, Bitmap b, String adr, String vi, int co,
+                       String com, String auteur) {
+        this.titreSignalement = titre;
+        this.dateIncident = d;
+        this.typeSignalement = ty;
+        this.photo = b;
+        this.adresse = adr;
+        this.ville = vi;
+        this.codePostal = co;
+        this.commentaire = com;
+        this.auteur = auteur;
+    }
 
     public String getEquipements() {
         return equipements;
@@ -30,23 +47,6 @@ public class Signalement implements Parcelable {
 
     public void setEquipements(String equipements) {
         this.equipements = equipements;
-    }
-
-
-
-    public Signalement(){
-
-    }
-    public Signalement(String titre,TypeSignalement ty,Date d,Bitmap b,String adr,String vi,int co,
-                       String com){
-        this.titreSignalement=titre;
-        this.dateSignalement=d;
-        this.typeSignalement=ty;
-        this.photo=b;
-        this.adresse=adr;
-        this.ville=vi;
-        this.codePostal=co;
-        this.commentaire=com;
     }
 
     public boolean isCompleted() {
@@ -110,17 +110,17 @@ public class Signalement implements Parcelable {
         this.typeSignalement = typeSignalement;
     }
 
-    public String getDateSignalement() {
-        if (dateSignalement != null) {
+    public String getDateIncident() {
+        if (dateIncident != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            return sdf.format(dateSignalement);
+            return sdf.format(dateIncident);
         } else {
             return "";
         }
     }
 
-    public void setDateSignalement(Date dateSignalement) {
-        this.dateSignalement = dateSignalement;
+    public void setDateIncident(Date dateIncident) {
+        this.dateIncident = dateIncident;
     }
 
     public Bitmap getPhoto() {
@@ -155,70 +155,31 @@ public class Signalement implements Parcelable {
         this.codePostal = codePostal;
     }
 
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+
     public enum TypeSignalement {DECHETS, ENCOMBREMENTS}
 
-    protected Signalement(Parcel in) {
-        titreSignalement = in.readString();
-        typeSignalement = TypeSignalement.valueOf(in.readString());
-        adresse = in.readString();
-        ville = in.readString();
-        codePostal = in.readInt();
-        commentaire = in.readString();
-        niveau = in.readInt();
-        intervenant = in.readString();
-        completed = in.readByte() != 0;
-        long dateMillis = in.readLong();
-        if (dateMillis != -1) {
-            dateSignalement = new Date(dateMillis);
-        }
-        long interventionMillis = in.readLong();
-        if (interventionMillis != -1) {
-            intervention = new Date(interventionMillis);
-        }
-        byte[] photoBytes = in.createByteArray();
-        if (photoBytes != null) {
-            photo = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
-        }
-        equipements = in.readString();
-    }
-
-    public static final Creator<Signalement> CREATOR = new Creator<Signalement>() {
-        @Override
-        public Signalement createFromParcel(Parcel in) {
-            return new Signalement(in);
-        }
-
-        @Override
-        public Signalement[] newArray(int size) {
-            return new Signalement[size];
-        }
-    };
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(titreSignalement);
-        dest.writeString(typeSignalement.name());
-        dest.writeString(adresse);
-        dest.writeString(ville);
-        dest.writeInt(codePostal);
-        dest.writeString(commentaire);
-        dest.writeInt(niveau);
-        dest.writeString(intervenant);
-        dest.writeByte((byte) (completed ? 1 : 0));
-        dest.writeLong(dateSignalement != null ? dateSignalement.getTime() : -1);
-        dest.writeLong(intervention != null ? intervention.getTime() : -1);
-        if (photo != null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            dest.writeByteArray(byteArray);
-        } else {
-            dest.writeByteArray(null);
-        }
-        dest.writeString(equipements);
-    }
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 }

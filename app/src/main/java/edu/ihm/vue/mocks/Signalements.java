@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import edu.ihm.vue.R;
+import edu.ihm.vue.models.DechetSignalement;
+import edu.ihm.vue.models.EncombrementSignalement;
 import edu.ihm.vue.models.Signalement;
 
 public class Signalements {
@@ -18,35 +20,38 @@ public class Signalements {
 
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.poub);
         signalementsMock=new ArrayList<>();
-        signalementsMock.add(new Signalement(
+        signalementsMock.add(new EncombrementSignalement(
                 "Poubelle à la rue",
-                Signalement.TypeSignalement.DECHETS,
                 new Date(2024 - 1900, 6 - 1, 22),
                 bitmap,
                 "Rue robert",
                 "Nice",
                 06000,
-                "La poubelle émet beaucoup d'odeurs"
+                "La poubelle émet beaucoup d'odeurs",
+                "1",
+                "2"
         ));
-        signalementsMock.add(new Signalement(
+        signalementsMock.add(new DechetSignalement(
                 "Dêchet animal",
-                Signalement.TypeSignalement.DECHETS,
                 new Date(2024 - 1900, 4 - 1, 12),
                 bitmap,
                 "Rue Philip",
                 "Nice",
                 06200,
-                "L'animal commence à se décomposer"
+                "L'animal commence à se décomposer",
+                "1",
+                "3"
         ));
-        signalementsMock.add(new Signalement(
+        signalementsMock.add(new EncombrementSignalement(
                 "Dêchets informatiques",
-                Signalement.TypeSignalement.DECHETS,
                 new Date(2024 - 1900, 9 - 1, 13),
                 bitmap,
                 "Rue Lorian",
                 "Nice",
                 06000,
-                "Danger de blessure"
+                "Danger de blessure",
+                "0",
+                "2"
         ));
     }
 }

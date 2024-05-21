@@ -5,7 +5,7 @@ import edu.ihm.vue.models.Signalement;
 public interface SignalementListener {
    void goToTypeSignalementFragment(String titre);
    void backToTitreSignalementFragment();
-   void goToDateSignalementFragment(Signalement.TypeSignalement type);
+   void goToDateSignalementFragment(int type);
    void annulerSignalement();
    void backToTypeSignalementFragment(String date);
    void goToCameraSignalementFragment(String date);
