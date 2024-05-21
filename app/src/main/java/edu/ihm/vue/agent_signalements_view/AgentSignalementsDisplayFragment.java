@@ -1,28 +1,19 @@
-package edu.ihm.vue.signalements_view;
+package edu.ihm.vue.agent_signalements_view;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 
-import android.os.Environment;
 import android.os.Parcelable;
-import android.os.TestLooperManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +21,6 @@ import java.util.stream.Collectors;
 import edu.ihm.vue.R;
 import edu.ihm.vue.mocks.Signalements;
 import edu.ihm.vue.models.Signalement;
-import edu.ihm.vue.old_signalements_view.DechetActivity;
 
 
 public class AgentSignalementsDisplayFragment extends Fragment implements Clickable,IDisplay  {
@@ -94,7 +84,7 @@ public class AgentSignalementsDisplayFragment extends Fragment implements Clicka
     @Override
     public void onClickButton(int position) {
         Intent intent = new Intent(getContext(), AgentSignalementInfoDisplayActivity.class);
-        intent.putExtra("signalement",(Parcelable) Signalements.signalementsMock.get(position));
+        intent.putExtra("signalement",(Parcelable) signalementsToDisplay.get(position));
         startActivity(intent);
     }
 

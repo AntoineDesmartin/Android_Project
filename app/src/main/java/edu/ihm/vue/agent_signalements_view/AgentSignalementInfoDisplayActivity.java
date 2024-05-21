@@ -1,4 +1,4 @@
-package edu.ihm.vue.signalements_view;
+package edu.ihm.vue.agent_signalements_view;
 
 import android.os.Bundle;
 import android.widget.ImageView;

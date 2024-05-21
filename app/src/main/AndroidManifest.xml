@@ -25,7 +25,7 @@
             android:name=".UserSignalementInfoDisplayActivity"
             android:exported="false" />
         <activity
-            android:name=".signalements_view.AgentSignalementInfoDisplayActivity"
+            android:name=".agent_signalements_view.AgentSignalementInfoDisplayActivity"
             android:exported="false" />
         <activity
             android:name=".old_signalements_view.DechetActivity"

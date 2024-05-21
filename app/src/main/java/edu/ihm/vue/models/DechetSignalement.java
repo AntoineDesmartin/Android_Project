@@ -17,7 +17,7 @@ public class DechetSignalement extends Signalement implements Parcelable {
     }
 
     public DechetSignalement(String titre,  Date d, Bitmap b, String adr, String vi, int co,
-                                   String com) {
+                                   String com,String auteur,String interv) {
         this();
         this.titreSignalement = titre;
         this.dateIncident = d;
@@ -26,6 +26,8 @@ public class DechetSignalement extends Signalement implements Parcelable {
         this.ville = vi;
         this.codePostal = co;
         this.commentaire = com;
+        this.auteur=auteur;
+        this.intervenant=interv;
     }
     protected DechetSignalement(Parcel in) {
         titreSignalement = in.readString();
@@ -50,6 +52,10 @@ public class DechetSignalement extends Signalement implements Parcelable {
             photo = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
         }
         equipements = in.readString();
+        auteur = in.readString();
+        lon=in.readDouble();
+        lat=in.readDouble();
+
     }
 
     public static final Creator<Signalement> CREATOR = new Creator<Signalement>() {
@@ -86,6 +92,9 @@ public class DechetSignalement extends Signalement implements Parcelable {
             dest.writeByteArray(null);
         }
         dest.writeString(equipements);
+        dest.writeString(auteur);
+        dest.writeDouble(lon);
+        dest.writeDouble(lat);
     }
     @Override
     public int describeContents() {

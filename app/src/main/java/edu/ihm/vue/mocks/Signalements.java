@@ -27,7 +27,9 @@ public class Signalements {
                 "Rue robert",
                 "Nice",
                 06000,
-                "La poubelle émet beaucoup d'odeurs"
+                "La poubelle émet beaucoup d'odeurs",
+                "1",
+                "2"
         ));
         signalementsMock.add(new DechetSignalement(
                 "Dêchet animal",
@@ -36,7 +38,9 @@ public class Signalements {
                 "Rue Philip",
                 "Nice",
                 06200,
-                "L'animal commence à se décomposer"
+                "L'animal commence à se décomposer",
+                "1",
+                "3"
         ));
         signalementsMock.add(new EncombrementSignalement(
                 "Dêchets informatiques",
@@ -45,7 +49,9 @@ public class Signalements {
                 "Rue Lorian",
                 "Nice",
                 06000,
-                "Danger de blessure"
+                "Danger de blessure",
+                "0",
+                "2"
         ));
     }
 }

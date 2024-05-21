@@ -1,7 +1,5 @@
 package edu.ihm.vue;
 
-import static android.app.PendingIntent.*;
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -30,12 +28,12 @@ import edu.ihm.vue.models.NormalSignalementFactory;
 import edu.ihm.vue.models.Signalement;
 import edu.ihm.vue.models.SignalementFactory;
 import edu.ihm.vue.models.UrgentSignalementFactory;
-import edu.ihm.vue.signalemet_fragments.AdresseSignalement;
-import edu.ihm.vue.signalemet_fragments.CameraSignalement;
-import edu.ihm.vue.signalemet_fragments.CommentaireSignalement;
-import edu.ihm.vue.signalemet_fragments.DateSignalement;
-import edu.ihm.vue.signalemet_fragments.TitreSignalement;
-import edu.ihm.vue.signalemet_fragments.TypeSignalement;
+import edu.ihm.vue.create_signalemet_fragments.AdresseSignalement;
+import edu.ihm.vue.create_signalemet_fragments.CameraSignalement;
+import edu.ihm.vue.create_signalemet_fragments.CommentaireSignalement;
+import edu.ihm.vue.create_signalemet_fragments.DateSignalement;
+import edu.ihm.vue.create_signalemet_fragments.TitreSignalement;
+import edu.ihm.vue.create_signalemet_fragments.TypeSignalement;
 
 public class SignalementActivity extends AppCompatActivity implements SignalementListener, IPictureActivity {
 
@@ -69,6 +67,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     @Override
     public void annulerSignalement() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("user",MainActivity.user);
         startActivity(intent);
     }
 
@@ -243,6 +242,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
 
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("user",MainActivity.user);
         startActivity(intent);
         showNotification();
     }
@@ -281,5 +281,13 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         if (notificationManager != null) {
             notificationManager.notify(notificationId, notification);
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("user",MainActivity.user);
+        startActivity(intent);
+        finish();
     }
 }
