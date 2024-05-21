@@ -1,10 +1,18 @@
 package edu.ihm.vue.agent_map;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -12,6 +20,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -24,6 +35,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+
 import edu.ihm.vue.R;
 import edu.ihm.vue.main_activities.AgentActivity;
 import edu.ihm.vue.models.Signalement;
@@ -32,45 +44,19 @@ import edu.ihm.vue.agent_signalements_view.Clickable;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback,SignalementListenerAdapter,Clickable{
 
+    private final int FINE_PERMISSION_CODE=1;
+    private Location currentLocation;
+    private GoogleMap myMap;
     private SignalementListenerAdapter listener=this;
     private Clickable clickable = this;
-    private final String TAG = "tonio "+getClass().getSimpleName();
+    private final String TAG = "tonio2 "+getClass().getSimpleName();
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        /*@Override
-        public void onMapReady(GoogleMap googleMap) {
-            Dechet d1 = new Dechet("testmap",new Date(),"gros","nice",-34, 151);
-            LatLng sydney = new LatLng(-34, 151);
-            LatLng sydney2 = new LatLng(-36, 151);
-            float zoomLevel = 12.0f;
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 
-
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
-
-            googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                @Override
-                public void onInfoWindowClick(Marker marker) {
-                    listener.onClickDechet(dechets.get(i));
-
-                    //Intent intent = new Intent(getContext(), MainActivity.class);
-                    //startActivity(intent);
-                }
-
-            });
-        }*/
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            myMap=googleMap;
             /*List<Dechet> dechets = new ArrayList<>();
             // Ajout d'un déchet à la liste
             Dechet d1 = new Dechet("testmap", new Date(), "gros", "nice");
@@ -81,8 +67,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,Signale
             dechets.add(new Dechet("dechet3", new Date(), "moyen", "berlin"));
             dechets.add(new Dechet("dechet4", new Date(), "gros", "londres"));*/
 
-            float zoomLevel = 12.0f;
-
+            //float zoomLevel = 12.0f;
+            myMap.moveCamera( CameraUpdateFactory.newLatLngZoom( new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),12f ) );
 
             for (int i = 0; i < AgentActivity.mesSignalements.size(); i++) {
                 Signalement dechet = AgentActivity.mesSignalements.get(i);
@@ -133,6 +119,37 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,Signale
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        boolean permissionGranted = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        Log.d(TAG,"permission : "+permissionGranted);
+
+        if (permissionGranted) {
+            LocationListener listener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Log.d(TAG,"test map loc : " + location);
+                    currentLocation = location;
+                    //myMap.moveCamera( CameraUpdateFactory.newLatLngZoom( new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),15f ) );
+
+                }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+                    Log.d(TAG, "satus changed=" + s);
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+                    Log.d(TAG, s + " sensor ON");
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+                    Log.d(TAG, s + " sensor OFF");
+                }
+            };
+            LocationManager locationManager = (LocationManager) (getActivity().getSystemService(LOCATION_SERVICE));
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, listener);
+        }
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
@@ -144,6 +161,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,Signale
             mapFragment.getMapAsync(callback);
         }
     }
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
