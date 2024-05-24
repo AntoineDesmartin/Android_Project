@@ -52,12 +52,7 @@ public class MonSignalementForUserAdapter extends BaseAdapter {
         String dateIntervention = MainActivity.mesSignalements.get(position).getIntervention();
         etatSignalement.setText(dateIntervention.isEmpty()?"Nouveau":"En Cours");
         imageSignalement.setImageBitmap(MainActivity.mesSignalements.get(position).getPhoto());
-        buttonVisualiser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.onClickButton(position);
-            }
-        });
+        buttonVisualiser.setOnClickListener(v -> activity.onClickButton(position));
         return layoutItem;
     }
 }
