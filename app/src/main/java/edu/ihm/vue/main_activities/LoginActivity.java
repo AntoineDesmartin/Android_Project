@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<Token> call, @NonNull Response<Token> response) {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    System.out.println(response.body().getToken());
+                    LoginActivity.this.getMe(response.body().getToken());
                 } else {
                     Toast.makeText(LoginActivity.this, "Nom de compte ou mot de passe incorrect!", Toast.LENGTH_SHORT).show();
                 }
@@ -51,24 +51,35 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<Token> call, @NonNull Throwable throwable) {
-                Toast.makeText(LoginActivity.this, "Failed !", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Echec !", Toast.LENGTH_LONG).show();
             }
         });
-
-        if (username.equals("user") && password.equals("user")) {
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-            intent.putExtra("user",(Parcelable) new User("1","Nougaret","Adrien", User.Role.PARTICULIER));
-            startActivity(intent);
-        } else if (username.equals("admin") && password.equals("admin")) {
-            Intent intent = new Intent(getApplicationContext(),AgentActivity.class);
-            intent.putExtra("user",(Parcelable) new User("2","Hauchart","Lucas", User.Role.FONCTIONNAIRE));
-            startActivity(intent);
-        } else {
-            Toast.makeText(LoginActivity.this, "Nom de compte ou mot de passe incorrect!", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void getMe(String token) {
+        WebService.getInstance().getService().me(token).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                if (response.isSuccessful()) {
+                    User connectedUser = response.body();
+                    assert connectedUser != null;
+                    Toast.makeText(LoginActivity.this, "Bonjour " + connectedUser.getPrenom() + " !", Toast.LENGTH_SHORT).show();
+                    Intent intent = connectedUser.getRole() == User.Role.FONCTIONNAIRE
+                            ? new Intent(getApplicationContext(),AgentActivity.class)
+                            : new Intent(getApplicationContext(),MainActivity.class);
+                    intent.putExtra("user", connectedUser);
+                    startActivity(intent);
+                } else {
+                    System.out.println(response);
+                    Toast.makeText(LoginActivity.this, "me request failed", Toast.LENGTH_SHORT).show();
+                }
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
+                Toast.makeText(LoginActivity.this, "Echec !", Toast.LENGTH_LONG).show();
+                throwable.printStackTrace();
+            }
+        });
     }
 }
