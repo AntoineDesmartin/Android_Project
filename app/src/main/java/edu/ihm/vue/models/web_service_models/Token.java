@@ -18,6 +18,6 @@ public class Token {
     }
 
     public String getToken() {
-        return "Bearer " + this.token;
+        return this.token;
     }
 }

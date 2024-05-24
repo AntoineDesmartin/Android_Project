@@ -14,10 +14,10 @@ import retrofit2.http.POST;
 public interface GreenTrackAPI {
     @Headers("Content-Type: application/json")
     @POST("reports")
-    Call<Signalement> createReport(@Body Signalement report, @Header("Authorization") String bearer);
+    Call<Signalement> createReport(@Body Signalement report);
 
     @GET("me")
-    Call<User> me(@Header("Authorization") String bearer);
+    Call<User> me();
 
     @Headers("Content-Type: application/json")
     @POST("auth/login")

@@ -3,14 +3,13 @@ package edu.ihm.vue.main_activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.IOException;
 
 import edu.ihm.vue.R;
 import edu.ihm.vue.models.User;
@@ -38,12 +37,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void connect(String username, String password) {
-        WebService.getInstance().getService().login(new Credentials(username, password)).enqueue(new Callback<Token>() {
+        WebService.getInstance(this).getService().login(new Credentials(username, password)).enqueue(new Callback<Token>() {
             @Override
             public void onResponse(@NonNull Call<Token> call, @NonNull Response<Token> response) {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    LoginActivity.this.getMe(response.body().getToken());
+                    Context context = LoginActivity.this;
+                    SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("token", response.body().getToken());
+                    editor.commit();
+                    LoginActivity.this.getMe();
                 } else {
                     Toast.makeText(LoginActivity.this, "Nom de compte ou mot de passe incorrect!", Toast.LENGTH_SHORT).show();
                 }
@@ -56,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void getMe(String token) {
-        WebService.getInstance().getService().me(token).enqueue(new Callback<User>() {
+    private void getMe() {
+        WebService.getInstance(this).getService().me().enqueue(new Callback<User>() {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 if (response.isSuccessful()) {
