@@ -22,11 +22,17 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     Button connexion;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedPref = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String token = this.sharedPref.getString("token", null);
+        if (token != null)
+            this.getMe();
 
         connexion = findViewById(R.id.connecter);
         connexion.setOnClickListener(v -> {
@@ -42,8 +48,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<Token> call, @NonNull Response<Token> response) {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    Context context = LoginActivity.this;
-                    SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("token", response.body().getToken());
                     editor.commit();
@@ -55,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<Token> call, @NonNull Throwable throwable) {
-                Toast.makeText(LoginActivity.this, "Echec !", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Echec connection !", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -75,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     System.out.println(response);
-                    Toast.makeText(LoginActivity.this, "me request failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Token stocké invalide", Toast.LENGTH_SHORT).show();
                 }
             }
 
