@@ -1,11 +1,16 @@
 package edu.ihm.vue.agent_signalements_view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import edu.ihm.vue.R;
+import edu.ihm.vue.agent_equipements_view.AgentEquipementsActivity;
 import edu.ihm.vue.models.Signalement;
 
 public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
@@ -33,8 +38,17 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         date.setText(signalement.getDateIncident());
         adresse.setText(signalement.getAdresse()+", "+signalement.getVille()+", "+signalement.getCodePostal());
         niveau.setText(Integer.toString(signalement.getNiveau()));
-        equipements.setText(signalement.getEquipements());
+        equipements.setText(String.join(", ", signalement.getEquipements()));
         intervenant.setText(signalement.getIntervenant());
         intervention.setText(signalement.getIntervention());
+        findViewById(R.id.equipements).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Radhi",signalement.getEquipements().toString());
+                Intent intent=new Intent(getApplicationContext(), AgentEquipementsActivity.class);
+                intent.putExtra("signalement",(Parcelable) signalement);
+                startActivity(intent);
+            }
+        });
     }
 }

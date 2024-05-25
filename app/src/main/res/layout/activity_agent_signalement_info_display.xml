@@ -397,7 +397,7 @@
                 android:drawableTint="@color/white">
             </Button>
             <Button
-                android:id="@+id/completer"
+                android:id="@+id/equipements"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -406,7 +406,7 @@
                 app:layout_constraintWidth_percent="0.8"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/green"
-                android:text="Compléter"
+                android:text="Equipements"
                 android:fontFamily="@font/jetbrains_mono"
                 android:textSize="20sp"
                 android:drawableEnd="@drawable/file"
@@ -418,7 +418,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/completer"
+                app:layout_constraintTop_toBottomOf="@+id/equipements"
                 app:layout_constraintWidth_percent="0.8"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/green"

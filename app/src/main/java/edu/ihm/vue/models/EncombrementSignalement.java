@@ -6,11 +6,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class EncombrementSignalement extends Signalement implements Parcelable {
     EncombrementSignalement(){
-        this.equipements="Chariot élévateur, un camion, équipemnts de protection";
+        this.equipements=new ArrayList<>(Arrays.asList("Chariot élévateur","un camion", "équipemnts de protection"));
         this.typeSignalement=TypeSignalement.ENCOMBREMENTS;
         this.niveau=1;
     }
@@ -50,7 +52,7 @@ public class EncombrementSignalement extends Signalement implements Parcelable {
         if (photoBytes != null) {
             photo = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
         }
-        equipements = in.readString();
+        equipements = in.createStringArrayList();
         auteur = in.readString();
         lon=in.readDouble();
         lat=in.readDouble();
@@ -90,7 +92,7 @@ public class EncombrementSignalement extends Signalement implements Parcelable {
         } else {
             dest.writeByteArray(null);
         }
-        dest.writeString(equipements);
+        dest.writeStringList(equipements);
         dest.writeString(auteur);
         dest.writeDouble(lon);
         dest.writeDouble(lat);

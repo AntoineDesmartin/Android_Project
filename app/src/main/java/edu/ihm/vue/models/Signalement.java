@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public abstract class Signalement {
     protected String titreSignalement;
@@ -19,7 +20,7 @@ public abstract class Signalement {
     protected String auteur = "";
     protected Date intervention = null;
     protected boolean completed = false;
-    protected String equipements = "";
+    protected List<String> equipements;
     protected double lat = 0;
     protected double lon = 0;
 
@@ -41,11 +42,11 @@ public abstract class Signalement {
         this.auteur = auteur;
     }
 
-    public String getEquipements() {
+    public List<String> getEquipements() {
         return equipements;
     }
 
-    public void setEquipements(String equipements) {
+    public void setEquipements(List<String> equipements) {
         this.equipements = equipements;
     }
 

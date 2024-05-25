@@ -22,13 +22,13 @@
         android:theme="@style/Theme.Vue"
         tools:targetApi="31">
         <activity
+            android:name=".agent_equipements_view.AgentEquipementsActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserSignalementInfoDisplayActivity"
             android:exported="false" />
         <activity
             android:name=".agent_signalements_view.AgentSignalementInfoDisplayActivity"
-            android:exported="false" />
-        <activity
-            android:name=".old_signalements_view.DechetActivity"
             android:exported="false" />
 
         <meta-data
