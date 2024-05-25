@@ -39,7 +39,7 @@ public class AgentEquipementsActivity extends AppCompatActivity {
     public <T extends ViewGroup> void onViewCreated(T layout) {
         signalement=getIntent().getParcelableExtra("signalement");
         TextView T=(TextView)findViewById(R.id.titre);
-        T.setText("Equipements pour : "+signalement.getTitreSignalement());
+        T.setText("Equipements pour : "+signalement.getTitle());
         Log.d("RadhiResult",signalement.getEquipements().toString());
         View_Equipements view = new View_Equipements(layout);
         Model_Equipements model = new Model_Equipements();

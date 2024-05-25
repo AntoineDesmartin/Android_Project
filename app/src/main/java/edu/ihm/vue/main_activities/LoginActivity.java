@@ -35,11 +35,11 @@ public class LoginActivity extends AppCompatActivity {
     private void connect(String username, String password) {
         if (username.equals("user") && password.equals("user")) {
             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-            intent.putExtra("user",(Parcelable) new User("1","Nougaret","Adrien", User.role.PARTICULIER));
+            intent.putExtra("user",(Parcelable) new User("1","Nougaret","Adrien", User.Role.PARTICULIER));
             startActivity(intent);
         } else if (username.equals("admin") && password.equals("admin")) {
             Intent intent = new Intent(getApplicationContext(),AgentActivity.class);
-            intent.putExtra("user",(Parcelable) new User("2","Hauchart","Lucas", User.role.FONCTIONNAIRE));
+            intent.putExtra("user",(Parcelable) new User("2","Hauchart","Lucas", User.Role.FONCTIONNAIRE));
             startActivity(intent);
         } else {
             Toast.makeText(LoginActivity.this, "Nom de compte ou mot de passe incorrect!", Toast.LENGTH_SHORT).show();
