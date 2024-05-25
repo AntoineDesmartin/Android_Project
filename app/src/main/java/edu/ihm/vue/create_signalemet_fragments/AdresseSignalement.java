@@ -17,13 +17,13 @@ public class AdresseSignalement extends Fragment {
 
     private String adresse;
     private String ville;
-    private int codePostal;
+    private String codePostal;
     private SignalementListener mListener;
     public AdresseSignalement() {
 
     }
 
-    public AdresseSignalement(String adresse, String ville, int codePostal) {
+    public AdresseSignalement(String adresse, String ville, String codePostal) {
         this.adresse = adresse;
         this.ville = ville;
         this.codePostal = codePostal;
@@ -41,7 +41,7 @@ public class AdresseSignalement extends Fragment {
         if (this.ville != null)
             ville.setText(this.ville);
         EditText codepostal = rootView.findViewById(R.id.codepostalEditText);
-        if (this.codePostal !=0) {
+        if (this.codePostal != null) {
             codepostal.setText(String.valueOf(this.codePostal));
         }
 

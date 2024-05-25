@@ -2,24 +2,56 @@ package edu.ihm.vue.models;
 
 import android.graphics.Bitmap;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "type",
+        defaultImpl = DechetSignalement.class
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = DechetSignalement.class, name = "dechet"),
+        @JsonSubTypes.Type(value = EncombrementSignalement.class, name = "encombrement")
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Signalement {
-    protected String titreSignalement;
+    @JsonProperty("title")
+    protected String title;
+    @JsonIgnore
     protected TypeSignalement typeSignalement;
+    @JsonProperty("isBlockage")
+    protected boolean isBlockage;
+    @JsonIgnore
     protected Date dateIncident = null;
+    @JsonIgnore
     protected Bitmap photo = null;
-    protected String adresse;
-    protected String ville;
-    protected int codePostal;
-    protected String commentaire;
+    @JsonProperty("address")
+    protected String address;
+    @JsonProperty("city")
+    protected String city;
+    @JsonProperty("zipCode")
+    protected String zipCode;
+    @JsonProperty("description")
+    protected String description;
+    @JsonIgnore
     protected int niveau = 0;
+    @JsonIgnore
     protected String intervenant = "";
     protected String auteur = "";
+    @JsonIgnore
     protected Date intervention = null;
+    @JsonIgnore
     protected boolean completed = false;
+    @JsonIgnore
     protected List<String> equipements;
     protected double lat = 0;
     protected double lon = 0;
@@ -29,16 +61,15 @@ public abstract class Signalement {
 
     }
 
-    public Signalement(String titre, TypeSignalement ty, Date d, Bitmap b, String adr, String vi, int co,
-                       String com, String auteur) {
-        this.titreSignalement = titre;
-        this.dateIncident = d;
-        this.typeSignalement = ty;
-        this.photo = b;
-        this.adresse = adr;
-        this.ville = vi;
-        this.codePostal = co;
-        this.commentaire = com;
+    @JsonCreator
+    public Signalement(@JsonProperty("title") String title, @JsonProperty("isBlockage") boolean isBlockage, @JsonProperty("address") String address, @JsonProperty("city") String city,
+                       @JsonProperty("zipCode") String zipCode, @JsonProperty("description") String description, String auteur) {
+        this.title = title;
+        this.isBlockage = isBlockage;
+        this.address = address;
+        this.city = city;
+        this.zipCode = zipCode;
+        this.description = description;
         this.auteur = auteur;
     }
 
@@ -87,20 +118,24 @@ public abstract class Signalement {
         this.intervention = intervention;
     }
 
-    public String getCommentaire() {
-        return commentaire;
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
     }
 
-    public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getTitreSignalement() {
-        return titreSignalement;
+    @JsonProperty("title")
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitreSignalement(String titreSignalement) {
-        this.titreSignalement = titreSignalement;
+    @JsonProperty("title")
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public TypeSignalement getTypeSignalement() {
@@ -109,6 +144,16 @@ public abstract class Signalement {
 
     public void setTypeSignalement(TypeSignalement typeSignalement) {
         this.typeSignalement = typeSignalement;
+    }
+
+    @JsonProperty("isBlockage")
+    public boolean isBlockage() {
+        return isBlockage;
+    }
+
+    @JsonProperty("isBlockage")
+    public void setBlockage(boolean blockage) {
+        isBlockage = blockage;
     }
 
     public String getDateIncident() {
@@ -131,29 +176,29 @@ public abstract class Signalement {
     public void setPhoto(Bitmap photo) {
         this.photo = photo;
     }
-
-    public String getAdresse() {
-        return adresse;
+    @JsonProperty("address")
+    public String getAddress() {
+        return address;
     }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    @JsonProperty("address")
+    public void setAddress(String address) {
+        this.address = address;
     }
-
-    public String getVille() {
-        return ville;
+    @JsonProperty("city")
+    public String getCity() {
+        return city;
     }
-
-    public void setVille(String ville) {
-        this.ville = ville;
+    @JsonProperty("city")
+    public void setCity(String city) {
+        this.city = city;
     }
-
-    public int getCodePostal() {
-        return codePostal;
+    @JsonProperty("zipCode")
+    public String getZipCode() {
+        return zipCode;
     }
-
-    public void setCodePostal(int codePostal) {
-        this.codePostal = codePostal;
+    @JsonProperty("zipCode")
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getAuteur() {
@@ -182,5 +227,4 @@ public abstract class Signalement {
 
 
     public enum TypeSignalement {DECHETS, ENCOMBREMENTS}
-
 }
