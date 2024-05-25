@@ -173,7 +173,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,Signale
         Log.d(TAG, "getView: "+item);
 
         Intent intent = new Intent(getContext(), AgentSignalementInfoDisplayActivity.class);
-        intent.putExtra("Signalement", (Parcelable) item );
+        intent.putExtra("signalement", (Parcelable) item );
         startActivity(intent);
     }
 

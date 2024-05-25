@@ -6,12 +6,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class DechetSignalement extends Signalement implements Parcelable {
 
     DechetSignalement(){
-        this.equipements="Sacs poubelles, Masque et gants de protections";
+        this.equipements=new ArrayList<>(Arrays.asList("Sacs poubelles","Masque", "gants de protections"));
         this.typeSignalement=TypeSignalement.DECHETS;
         this.isBlockage = false;
         this.niveau=2;
@@ -52,7 +54,7 @@ public class DechetSignalement extends Signalement implements Parcelable {
         if (photoBytes != null) {
             photo = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
         }
-        equipements = in.readString();
+        equipements = in.createStringArrayList();
         auteur = in.readString();
         lon=in.readDouble();
         lat=in.readDouble();
@@ -92,7 +94,7 @@ public class DechetSignalement extends Signalement implements Parcelable {
         } else {
             dest.writeByteArray(null);
         }
-        dest.writeString(equipements);
+        dest.writeStringList(equipements);
         dest.writeString(auteur);
         dest.writeDouble(lon);
         dest.writeDouble(lat);
