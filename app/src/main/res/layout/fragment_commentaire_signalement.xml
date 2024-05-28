@@ -31,7 +31,7 @@
         android:inputType="textMultiLine"
         app:layout_constraintWidth_percent="0.8"
         app:layout_constraintHeight_percent="0.4"
-        android:hint="Saisissez un Commentaire"
+        android:hint="Ex: Le dêchet dégage beaucoup d'odeurs..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/commentairesignalement"

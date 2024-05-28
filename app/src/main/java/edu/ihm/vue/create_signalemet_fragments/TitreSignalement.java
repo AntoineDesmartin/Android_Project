@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import edu.ihm.vue.R;
+import edu.ihm.vue.SignalementActivity;
 import edu.ihm.vue.SignalementListener;
+import edu.ihm.vue.main_activities.LoginActivity;
 
 public class TitreSignalement extends Fragment {
 
@@ -40,7 +43,10 @@ public class TitreSignalement extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListener != null) {
+                if(editText.getText().toString().length()<3){
+                    Toast.makeText((Context)mListener, "Le titre doit contenir au moins 3 lettres", Toast.LENGTH_LONG).show();
+                }
+                else if (mListener != null) {
                     mListener.goToTypeSignalementFragment(editText.getText().toString());
                 }
             }

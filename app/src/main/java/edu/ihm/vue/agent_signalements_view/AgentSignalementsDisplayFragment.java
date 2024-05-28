@@ -93,8 +93,6 @@ public class AgentSignalementsDisplayFragment extends Fragment implements Clicka
     public void updateSignalementsDisplay(int currentLevel) {
         signalementsToDisplay=Signalements.signalementsMock.stream().filter(s->s.getNiveau()>=currentLevel)
                 .collect(Collectors.toList());
-        //adapter = new SignalementForAgentAdapter(this, getContext());
-        //listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         minimalLevel.setText(Integer.toString(currentLevel));
     }

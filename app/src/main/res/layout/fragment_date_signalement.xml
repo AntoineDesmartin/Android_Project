@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.8"
-        android:hint="Selectionner une date"
+        android:hint="Ex: 15/12/2024"
         android:focusable="false"
         android:inputType="none"
         android:onClick="showDatePickerDialog"

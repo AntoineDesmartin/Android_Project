@@ -25,17 +25,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
-import edu.ihm.vue.main_activities.MainActivity;
-import edu.ihm.vue.models.NormalSignalementFactory;
-import edu.ihm.vue.models.Signalement;
-import edu.ihm.vue.models.SignalementFactory;
-import edu.ihm.vue.models.UrgentSignalementFactory;
 import edu.ihm.vue.create_signalemet_fragments.AdresseSignalement;
 import edu.ihm.vue.create_signalemet_fragments.CameraSignalement;
 import edu.ihm.vue.create_signalemet_fragments.CommentaireSignalement;
 import edu.ihm.vue.create_signalemet_fragments.DateSignalement;
 import edu.ihm.vue.create_signalemet_fragments.TitreSignalement;
 import edu.ihm.vue.create_signalemet_fragments.TypeSignalement;
+import edu.ihm.vue.main_activities.MainActivity;
+import edu.ihm.vue.models.NormalSignalementFactory;
+import edu.ihm.vue.models.Signalement;
+import edu.ihm.vue.models.SignalementFactory;
+import edu.ihm.vue.models.UrgentSignalementFactory;
 import edu.ihm.vue.web_service.WebService;
 import retrofit2.Call;
 
@@ -139,13 +139,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     //CAMERA SIGNALEMENT
     @Override
     public void goToCameraSignalementFragment(String date) {
-        /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date parsedDate = sdf.parse(date);
-            nouveauSignalement.setDateSignalement(parsedDate);
-        } catch (ParseException e) {
-            Log.d(TAG, "Can not parse date", e);
-        }*/
+
         this.date_incident =date;
         cameraSignalement = new CameraSignalement(this.photo);
         getSupportFragmentManager().beginTransaction()
