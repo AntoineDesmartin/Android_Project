@@ -114,6 +114,16 @@ public abstract class Signalement {
         }
     }
 
+    public Date getInterventioninFull() {
+        if (intervention != null) {
+            return this.intervention;
+        } else {
+            return new Date();
+        }
+
+
+    }
+
     public void setIntervention(Date intervention) {
         this.intervention = intervention;
     }
