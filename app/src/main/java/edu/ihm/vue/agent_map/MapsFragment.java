@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -30,14 +32,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 
 import edu.ihm.vue.R;
 import edu.ihm.vue.main_activities.AgentActivity;
+import edu.ihm.vue.models.DechetSignalement;
 import edu.ihm.vue.models.Signalement;
 import edu.ihm.vue.agent_signalements_view.AgentSignalementInfoDisplayActivity;
 import edu.ihm.vue.agent_signalements_view.Clickable;
@@ -68,20 +73,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,Signale
             dechets.add(new Dechet("dechet4", new Date(), "gros", "londres"));*/
 
             //float zoomLevel = 12.0f;
-            myMap.moveCamera( CameraUpdateFactory.newLatLngZoom( new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),12f ) );
+            myMap.moveCamera( CameraUpdateFactory.newLatLngZoom( new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),10f ) );
 
             for (int i = 0; i < AgentActivity.mesSignalements.size(); i++) {
                 Signalement dechet = AgentActivity.mesSignalements.get(i);
-                //EPHEMERE :
-                //------------------------------------------------------------
-                Random random = new Random();
-                double lat = -random.nextInt(21) + 20;
-                dechet.setLat(lat);
-                double lon = random.nextInt(21) + 140;
-                dechet.setLon(lon);
-                //----------------------------------------------------
-                //LatLng dechetPosition = new LatLng(getLat(),getLon());
-                LatLng dechetPosition = new LatLng(lat,lon);
+                //obtenir la longitude et la latitude
+                getLocationFromAddress(dechet.getAddress()+", "+dechet.getZipCode()+" "+dechet.getCity(),dechet);
+
+                LatLng dechetPosition = new LatLng(dechet.getLat(),dechet.getLon());
                 MarkerOptions markerOptions = new MarkerOptions().position(dechetPosition).title(dechet.getTitle());
                 googleMap.addMarker(markerOptions);
             }
@@ -113,6 +112,35 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,Signale
 
 
     };
+    public void getLocationFromAddress(String strAddress, Signalement d) {
+        Geocoder coder = new Geocoder(getContext(), Locale.getDefault());
+        List<Address> addressList;
+
+        try {
+            // Attempt to get a list of addresses that match the provided address
+            addressList = coder.getFromLocationName(strAddress, 5);
+            if (addressList == null || addressList.isEmpty()) {
+                // Handle the case where no addresses were found
+                return;
+            }
+
+            // Get the first address from the list
+            Address location = addressList.get(0);
+
+            // Extract the latitude and longitude
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            Log.d(TAG,latitude+" getLat after");
+            Log.d(TAG,longitude+" getLat after");
+            d.setLat(latitude);
+            d.setLon(longitude);
+            // Output the latitude and longitude to the console (or use as needed)
+            System.out.println("Latitude: " + latitude + " Longitude: " + longitude);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Nullable
     @Override
