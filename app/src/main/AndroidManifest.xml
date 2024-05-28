@@ -34,6 +34,9 @@
         <activity
             android:name=".agent_signalements_view.AgentSignalementInfoDisplayActivity"
             android:exported="false" />
+        <activity
+            android:name=".agent_signalements_view.AgentSignalementAgendaActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
