@@ -1,6 +1,8 @@
 package edu.ihm.vue;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -40,6 +42,10 @@ public class AccountFragment extends Fragment {
         role.setText(user.getRole().toString());
         Button btn = (Button) view.findViewById(R.id.disconnect);
         btn.setOnClickListener((click)->{
+            SharedPreferences sharedPreferences = this.getContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            String token = sharedPreferences.getString("token", null);
+            if (token != null)
+                sharedPreferences.edit().remove("token").commit();
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
         });

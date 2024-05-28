@@ -3,11 +3,18 @@ package edu.ihm.vue.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Parcelable {
-    private String id="";
-    private String nom="";
-    private String prenom="";
+    private String id = "";
+    private String nom = "";
+    private String prenom = "";
     private Role role;
+    private String username;
+    private boolean isAgent;
 
     public String getId() {
         return id;
@@ -41,11 +48,14 @@ public class User implements Parcelable {
         this.role = role;
     }
 
-    public User(String id, String nom, String prenom, Role role) {
+    @JsonCreator
+    public User(@JsonProperty("id") String id, @JsonProperty("surname") String nom, @JsonProperty("firstName") String prenom, @JsonProperty("username") String username, @JsonProperty("isAgent") boolean isAgent) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        this.role = role;
+        this.isAgent = isAgent;
+        this.role = this.isAgent ? Role.FONCTIONNAIRE : Role.PARTICULIER;
+        this.username = username;
     }
 
     // Parcelable implementation
@@ -53,7 +63,7 @@ public class User implements Parcelable {
         id = in.readString();
         nom = in.readString();
         prenom = in.readString();
-        role = User.Role.valueOf(in.readString());
+        role = Role.valueOf(in.readString());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

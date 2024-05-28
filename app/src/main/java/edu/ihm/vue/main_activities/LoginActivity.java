@@ -1,49 +1,93 @@
 package edu.ihm.vue.main_activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.ihm.vue.R;
 import edu.ihm.vue.models.User;
+import edu.ihm.vue.models.web_service_models.Credentials;
+import edu.ihm.vue.models.web_service_models.Token;
+import edu.ihm.vue.web_service.WebService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     Button connexion;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        sharedPref = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String token = this.sharedPref.getString("token", null);
+        if (token != null)
+            this.getMe();
+
         connexion = findViewById(R.id.connecter);
-        connexion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView username = (TextView) findViewById(R.id.email);
-                TextView password = (TextView) findViewById(R.id.password);
-                connect(username.getText().toString(), password.getText().toString());
-            }
+        connexion.setOnClickListener(v -> {
+            TextView username = findViewById(R.id.email);
+            TextView password = findViewById(R.id.password);
+            connect(username.getText().toString(), password.getText().toString());
         });
     }
 
     private void connect(String username, String password) {
-        if (username.equals("user") && password.equals("user")) {
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-            intent.putExtra("user",(Parcelable) new User("1","Nougaret","Adrien", User.Role.PARTICULIER));
-            startActivity(intent);
-        } else if (username.equals("admin") && password.equals("admin")) {
-            Intent intent = new Intent(getApplicationContext(),AgentActivity.class);
-            intent.putExtra("user",(Parcelable) new User("2","Hauchart","Lucas", User.Role.FONCTIONNAIRE));
-            startActivity(intent);
-        } else {
-            Toast.makeText(LoginActivity.this, "Nom de compte ou mot de passe incorrect!", Toast.LENGTH_SHORT).show();
-        }
+        WebService.getInstance(this).getService().login(new Credentials(username, password)).enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(@NonNull Call<Token> call, @NonNull Response<Token> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("token", response.body().getToken());
+                    editor.commit();
+                    LoginActivity.this.getMe();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Nom de compte ou mot de passe incorrect!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Token> call, @NonNull Throwable throwable) {
+                Toast.makeText(LoginActivity.this, "Echec connection !", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
+    private void getMe() {
+        WebService.getInstance(this).getService().me().enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                if (response.isSuccessful()) {
+                    User connectedUser = response.body();
+                    assert connectedUser != null;
+                    Toast.makeText(LoginActivity.this, "Bonjour " + connectedUser.getPrenom() + " !", Toast.LENGTH_SHORT).show();
+                    Intent intent = connectedUser.getRole() == User.Role.FONCTIONNAIRE
+                            ? new Intent(getApplicationContext(),AgentActivity.class)
+                            : new Intent(getApplicationContext(),MainActivity.class);
+                    intent.putExtra("user", connectedUser);
+                    startActivity(intent);
+                } else {
+                    System.out.println(response);
+                    Toast.makeText(LoginActivity.this, "Token stocké invalide", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
+                Toast.makeText(LoginActivity.this, "Echec !", Toast.LENGTH_LONG).show();
+                throwable.printStackTrace();
+            }
+        });
+    }
 }
