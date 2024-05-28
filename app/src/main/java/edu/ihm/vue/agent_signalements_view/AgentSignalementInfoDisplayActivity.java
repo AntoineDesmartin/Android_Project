@@ -136,6 +136,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
             //btnMassigner.setVisibility(View.GONE);
         }else {
             btnMassigner.setBackgroundColor(getResources().getColor(R.color.s_green));
+            btnMassigner.setEnabled(true);
         }
     }
 
