@@ -3,6 +3,7 @@ package edu.ihm.vue.agent_signalements_view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import edu.ihm.vue.R;
+import edu.ihm.vue.agent_equipements_view.AgentEquipementsActivity;
 import edu.ihm.vue.mocks.Signalements;
 import edu.ihm.vue.models.Signalement;
 import edu.ihm.vue.agent_signalements_view.AgentSignalementAgendaActivity;
@@ -28,7 +30,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
     Button btnAjouterAagenda;
     Button btnMassigner;
 
-    Button btnCompleter;
+    Button btnEquipements;
     TextView intervention;
 
     public static String signalementTitre;
@@ -41,9 +43,6 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_agent_signalement_info_display);
         signalement=getIntent().getParcelableExtra("signalement");
-
-        //logger.info("titre du signalement in infoDisplayActivity : "+signalement.getInterventioninFull());
-
         TextView titre=findViewById(R.id.titre_signalement);
         TextView type=findViewById(R.id.type_signalement);
         ImageView image=findViewById(R.id.image_signalement);
@@ -58,7 +57,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
 
         btnAjouterAagenda=findViewById(R.id.ajouter_agenda);
         btnMassigner=findViewById(R.id.massigner);
-        btnCompleter=findViewById(R.id.equipements);
+        btnEquipements=findViewById(R.id.equipements);
 
 
         description.setText(signalement.getDescription());
@@ -69,12 +68,9 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         adresse.setText(signalement.getAddress()+", "+signalement.getCity()+", "+signalement.getZipCode());
         niveau.setText(Integer.toString(signalement.getNiveau()));
         intervenant.setText(signalement.getIntervenant());
-        //intervention.setText(signalement.getIntervention());
+        equipements.setText(String.join(", ", signalement.getEquipements()));
         intervention.setText(signalement.getIntervention());
-
         signalementTitre= signalement.getTitle().trim();
-
-
         setBtnMassigner();
 
 
@@ -92,6 +88,15 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addToCalendar(signalement);
+            }
+        });
+        btnEquipements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Radhi",signalement.getEquipements().toString());
+                Intent intent=new Intent(getApplicationContext(), AgentEquipementsActivity.class);
+                intent.putExtra("signalement",(Parcelable) signalement);
+                startActivity(intent);
             }
         });
     }
