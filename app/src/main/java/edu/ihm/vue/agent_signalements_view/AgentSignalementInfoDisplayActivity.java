@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import edu.ihm.vue.R;
@@ -26,6 +27,9 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
     Signalement signalement;
     Button btnAjouterAagenda;
     Button btnMassigner;
+
+    Button btnCompleter;
+    TextView intervention;
 
     public static String signalementTitre;
     Logger logger = Logger.getLogger("MyLog");
@@ -49,11 +53,12 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         TextView niveau=findViewById(R.id.niveau_signalement);
         TextView equipements=findViewById(R.id.equipements_signalement);
         TextView intervenant=findViewById(R.id.intervenant_signalement);
-        TextView intervention=findViewById(R.id.intervention_signalement);
+        intervention=findViewById(R.id.intervention_signalement);
 
 
         btnAjouterAagenda=findViewById(R.id.ajouter_agenda);
         btnMassigner=findViewById(R.id.massigner);
+        btnCompleter=findViewById(R.id.completer);
 
 
         description.setText(signalement.getCommentaire());
@@ -71,12 +76,16 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         signalementTitre= signalement.getTitreSignalement().trim();
 
 
+        setBtnMassigner();
+
+
         btnMassigner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AgentSignalementAgendaActivity.class);
                 intent.putExtra("signalement",(Parcelable) signalement);
                 startActivity(intent);
+                setBtnMassigner();
             }
         });
 
@@ -90,7 +99,6 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
 
     public void addToCalendar(Signalement s){
         Date start_time = s.getInterventioninFull();
-
 
 
         // Lors du clic sur le bouton, l'Intent est démarré -> pour créer un événement dans l'agenda avec l'heure donnée
@@ -114,6 +122,21 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         startActivity(intent);
 
 
+    }
+
+    public void setBtnMassigner(){
+        logger.info("signalement in screen ? : "+ intervention.getText().toString());
+
+        if(signalement.getInterventioninFull()==null || !intervention.getText().toString().isEmpty()){
+            //logger.info("signalement in screen ? : "+ intervention.getText().toString());
+            btnMassigner.setBackgroundColor(getResources().getColor(R.color.s_gray));
+            btnMassigner.setEnabled(false);
+
+
+            //btnMassigner.setVisibility(View.GONE);
+        }else {
+            btnMassigner.setBackgroundColor(getResources().getColor(R.color.s_green));
+        }
     }
 
 
