@@ -55,12 +55,6 @@ public class AgentAddToAgendaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_agent_add_to_agenda, container, false);
 
-        titreSignalement = AgentSignalementInfoDisplayActivity.signalementTitre;
-        logger.info("titre du signalement in fragment : "+ titreSignalement);
-
-
-
-        // Find the EditText and Button views
         date = rootView.findViewById(R.id.date);
         start_time = (EditText) rootView.findViewById(R.id.start_time);
         end_time = (EditText) rootView.findViewById(R.id.end_time);
