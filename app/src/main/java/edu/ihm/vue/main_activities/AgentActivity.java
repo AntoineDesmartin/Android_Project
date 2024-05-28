@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -42,9 +43,10 @@ import edu.ihm.vue.models.User;
 import edu.ihm.vue.agent_signalements_view.AgentSignalementsDisplayFragment;
 
 public class AgentActivity extends AppCompatActivity implements OnMapReadyCallback {
+    public static boolean isLogged=false;
 
     public static Signalements signalements;
-    public static List<Signalement> mesSignalements;
+    public static List<Signalement> mesSignalements=new ArrayList<>();
     public static User user;
     private BottomNavigationView bottomNavigationView;
     private SupportMapFragment mapFragment;
@@ -58,7 +60,10 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         Log.d("radhi",signalements.signalementsMock.get(0).getDateIncident());
         moveToFragment(new AgentSignalementsDisplayFragment());
         OnMapReadyCallback onMapReadyCallback = this;
-        mesSignalements=Signalements.signalementsMock.stream().filter(t->t.getIntervenant().equals(AgentActivity.user.getId())).collect(Collectors.toList());
+
+        mesSignalements=signalements.signalementsMock.stream().filter(t->t.getIntervenant().equals(AgentActivity.user.getId())).collect(Collectors.toList());
+        Log.d("radhi",mesSignalements.toString());
+
         bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -77,8 +82,10 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
                 return true;
             }
         });
-
-        showNotification();
+        if(!isLogged) {
+            showNotification();
+            isLogged=true;
+        }
 
 
     }
@@ -118,5 +125,10 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mesSignalements=signalements.signalementsMock.stream().filter(t->t.getIntervenant().equals(AgentActivity.user.getId())).collect(Collectors.toList());
 
+    }
 }

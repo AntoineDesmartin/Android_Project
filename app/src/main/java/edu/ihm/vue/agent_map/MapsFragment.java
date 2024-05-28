@@ -73,7 +73,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback,Signale
             dechets.add(new Dechet("dechet4", new Date(), "gros", "londres"));*/
 
             //float zoomLevel = 12.0f;
-            myMap.moveCamera( CameraUpdateFactory.newLatLngZoom( new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),10f ) );
+            //myMap.moveCamera( CameraUpdateFactory.newLatLngZoom( new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude()),10f ) );
 
             for (int i = 0; i < AgentActivity.mesSignalements.size(); i++) {
                 Signalement dechet = AgentActivity.mesSignalements.get(i);
