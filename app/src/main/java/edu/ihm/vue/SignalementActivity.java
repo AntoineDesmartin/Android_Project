@@ -248,7 +248,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         nouveauSignalement.setZipCode(this.code);
         nouveauSignalement.setDescription(comm);
 
-        Call<Signalement> call = WebService.getInstance().getService().createReport(nouveauSignalement, "Bearer oat_MTI.bHZ5dldndnA0c1dtQjB6SG1CYmIxV2NHYVdnT3FZbE9MbWFBRWR4VTM0MjI1NzUwOTY");
+        Call<Signalement> call = WebService.getInstance(this).getService().createReport(nouveauSignalement);
         try {
             call.execute();
         } catch (IOException e) {
