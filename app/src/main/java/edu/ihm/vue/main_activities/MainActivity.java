@@ -72,5 +72,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Signalements=new ArrayList<>(mock.signalementsMock);
+        mesSignalements = Signalements.stream().filter(t->t.getAuteur().equals(user.getId())).collect(Collectors.toList());
+    }
 }
