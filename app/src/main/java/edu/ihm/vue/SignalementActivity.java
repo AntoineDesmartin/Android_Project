@@ -12,32 +12,38 @@ import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.os.StrictMode;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
-import java.io.IOException;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import edu.ihm.vue.main_activities.MainActivity;
+import edu.ihm.vue.models.NormalSignalementFactory;
+import edu.ihm.vue.models.Signalement;
+import edu.ihm.vue.models.SignalementFactory;
+import edu.ihm.vue.models.UrgentSignalementFactory;
 import edu.ihm.vue.create_signalemet_fragments.AdresseSignalement;
 import edu.ihm.vue.create_signalemet_fragments.CameraSignalement;
 import edu.ihm.vue.create_signalemet_fragments.CommentaireSignalement;
 import edu.ihm.vue.create_signalemet_fragments.DateSignalement;
 import edu.ihm.vue.create_signalemet_fragments.TitreSignalement;
 import edu.ihm.vue.create_signalemet_fragments.TypeSignalement;
-import edu.ihm.vue.main_activities.MainActivity;
-import edu.ihm.vue.models.NormalSignalementFactory;
-import edu.ihm.vue.models.Signalement;
-import edu.ihm.vue.models.SignalementFactory;
-import edu.ihm.vue.models.UrgentSignalementFactory;
+import edu.ihm.vue.utils.Utils;
 import edu.ihm.vue.web_service.WebService;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignalementActivity extends AppCompatActivity implements SignalementListener, IPictureActivity {
 
@@ -61,20 +67,12 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // This is to avoid thread error when performing HTTP request
-        // TODO: launch new thread for request
-        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signalement);
         getSupportFragmentManager().beginTransaction().
                 add(R.id.fragment_container, new TitreSignalement()).commit();
+
     }
 
     @Override
@@ -248,17 +246,29 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         nouveauSignalement.setZipCode(this.code);
         nouveauSignalement.setDescription(comm);
 
-        Call<Signalement> call = WebService.getInstance(this).getService().createReport(nouveauSignalement);
-        try {
-            call.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        WebService.getInstance(this).getService().createReport(nouveauSignalement).enqueue(new Callback<Signalement>() {
+            @Override
+            public void onResponse(Call<Signalement> call, Response<Signalement> response) {
+                if (response.isSuccessful()) {
+                    showNotification();
+                    if (SignalementActivity.this.photo != null) {
+                        assert response.body() != null;
+                        sendPhoto(response.body().getId());
+                    }
+                } else
+                    Toast.makeText(SignalementActivity.this, "Erreur : signalement non valide", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("user",MainActivity.user);
-        startActivity(intent);
-        showNotification();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("user",MainActivity.user);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<Signalement> call, Throwable throwable) {
+                Toast.makeText(SignalementActivity.this, "Echec connection !", Toast.LENGTH_LONG).show();
+                throwable.printStackTrace();
+            }
+        });
     }
 
     private void showNotification() {
@@ -296,6 +306,28 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
             notificationManager.notify(notificationId, notification);
         }
     }
+
+    private void sendPhoto(int reportId) {
+        File file = Utils.bitmapToFile(this, this.photo, "photo.png");
+        RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), fileBody);
+        WebService.getInstance(this).getService().addImageToReport(part, reportId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(SignalementActivity.this, "Echec de l'envoi de la photo !", Toast.LENGTH_LONG).show();
+                    System.out.println(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Toast.makeText(SignalementActivity.this, "Echec connection !", Toast.LENGTH_LONG).show();
+                throwable.printStackTrace();
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

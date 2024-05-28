@@ -24,6 +24,8 @@ import java.util.List;
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Signalement {
+    @JsonProperty("id")
+    protected int id;
     @JsonProperty("title")
     protected String title;
     @JsonIgnore
@@ -126,6 +128,15 @@ public abstract class Signalement {
 
     public void setIntervention(Date intervention) {
         this.intervention = intervention;
+    }
+    @JsonProperty("id")
+    public int getId() {
+        return this.id;
+    }
+
+    @JsonProperty("id")
+    public void setId(int id) {
+        this.id = id;
     }
 
     @JsonProperty("description")
