@@ -58,22 +58,21 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
 
         btnAjouterAagenda=findViewById(R.id.ajouter_agenda);
         btnMassigner=findViewById(R.id.massigner);
-        btnCompleter=findViewById(R.id.completer);
+        btnCompleter=findViewById(R.id.equipements);
 
 
-        description.setText(signalement.getCommentaire());
+        description.setText(signalement.getDescription());
         type.setText(signalement.getTypeSignalement().toString());
-        titre.setText(signalement.getTitreSignalement());
+        titre.setText(signalement.getTitle());
         image.setImageBitmap(signalement.getPhoto());
         date.setText(signalement.getDateIncident());
-        adresse.setText(signalement.getAdresse()+", "+signalement.getVille()+", "+signalement.getCodePostal());
+        adresse.setText(signalement.getAddress()+", "+signalement.getCity()+", "+signalement.getZipCode());
         niveau.setText(Integer.toString(signalement.getNiveau()));
-        equipements.setText(signalement.getEquipements());
         intervenant.setText(signalement.getIntervenant());
         //intervention.setText(signalement.getIntervention());
         intervention.setText(signalement.getIntervention());
 
-        signalementTitre= signalement.getTitreSignalement().trim();
+        signalementTitre= signalement.getTitle().trim();
 
 
         setBtnMassigner();
@@ -118,7 +117,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         intent.putExtra("time", true);
         intent.putExtra("rule", "FREQ=YEARLY");
         intent.putExtra("endTime", finalMEndTime.getTime());
-        intent.putExtra("title", signalement.getTitreSignalement());
+        intent.putExtra("title", signalement.getTitle());
         startActivity(intent);
 
 
