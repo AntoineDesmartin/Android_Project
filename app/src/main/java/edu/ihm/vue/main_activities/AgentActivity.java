@@ -2,9 +2,18 @@ package edu.ihm.vue.main_activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -19,9 +28,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import edu.ihm.vue.AccountFragment;
+import edu.ihm.vue.UserSignalementInfoDisplayActivity;
 import edu.ihm.vue.agent_mes_signalements_view.AgentMesSignalementsDisplayFragment;
 import edu.ihm.vue.mocks.Signalements;
 import edu.ihm.vue.agent_map.MapsFragment;
@@ -67,6 +78,8 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
             }
         });
 
+        showNotification();
+
 
     }
 
@@ -80,6 +93,30 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         googleMap.addMarker(new MarkerOptions().position(paris).title("Marker in Paris"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(paris, 12));
     }
+
+    private void showNotification() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Créer un canal de notification pour les versions d'Android 8.0 (API niveau 26) et plus récentes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("channel_id", "Channel Name", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
+                .setSmallIcon(R.drawable.calendar)
+                .setContentTitle("Rappel")
+                .setContentText("Bonjour, n'oublier pas de consulter les signalements en attente d'intervention.")
+                .setAutoCancel(true)  // Permet à la notification de disparaître après avoir été cliquée
+                .setTimeoutAfter(12000);  // Définit la durée de vie de la notification en millisecondes (5000 ms = 5 secondes)
+
+        // Afficher la notification
+        notificationManager.notify(1, builder.build());
+
+    }
+
 
 
 }
