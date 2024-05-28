@@ -3,23 +3,21 @@ package edu.ihm.vue.mocks;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-
 import edu.ihm.vue.R;
 import edu.ihm.vue.models.DechetSignalement;
 import edu.ihm.vue.models.EncombrementSignalement;
 import edu.ihm.vue.models.Signalement;
 
 public class Signalements {
+    private static Signalements instance;
     public static ArrayList<Signalement> signalementsMock;
-    public Signalements(Context context){
 
+    // Private constructor to prevent instantiation
+    private Signalements(Context context) {
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.poub);
-        signalementsMock=new ArrayList<>();
+        signalementsMock = new ArrayList<>();
         signalementsMock.add(new EncombrementSignalement(
                 "Poubelle à la rue",
                 new Date(2024 - 1900, 6 - 1, 22),
@@ -28,8 +26,8 @@ public class Signalements {
                 "Biot",
                 "06410",
                 "La poubelle émet beaucoup d'odeurs",
-                "1",
-                "2"
+                "2",
+                ""
         ));
         signalementsMock.add(new DechetSignalement(
                 "Dêchet animal",
@@ -39,8 +37,8 @@ public class Signalements {
                 "Biot",
                 "06410",
                 "L'animal commence à se décomposer",
-                "1",
-                "3"
+                "2",
+                ""
         ));
         signalementsMock.add(new EncombrementSignalement(
                 "Dêchets informatiques",
@@ -51,7 +49,15 @@ public class Signalements {
                 "06410",
                 "Danger de blessure",
                 "0",
-                "2"
+                ""
         ));
+    }
+
+    // Public method to provide access to the instance
+    public static synchronized Signalements getInstance(Context context) {
+        if (instance == null) {
+            instance = new Signalements(context);
+        }
+        return instance;
     }
 }

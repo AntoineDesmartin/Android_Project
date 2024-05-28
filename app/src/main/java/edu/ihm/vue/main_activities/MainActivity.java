@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user=getIntent().getParcelableExtra("user");
-        mock=new Signalements(getApplicationContext());
+        Log.d("Radhi",user.getId());
+        mock= edu.ihm.vue.mocks.Signalements.getInstance(getApplicationContext());
         Signalements=new ArrayList<>(mock.signalementsMock);
         mesSignalements = Signalements.stream().filter(t->t.getAuteur().equals(user.getId())).collect(Collectors.toList());
         setContentView(R.layout.activity_main);

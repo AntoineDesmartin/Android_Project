@@ -43,7 +43,7 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent);
         user=getIntent().getParcelableExtra("user");
-        signalements = new Signalements(getApplicationContext());
+        signalements =Signalements.getInstance(getApplicationContext());
         Log.d("radhi",signalements.signalementsMock.get(0).getDateIncident());
         moveToFragment(new AgentSignalementsDisplayFragment());
         OnMapReadyCallback onMapReadyCallback = this;

@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 
 import edu.ihm.vue.R;
 import edu.ihm.vue.agent_equipements_view.AgentEquipementsActivity;
+import edu.ihm.vue.main_activities.AgentActivity;
 import edu.ihm.vue.mocks.Signalements;
 import edu.ihm.vue.models.Signalement;
 import edu.ihm.vue.agent_signalements_view.AgentSignalementAgendaActivity;
@@ -29,8 +30,9 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
     Signalement signalement;
     Button btnAjouterAagenda;
     Button btnMassigner;
-
     Button btnEquipements;
+    Button btnRetour;
+
     TextView intervention;
 
     public static String signalementTitre;
@@ -58,6 +60,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         btnAjouterAagenda=findViewById(R.id.ajouter_agenda);
         btnMassigner=findViewById(R.id.massigner);
         btnEquipements=findViewById(R.id.equipements);
+        btnRetour=findViewById(R.id.retour);
 
 
         description.setText(signalement.getDescription());
@@ -73,6 +76,14 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         signalementTitre= signalement.getTitle().trim();
         setBtnMassigner();
 
+        btnRetour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AgentActivity.class);
+                intent.putExtra("user",AgentActivity.user);
+                startActivity(intent);
+            }
+        });
 
         btnMassigner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +116,6 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
         Date start_time = s.getInterventioninFull();
 
 
-        // Lors du clic sur le bouton, l'Intent est démarré -> pour créer un événement dans l'agenda avec l'heure donnée
         Date mStartTime = null;
         Date mEndTime = null;
         int delay = 1800000;
@@ -139,7 +149,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
 
             //btnMassigner.setVisibility(View.GONE);
         }else {
-            btnMassigner.setBackgroundColor(getResources().getColor(R.color.s_green));
+            btnMassigner.setBackgroundColor(getResources().getColor(R.color.green));
             btnMassigner.setEnabled(true);
         }
     }
