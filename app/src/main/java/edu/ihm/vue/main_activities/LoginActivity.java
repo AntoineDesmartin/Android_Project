@@ -54,13 +54,14 @@ public class LoginActivity extends AppCompatActivity {
                     editor.commit();
                     LoginActivity.this.getMe();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Nom de compte ou mot de passe incorrect!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Nom de compte ou mot de passe incorrect !", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Token> call, @NonNull Throwable throwable) {
                 Toast.makeText(LoginActivity.this, "Echec connection !", Toast.LENGTH_LONG).show();
+                throwable.printStackTrace();
             }
         });
     }
@@ -86,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
-                Toast.makeText(LoginActivity.this, "Echec !", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Echec connection !", Toast.LENGTH_LONG).show();
                 throwable.printStackTrace();
             }
         });
