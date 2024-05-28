@@ -65,7 +65,7 @@
                     android:paddingLeft="20sp"
                     android:text="Type :"
                     android:textColor="@color/s_gray"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/type_signalement"
@@ -76,7 +76,7 @@
                     android:paddingLeft="20sp"
                     android:text="type incident"
                     android:textColor="@color/black"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <View
@@ -106,7 +106,7 @@
                     android:paddingLeft="20sp"
                     android:text="Date :"
                     android:textColor="@color/s_gray"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/date_signalement"
@@ -117,7 +117,7 @@
                     android:paddingLeft="20sp"
                     android:text="date_signalement"
                     android:textColor="@color/black"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <View
@@ -148,7 +148,7 @@
                     android:paddingLeft="20sp"
                     android:text="Adresse :"
                     android:textColor="@color/s_gray"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/adresse_signalement"
@@ -159,7 +159,7 @@
                     android:paddingLeft="20sp"
                     android:text="Adresse"
                     android:textColor="@color/black"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <View
@@ -190,7 +190,7 @@
                     android:paddingLeft="20sp"
                     android:text="Description :"
                     android:textColor="@color/s_gray"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/description_signalement"
@@ -201,7 +201,7 @@
                     android:paddingLeft="20sp"
                     android:text="description"
                     android:textColor="@color/black"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <View
@@ -231,7 +231,7 @@
                     android:paddingLeft="20sp"
                     android:text="Niveau :"
                     android:textColor="@color/s_gray"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/niveau_signalement"
@@ -242,7 +242,7 @@
                     android:paddingLeft="20sp"
                     android:text="niveau"
                     android:textColor="@color/black"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <View
@@ -273,7 +273,7 @@
                     android:paddingLeft="20sp"
                     android:text="Equiepments :"
                     android:textColor="@color/s_gray"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/equipements_signalement"
@@ -284,7 +284,7 @@
                     android:paddingLeft="20sp"
                     android:text="Equipements"
                     android:textColor="@color/black"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <View
@@ -314,7 +314,7 @@
                     android:paddingLeft="20sp"
                     android:text="Intervenant :"
                     android:textColor="@color/s_gray"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/intervenant_signalement"
@@ -325,7 +325,7 @@
                     android:paddingLeft="20sp"
                     android:text="Intervenant"
                     android:textColor="@color/black"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <View
@@ -355,7 +355,7 @@
                     android:paddingLeft="20sp"
                     android:text="Intervention :"
                     android:textColor="@color/s_gray"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/intervention_signalement"
@@ -366,7 +366,7 @@
                     android:paddingLeft="20sp"
                     android:text="Intervention"
                     android:textColor="@color/black"
-                    android:textSize="17sp"></TextView>
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <View
