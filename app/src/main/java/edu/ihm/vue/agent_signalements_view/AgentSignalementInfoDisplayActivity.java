@@ -6,18 +6,16 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import edu.ihm.vue.R;
@@ -80,7 +78,7 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AgentActivity.class);
-                intent.putExtra("user",AgentActivity.user);
+                intent.putExtra("user", AgentActivity.user);
                 startActivity(intent);
             }
         });
@@ -113,27 +111,35 @@ public class AgentSignalementInfoDisplayActivity extends AppCompatActivity {
     }
 
     public void addToCalendar(Signalement s){
-        Date start_time = s.getInterventioninFull();
+
+        if(signalement.getInterventioninFull()==null || intervention.getText().toString().isEmpty()){
+            Toast.makeText(this, "Ce signalement n'est pas encore attribué!", Toast.LENGTH_SHORT).show();
+        }else{
+            Date start_time = s.getInterventioninFull();
 
 
-        Date mStartTime = null;
-        Date mEndTime = null;
-        int delay = 1800000;
+            // Lors du clic sur le bouton, l'Intent est démarré -> pour créer un événement dans l'agenda avec l'heure donnée
+            Date mStartTime = null;
+            Date mEndTime = null;
+            int delay = 1800000;
 
-        mStartTime = start_time;
-        mEndTime = new Date(mStartTime.getTime() + delay);
+            mStartTime = start_time;
+            mEndTime = new Date(mStartTime.getTime() + delay);
 
-        Date finalMStartTime = mStartTime;
-        Date finalMEndTime = mEndTime;
+            Date finalMStartTime = mStartTime;
+            Date finalMEndTime = mEndTime;
 
-        Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setType("vnd.android.cursor.item/event");
-        intent.putExtra("beginTime", finalMStartTime.getTime());
-        intent.putExtra("time", true);
-        intent.putExtra("rule", "FREQ=YEARLY");
-        intent.putExtra("endTime", finalMEndTime.getTime());
-        intent.putExtra("title", signalement.getTitle());
-        startActivity(intent);
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setType("vnd.android.cursor.item/event");
+            intent.putExtra("beginTime", finalMStartTime.getTime());
+            intent.putExtra("time", true);
+            intent.putExtra("rule", "FREQ=YEARLY");
+            intent.putExtra("endTime", finalMEndTime.getTime());
+            intent.putExtra("title", "GreenTrack : "+signalement.getTitle());
+            startActivity(intent);
+        }
+
+
 
 
     }
