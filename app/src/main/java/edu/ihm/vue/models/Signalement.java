@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -51,7 +52,7 @@ public abstract class Signalement {
     @JsonIgnore
     protected boolean completed = false;
     @JsonIgnore
-    protected String equipements = "";
+    protected List<String> equipements;
     protected double lat = 0;
     protected double lon = 0;
 
@@ -72,11 +73,11 @@ public abstract class Signalement {
         this.auteur = auteur;
     }
 
-    public String getEquipements() {
+    public List<String> getEquipements() {
         return equipements;
     }
 
-    public void setEquipements(String equipements) {
+    public void setEquipements(List<String> equipements) {
         this.equipements = equipements;
     }
 
