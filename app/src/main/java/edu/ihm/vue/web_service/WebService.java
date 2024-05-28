@@ -10,7 +10,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class WebService {
     private static WebService INSTANCE = null;
-    private final static String URL = "http://10.212.118.125:3333/";
+    private final static String URL = "https://greentrack.puceaulytech.fr/";
     private GreenTrackAPI service = null;
 
     private WebService(Context context) {
