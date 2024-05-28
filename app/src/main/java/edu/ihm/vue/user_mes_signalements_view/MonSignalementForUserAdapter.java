@@ -48,16 +48,11 @@ public class MonSignalementForUserAdapter extends BaseAdapter {
         ImageView imageSignalement=layoutItem.findViewById(R.id.image_signalement);
         Button buttonVisualiser= layoutItem.findViewById(R.id.visualiser);
 
-        titreSignalement.setText(MainActivity.mesSignalements.get(position).getTitreSignalement());
+        titreSignalement.setText(MainActivity.mesSignalements.get(position).getTitle());
         String dateIntervention = MainActivity.mesSignalements.get(position).getIntervention();
         etatSignalement.setText(dateIntervention.isEmpty()?"Nouveau":"En Cours");
         imageSignalement.setImageBitmap(MainActivity.mesSignalements.get(position).getPhoto());
-        buttonVisualiser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.onClickButton(position);
-            }
-        });
+        buttonVisualiser.setOnClickListener(v -> activity.onClickButton(position));
         return layoutItem;
     }
 }

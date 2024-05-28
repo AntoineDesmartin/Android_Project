@@ -26,7 +26,7 @@ public class Signalements {
                 bitmap,
                 "Rue robert",
                 "Nice",
-                06000,
+                "06000",
                 "La poubelle émet beaucoup d'odeurs",
                 "1",
                 "2"
@@ -37,7 +37,7 @@ public class Signalements {
                 bitmap,
                 "Rue Philip",
                 "Nice",
-                06200,
+                "06200",
                 "L'animal commence à se décomposer",
                 "1",
                 "3"
@@ -48,7 +48,7 @@ public class Signalements {
                 bitmap,
                 "Rue Lorian",
                 "Nice",
-                06000,
+                "06000",
                 "Danger de blessure",
                 "0",
                 "2"

@@ -7,7 +7,7 @@ public class User implements Parcelable {
     private String id="";
     private String nom="";
     private String prenom="";
-    private role role;
+    private Role role;
 
     public String getId() {
         return id;
@@ -33,15 +33,15 @@ public class User implements Parcelable {
         this.prenom = prenom;
     }
 
-    public role getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(role role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public User(String id, String nom, String prenom, role role) {
+    public User(String id, String nom, String prenom, Role role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -53,7 +53,7 @@ public class User implements Parcelable {
         id = in.readString();
         nom = in.readString();
         prenom = in.readString();
-        role = role.valueOf(in.readString());
+        role = User.Role.valueOf(in.readString());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -81,7 +81,7 @@ public class User implements Parcelable {
         return 0;
     }
 
-    public enum role {
+    public enum Role {
         PARTICULIER, FONCTIONNAIRE
     }
 }

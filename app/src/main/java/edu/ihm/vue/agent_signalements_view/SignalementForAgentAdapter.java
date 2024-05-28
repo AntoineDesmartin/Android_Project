@@ -45,7 +45,7 @@ public class SignalementForAgentAdapter extends BaseAdapter {
         TextView niveauDanger=layoutItem.findViewById(R.id.niveau_danger);
         Button buttonVisualiser= layoutItem.findViewById(R.id.visualiser);
 
-        titreSignalement.setText(AgentSignalementsDisplayFragment.signalementsToDisplay.get(position).getTitreSignalement());
+        titreSignalement.setText(AgentSignalementsDisplayFragment.signalementsToDisplay.get(position).getTitle());
         String dateIntervention = AgentSignalementsDisplayFragment.signalementsToDisplay.get(position).getIntervention();
         etatSignalement.setText(dateIntervention.isEmpty()?"Nouveau":"En Cours");
         niveauDanger.setText(Integer.toString(AgentSignalementsDisplayFragment.signalementsToDisplay.get(position).getNiveau()));

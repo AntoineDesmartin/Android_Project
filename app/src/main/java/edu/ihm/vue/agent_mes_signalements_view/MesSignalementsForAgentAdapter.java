@@ -46,17 +46,12 @@ public class MesSignalementsForAgentAdapter extends BaseAdapter {
         TextView niveauDanger=layoutItem.findViewById(R.id.niveau_danger);
         Button buttonVisualiser= layoutItem.findViewById(R.id.visualiser);
 
-        titreSignalement.setText(AgentActivity.mesSignalements.get(position).getTitreSignalement());
+        titreSignalement.setText(AgentActivity.mesSignalements.get(position).getTitle());
         String dateIntervention = AgentActivity.mesSignalements.get(position).getIntervention();
         etatSignalement.setText(dateIntervention.isEmpty()?"Nouveau":"En Cours");
         niveauDanger.setText(Integer.toString(AgentActivity.mesSignalements.get(position).getNiveau()));
         imageSignalement.setImageBitmap(AgentActivity.mesSignalements.get(position).getPhoto());
-        buttonVisualiser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.onClickButton(position);
-            }
-        });
+        buttonVisualiser.setOnClickListener(v -> activity.onClickButton(position));
         return layoutItem;
     }
 

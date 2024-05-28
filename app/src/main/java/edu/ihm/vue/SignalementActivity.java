@@ -12,12 +12,14 @@ import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.os.StrictMode;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +36,8 @@ import edu.ihm.vue.create_signalemet_fragments.CommentaireSignalement;
 import edu.ihm.vue.create_signalemet_fragments.DateSignalement;
 import edu.ihm.vue.create_signalemet_fragments.TitreSignalement;
 import edu.ihm.vue.create_signalemet_fragments.TypeSignalement;
+import edu.ihm.vue.web_service.WebService;
+import retrofit2.Call;
 
 public class SignalementActivity extends AppCompatActivity implements SignalementListener, IPictureActivity {
 
@@ -52,11 +56,20 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     private Bitmap photo=null;
     private String adresse="";
     private String ville="";
-    private int code;
+    private String code;
     private String commentaire="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // This is to avoid thread error when performing HTTP request
+        // TODO: launch new thread for request
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signalement);
@@ -146,7 +159,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         this.adresse=adr;
         this.ville=vil;
         if (code.length() > 0)
-            this.code=Integer.parseInt(code);
+            this.code= code;
         cameraSignalement = new CameraSignalement(this.photo);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
@@ -166,7 +179,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
 
     @Override
     public void backToAdresseSignalementFragment(String comm) {
-        nouveauSignalement.setCommentaire(comm);
+        nouveauSignalement.setDescription(comm);
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
                 .replace(R.id.fragment_container, new AdresseSignalement(this.adresse, this.ville, this.code))
@@ -179,7 +192,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     public void goToCommentaireSignalementFragment(String adr, String vil, String code) {
         this.adresse=adr;
         this.ville=vil;
-        this.code=Integer.parseInt(code);
+        this.code= code;
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
                 .replace(R.id.fragment_container, new CommentaireSignalement(this.commentaire))
@@ -233,13 +246,20 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
-        nouveauSignalement.setTitreSignalement(this.titre_signalement);
+        nouveauSignalement.setTitle(this.titre_signalement);
         nouveauSignalement.setDateIncident(parsedDate);
         nouveauSignalement.setPhoto(this.photo);
-        nouveauSignalement.setAdresse(this.adresse);
-        nouveauSignalement.setVille(this.ville);
-        nouveauSignalement.setCodePostal(this.code);
+        nouveauSignalement.setAddress(this.adresse);
+        nouveauSignalement.setCity(this.ville);
+        nouveauSignalement.setZipCode(this.code);
+        nouveauSignalement.setDescription(comm);
 
+        Call<Signalement> call = WebService.getInstance().getService().createReport(nouveauSignalement, "Bearer oat_MTI.bHZ5dldndnA0c1dtQjB6SG1CYmIxV2NHYVdnT3FZbE9MbWFBRWR4VTM0MjI1NzUwOTY");
+        try {
+            call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("user",MainActivity.user);
@@ -261,7 +281,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         builder.setLargeIcon(nouveauSignalement.getPhoto());
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);
         builder.setContentTitle("Votre signalement a été pris en compte");
-        builder.setContentText("Votre signalement : " + nouveauSignalement.getTitreSignalement() + " réalisé à la date de " + nouveauSignalement.getDateIncident()
+        builder.setContentText("Votre signalement : " + nouveauSignalement.getTitle() + " réalisé à la date de " + nouveauSignalement.getDateIncident()
                 + " a été enregistré et sera traité prochainement");
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);

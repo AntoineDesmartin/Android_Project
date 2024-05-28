@@ -6,36 +6,39 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class DechetSignalement extends Signalement implements Parcelable {
 
     DechetSignalement(){
-        this.equipements="Sacs poubelles, Masque et gants de protections";
+        this.equipements=new ArrayList<>(Arrays.asList("Sacs poubelles","Masque", "gants de protections"));
         this.typeSignalement=TypeSignalement.DECHETS;
+        this.isBlockage = false;
         this.niveau=2;
     }
 
-    public DechetSignalement(String titre,  Date d, Bitmap b, String adr, String vi, int co,
+    public DechetSignalement(String titre,  Date d, Bitmap b, String adr, String vi, String co,
                                    String com,String auteur,String interv) {
         this();
-        this.titreSignalement = titre;
+        this.title = titre;
         this.dateIncident = d;
         this.photo = b;
-        this.adresse = adr;
-        this.ville = vi;
-        this.codePostal = co;
-        this.commentaire = com;
+        this.address = adr;
+        this.city = vi;
+        this.zipCode = co;
+        this.description = com;
         this.auteur=auteur;
         this.intervenant=interv;
     }
     protected DechetSignalement(Parcel in) {
-        titreSignalement = in.readString();
+        title = in.readString();
         typeSignalement = TypeSignalement.valueOf(in.readString());
-        adresse = in.readString();
-        ville = in.readString();
-        codePostal = in.readInt();
-        commentaire = in.readString();
+        address = in.readString();
+        city = in.readString();
+        zipCode = in.readString();
+        description = in.readString();
         niveau = in.readInt();
         intervenant = in.readString();
         completed = in.readByte() != 0;
@@ -51,7 +54,7 @@ public class DechetSignalement extends Signalement implements Parcelable {
         if (photoBytes != null) {
             photo = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
         }
-        equipements = in.readString();
+        equipements = in.createStringArrayList();
         auteur = in.readString();
         lon=in.readDouble();
         lat=in.readDouble();
@@ -72,12 +75,12 @@ public class DechetSignalement extends Signalement implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(titreSignalement);
+        dest.writeString(title);
         dest.writeString(typeSignalement.name());
-        dest.writeString(adresse);
-        dest.writeString(ville);
-        dest.writeInt(codePostal);
-        dest.writeString(commentaire);
+        dest.writeString(address);
+        dest.writeString(city);
+        dest.writeString(zipCode);
+        dest.writeString(description);
         dest.writeInt(niveau);
         dest.writeString(intervenant);
         dest.writeByte((byte) (completed ? 1 : 0));
@@ -91,7 +94,7 @@ public class DechetSignalement extends Signalement implements Parcelable {
         } else {
             dest.writeByteArray(null);
         }
-        dest.writeString(equipements);
+        dest.writeStringList(equipements);
         dest.writeString(auteur);
         dest.writeDouble(lon);
         dest.writeDouble(lat);
