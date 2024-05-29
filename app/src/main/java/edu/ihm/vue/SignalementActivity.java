@@ -278,7 +278,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         Intent intent = new Intent(getApplicationContext(), UserSignalementInfoDisplayActivity.class);
         intent.putExtra("signalement", (Parcelable) nouveauSignalement);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
         builder.setSmallIcon(R.drawable.eco);
