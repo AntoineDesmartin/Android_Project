@@ -16,6 +16,4 @@ public class UrgentSignalementFactory extends SignalementFactory {
                 throw new Throwable("Signalement not created");
         }
     }
-
-    ;
 }

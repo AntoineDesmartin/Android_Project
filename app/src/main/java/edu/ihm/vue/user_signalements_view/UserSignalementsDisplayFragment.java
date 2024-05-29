@@ -11,17 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.ihm.vue.R;
 import edu.ihm.vue.UserSignalementInfoDisplayActivity;
-import edu.ihm.vue.agent_signalements_view.AgentSignalementInfoDisplayActivity;
 import edu.ihm.vue.agent_signalements_view.Clickable;
-import edu.ihm.vue.agent_signalements_view.SignalementForAgentAdapter;
 import edu.ihm.vue.main_activities.MainActivity;
-import edu.ihm.vue.mocks.Signalements;
-import edu.ihm.vue.models.Signalement;
 
 public class UserSignalementsDisplayFragment extends Fragment implements Clickable {
 
@@ -50,7 +43,7 @@ public class UserSignalementsDisplayFragment extends Fragment implements Clickab
     @Override
     public void onClickButton(int position) {
         Intent intent = new Intent(getContext(), UserSignalementInfoDisplayActivity.class);
-        intent.putExtra("signalement",(Parcelable) MainActivity.Signalements.get(position));
+        intent.putExtra("signalement",(Parcelable) MainActivity.signalements.get(position));
         startActivity(intent);
     }
 }

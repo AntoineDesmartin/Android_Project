@@ -40,8 +40,9 @@ public class AccountFragment extends Fragment {
         TextView role= view.findViewById(R.id.role);
         username.setText(user.getNom()+" "+user.getPrenom());
         role.setText(user.getRole().toString());
-        Button btn = (Button) view.findViewById(R.id.disconnect);
+        Button btn = view.findViewById(R.id.disconnect);
         btn.setOnClickListener((click)->{
+            assert this.getContext() != null;
             SharedPreferences sharedPreferences = this.getContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             String token = sharedPreferences.getString("token", null);
             if (token != null)

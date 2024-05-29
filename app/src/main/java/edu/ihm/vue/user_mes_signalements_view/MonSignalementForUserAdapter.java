@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.ihm.vue.R;
-import edu.ihm.vue.agent_signalements_view.AgentSignalementsDisplayFragment;
 import edu.ihm.vue.agent_signalements_view.Clickable;
 import edu.ihm.vue.main_activities.MainActivity;
-import edu.ihm.vue.user_signalements_view.UserSignalementsDisplayFragment;
 
 public class MonSignalementForUserAdapter extends BaseAdapter {
     private Clickable activity;

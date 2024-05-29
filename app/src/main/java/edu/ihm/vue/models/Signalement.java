@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -109,7 +110,7 @@ public abstract class Signalement {
 
     public String getIntervention() {
         if (intervention != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
             return sdf.format(intervention);
         } else {
             return "";
@@ -179,7 +180,7 @@ public abstract class Signalement {
 
     public String getDateIncident() {
         if (dateIncident != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
             return sdf.format(dateIncident);
         } else {
             return "";

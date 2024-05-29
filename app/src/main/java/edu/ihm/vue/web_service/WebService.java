@@ -11,7 +11,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class WebService {
     private static WebService INSTANCE = null;
     private final static String URL = "https://greentrack.puceaulytech.fr/";
-    private GreenTrackAPI service = null;
+    private final GreenTrackAPI service;
 
     private WebService(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -26,7 +26,7 @@ public class WebService {
                 .build();
 
         this.service = retrofit.create(GreenTrackAPI.class);
-    };
+    }
 
     public static synchronized WebService getInstance(Context context) {
         if (WebService.INSTANCE == null)
