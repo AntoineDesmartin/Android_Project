@@ -68,17 +68,30 @@
         android:textSize="15dp"
         android:fontFamily="@font/jetbrains_mono"
         android:layout_marginLeft="20dp" />
+        <TextView
+            android:id="@+id/indice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jetbrains_mono"
+            android:text="(Clickez sur les équipements pour supprimer)"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ajouter"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp">
+        </TextView>
 
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.005"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ajouter"
+        app:layout_constraintTop_toBottomOf="@id/indice"
         app:layout_constraintWidth_percent="0.9" />
 
         <ListView
@@ -106,18 +119,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_equipements"
         app:layout_constraintWidth_percent="0.9" />
 
-    <TextView
-        android:id="@+id/indice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/jetbrains_mono"
-        android:text="(Clickez sur les équipements pour supprimer)"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider2"
-        android:textAlignment="center">
-    </TextView>
+
     <Button
         android:id="@+id/sauvegarder"
         android:layout_width="0dp"
@@ -132,7 +134,7 @@
         android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indice"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
         android:drawableEnd="@drawable/file"
         android:drawableTint="@color/white"/>
 

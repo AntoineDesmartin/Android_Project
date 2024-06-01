@@ -34,6 +34,11 @@ public class Model_Equipements extends Observable implements IModel {
     }
 
     @Override
+    public List<String> getEquipements() {
+        return this.equipements;
+    }
+
+    @Override
     public void add(String equipement) {
         if ( !equipements.contains(equipement) ) {
             equipements.add(equipement);

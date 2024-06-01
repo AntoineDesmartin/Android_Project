@@ -9,6 +9,7 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -175,15 +176,12 @@ public class AgentSignalementAgendaActivity extends AppCompatActivity {
         if (indice != -1) {
             Signalements.signalementsMock.get(indice).setIntervention(finalMStartTime);
             Signalements.signalementsMock.get(indice).setIntervenant(agentId);
-
             signalement.setIntervenant(agentId);
-            logger.info("Intervention date to send: " + signalement.getInterventioninFull());
-
-            finish();
+            Log.d("radhi","Intervention date to send: " + signalement.getInterventioninFull());
         } else {
-            logger.warning("No matching signalement found.");
+            Log.d("radhi","No matching signalement found.");
         }
-        logger.info("Intervention date to send : " + this.signalement.getInterventioninFull());
+        Log.d("radhi","Intervention date to send : " + this.signalement.getInterventioninFull());
         Intent intent=new Intent(getApplicationContext(), AgentSignalementInfoDisplayActivity.class);
         intent.putExtra("signalement",(Parcelable) signalement);
         startActivity(intent);

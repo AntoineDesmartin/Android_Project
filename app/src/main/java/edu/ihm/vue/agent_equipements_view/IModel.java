@@ -11,4 +11,5 @@ public interface IModel {
     int size();
 
     void setEquipements(List<String> equipements_list);
+    List<String> getEquipements();
 }

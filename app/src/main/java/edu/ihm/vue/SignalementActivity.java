@@ -101,6 +101,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         } catch (ParseException e) {
             Log.d(TAG, "Can not parse date", e);
         }*/
+        this.date_incident=date;
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimationBack, exitAnimationBack)
                 .replace(R.id.fragment_container, new TypeSignalement(this.titre_signalement))
@@ -245,7 +246,8 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         nouveauSignalement.setCity(this.ville);
         nouveauSignalement.setZipCode(this.code);
         nouveauSignalement.setDescription(comm);
-
+        nouveauSignalement.setAuteur(MainActivity.user.getId());
+        edu.ihm.vue.mocks.Signalements.getInstance(getApplicationContext()).signalementsMock.add(nouveauSignalement);
         WebService.getInstance(this).getService().createReport(nouveauSignalement).enqueue(new Callback<Signalement>() {
             @Override
             public void onResponse(Call<Signalement> call, Response<Signalement> response) {

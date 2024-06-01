@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -69,7 +70,15 @@ public class AdresseSignalement extends Fragment {
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListener != null) {
+                if (adresse.getText().toString().length()==0) {
+                    Toast.makeText((Context) mListener, "L'adresse ne doit pas être vide", Toast.LENGTH_LONG).show();
+                }else if (ville.getText().toString().length()==0) {
+                    Toast.makeText((Context) mListener, "La ville ne doit pas être vide", Toast.LENGTH_LONG).show();
+                }
+                else if (codepostal.getText().toString().length()<5) {
+                    Toast.makeText((Context) mListener, "Le code postal doit contenir 5 chiffres", Toast.LENGTH_LONG).show();
+                }
+                else if (mListener != null) {
                     mListener.goToCommentaireSignalementFragment(adresse.getText().toString(), ville.getText().toString(), codepostal.getText().toString());
                 }
             }

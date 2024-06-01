@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import edu.ihm.vue.R;
 import edu.ihm.vue.SignalementListener;
@@ -28,7 +33,7 @@ public class DateSignalement extends Fragment {
     }
 
     public DateSignalement(String date) {
-        this.date=date;
+        this.date = date;
     }
 
     @Override
@@ -37,7 +42,7 @@ public class DateSignalement extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_date_signalement, container, false);
         EditText dateEditText = rootView.findViewById(R.id.dateEditText);
-        if (date.length()>0) {
+        if (date.length() > 0) {
             dateEditText.setText(date);
         }
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +64,7 @@ public class DateSignalement extends Fragment {
 
         Button back = rootView.findViewById(R.id.retour);
         back.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
@@ -72,7 +78,9 @@ public class DateSignalement extends Fragment {
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListener != null) {
+                if (isDateNotPast(String.valueOf(dateEditText.getText()))) {
+                    Toast.makeText((Context) mListener, "Selectionnez une date antérieure", Toast.LENGTH_LONG).show();
+                } else if (mListener != null) {
                     mListener.goToCameraSignalementFragment(String.valueOf(dateEditText.getText()));
                 }
             }
@@ -111,4 +119,16 @@ public class DateSignalement extends Fragment {
         datePickerDialog.show();
     }
 
+    public static boolean isDateNotPast(String inputDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false);
+        try {
+            Date date = dateFormat.parse(inputDate);
+            Date currentDate = new Date();
+            return !date.before(currentDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
