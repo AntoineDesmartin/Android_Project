@@ -5,15 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -29,11 +25,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import edu.ihm.vue.AccountFragment;
-import edu.ihm.vue.UserSignalementInfoDisplayActivity;
 import edu.ihm.vue.agent_mes_signalements_view.AgentMesSignalementsDisplayFragment;
 import edu.ihm.vue.mocks.Signalements;
 import edu.ihm.vue.agent_map.MapsFragment;
@@ -100,12 +94,12 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent);
         user=getIntent().getParcelableExtra("user");
-        signalements =Signalements.getInstance(getApplicationContext());
-        Log.d("radhi",signalements.signalementsMock.get(0).getDateIncident());
+        signalements = Signalements.getInstance(getApplicationContext());
+        Log.d("radhi", Signalements.signalementsMock.get(0).getDateIncident());
         moveToFragment(new AgentSignalementsDisplayFragment());
         OnMapReadyCallback onMapReadyCallback = this;
 
-        mesSignalements=signalements.signalementsMock.stream().filter(t->t.getIntervenant().equals(AgentActivity.user.getId())).collect(Collectors.toList());
+        mesSignalements = Signalements.signalementsMock.stream().filter(t->t.getIntervenant().equals(AgentActivity.user.getId())).collect(Collectors.toList());
         Log.d("radhi",mesSignalements.toString());
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -172,7 +166,7 @@ public class AgentActivity extends AppCompatActivity implements OnMapReadyCallba
     @Override
     protected void onResume() {
         super.onResume();
-        mesSignalements=signalements.signalementsMock.stream().filter(t->t.getIntervenant().equals(AgentActivity.user.getId())).collect(Collectors.toList());
+        mesSignalements = Signalements.signalementsMock.stream().filter(t->t.getIntervenant().equals(AgentActivity.user.getId())).collect(Collectors.toList());
 
     }
 }

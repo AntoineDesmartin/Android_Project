@@ -23,6 +23,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import edu.ihm.vue.main_activities.MainActivity;
@@ -48,7 +49,6 @@ import retrofit2.Response;
 public class SignalementActivity extends AppCompatActivity implements SignalementListener, IPictureActivity {
 
     private final String TAG = "Green Track " + getClass().getSimpleName();
-    ;
     private int enterAnimation = R.anim.slide_in_right;
     private int exitAnimation = R.anim.slide_out_left;
     private int enterAnimationBack = R.anim.slide_in_left;
@@ -63,7 +63,6 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
     private String adresse="";
     private String ville="";
     private String code;
-    private String commentaire="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,21 +185,20 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         this.adresse=adr;
         this.ville=vil;
         this.code= code;
+        String commentaire = "";
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(enterAnimation, exitAnimation)
-                .replace(R.id.fragment_container, new CommentaireSignalement(this.commentaire))
+                .replace(R.id.fragment_container, new CommentaireSignalement(commentaire))
                 .commit();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_CAMERA: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    cameraSignalement.takePicture();
-                }
-            }
+        if (requestCode == REQUEST_CAMERA
+            && grantResults.length > 0
+            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                cameraSignalement.takePicture();
         }
     }
 
@@ -217,7 +215,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
 
     @Override
     public void finishSignalement(String comm) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         Date parsedDate = null;
         try {
             parsedDate = sdf.parse(this.date_incident);
@@ -227,13 +225,13 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
             Date oneWeekAfter = calendar.getTime();
             Date currentDate = new Date();
 
+            SignalementFactory factory;
             if (currentDate.after(oneWeekAfter)) {
-                SignalementFactory factory=new UrgentSignalementFactory();
-                nouveauSignalement=factory.build(this.type_signalement);
+                factory = new UrgentSignalementFactory();
             } else {
-                SignalementFactory factory=new NormalSignalementFactory();
-                nouveauSignalement=factory.build(this.type_signalement);
+                factory = new NormalSignalementFactory();
             }
+            nouveauSignalement=factory.build(this.type_signalement);
         } catch (ParseException e) {
             Log.d(TAG, "Can not parse date", e);
         } catch (Throwable e) {
@@ -280,7 +278,7 @@ public class SignalementActivity extends AppCompatActivity implements Signalemen
         Intent intent = new Intent(getApplicationContext(), UserSignalementInfoDisplayActivity.class);
         intent.putExtra("signalement", (Parcelable) nouveauSignalement);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId);
         builder.setSmallIcon(R.drawable.eco);

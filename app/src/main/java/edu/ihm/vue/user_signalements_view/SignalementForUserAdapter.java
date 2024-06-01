@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.ihm.vue.R;
-import edu.ihm.vue.agent_signalements_view.AgentSignalementsDisplayFragment;
 import edu.ihm.vue.agent_signalements_view.Clickable;
 import edu.ihm.vue.main_activities.MainActivity;
 
@@ -26,12 +25,12 @@ public class SignalementForUserAdapter extends BaseAdapter {
 
     @Override
     public int getCount(){
-        return  MainActivity.Signalements.size();
+        return  MainActivity.signalements.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return  MainActivity.Signalements.get(position);
+        return  MainActivity.signalements.get(position);
     }
 
     @Override
@@ -47,10 +46,10 @@ public class SignalementForUserAdapter extends BaseAdapter {
         ImageView imageSignalement=layoutItem.findViewById(R.id.image_signalement);
         Button buttonVisualiser= layoutItem.findViewById(R.id.visualiser);
 
-        titreSignalement.setText( MainActivity.Signalements.get(position).getTitle());
-        String dateIntervention =  MainActivity.Signalements.get(position).getIntervention();
+        titreSignalement.setText( MainActivity.signalements.get(position).getTitle());
+        String dateIntervention =  MainActivity.signalements.get(position).getIntervention();
         etatSignalement.setText(dateIntervention.isEmpty()?"Nouveau":"En Cours");
-        imageSignalement.setImageBitmap( MainActivity.Signalements.get(position).getPhoto());
+        imageSignalement.setImageBitmap( MainActivity.signalements.get(position).getPhoto());
         buttonVisualiser.setOnClickListener(v -> activity.onClickButton(position));
         return layoutItem;
     }

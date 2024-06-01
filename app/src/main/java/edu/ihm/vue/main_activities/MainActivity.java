@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 
     public static User user;
-    public static List<Signalement> Signalements;
+    public static List<Signalement> signalements;
     public static List<Signalement> mesSignalements;
     public static Signalements mock;
 
@@ -83,29 +83,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         user=getIntent().getParcelableExtra("user");
         Log.d("Radhi",user.getId());
-        mock= edu.ihm.vue.mocks.Signalements.getInstance(getApplicationContext());
-        Signalements=new ArrayList<>(mock.signalementsMock);
-        mesSignalements = Signalements.stream().filter(t->t.getAuteur().equals(user.getId())).collect(Collectors.toList());
+        mock = Signalements.getInstance(getApplicationContext());
+        signalements =new ArrayList<>(Signalements.signalementsMock);
+        mesSignalements = signalements.stream().filter(t->t.getAuteur().equals(user.getId())).collect(Collectors.toList());
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         moveToFragment(new UserSignalementsDisplayFragment());
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
-                    moveToFragment(new UserSignalementsDisplayFragment());
-                } else if (itemId == R.id.nav_create) {
-                    Intent intent = new Intent(getApplicationContext(), SignalementActivity.class);
-                    startActivity(intent);
-                } else if (itemId == R.id.nav_mes_signalements) {
-                    moveToFragment(new UserMesSignalementsDisplayFragment());
-                } else if (itemId == R.id.nav_compte) {
-                    moveToFragment(new AccountFragment(user));
-                }
-                return true;
+        bottomNavigationView.setOnItemSelectedListener((BottomNavigationView.OnNavigationItemSelectedListener) item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                moveToFragment(new UserSignalementsDisplayFragment());
+            } else if (itemId == R.id.nav_create) {
+                Intent intent = new Intent(getApplicationContext(), SignalementActivity.class);
+                startActivity(intent);
+            } else if (itemId == R.id.nav_mes_signalements) {
+                moveToFragment(new UserMesSignalementsDisplayFragment());
+            } else if (itemId == R.id.nav_compte) {
+                moveToFragment(new AccountFragment(user));
             }
+            return true;
         });
 
 
@@ -119,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Signalements=new ArrayList<>(mock.signalementsMock);
-        mesSignalements = Signalements.stream().filter(t->t.getAuteur().equals(user.getId())).collect(Collectors.toList());
+        signalements =new ArrayList<>(Signalements.signalementsMock);
+        mesSignalements = signalements.stream().filter(t->t.getAuteur().equals(user.getId())).collect(Collectors.toList());
     }
 }
