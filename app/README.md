@@ -18,9 +18,11 @@
 ## Implementation des Patterns:
 
    ### Le pattern Factory
-   Le pattern Factory implémenté est Factory Method: (package: models)
-   -Fabrique générique:SignalementFacotry
-   -Fabrique de signalement:NormalSignalementFactory,UrgentSignalementFactory
+   Le pattern Factory implémenté est Factory Method (package: models) :
+
+   - Fabrique générique: SignalementFacotry
+
+   - Fabrique de signalements: NormalSignalementFactory, UrgentSignalementFactory
 
    ### Le pattern MVC
    Le pattern MVC est implementé dans le package agent_equipements_view:
@@ -28,19 +30,20 @@
    pour résoudre un incident
 
    ### Parcelable
-   Les differents types de signalements ainsi que que le user implemente Parcelable:
+   Les differents types de signalements ainsi que que le "User" implementent Parcelable (package: models): 
+
    Le User est une varaible unique
+
    La liste des signalements dans notre choix d'implementation (futur) n'est pas identique dans tout le programme
-   et diffère selon l'onglet de l'utilisation ( signalements généraux ou mes signalements => differents requêtes)
+   et diffère selon l'onglet de l'utilisation ( signalements généraux ou mes signalements => differentes requêtes)
 
    ### Le pattern Singleton
    Le pattern Sigleton a été implmenté dans le WebService (package: web_service) : qui sera unique et utilisé dans toute l'application
-   (Mais aussi pour réaliser notre démo avant la réalisation de notre produit final
-   nous avons utilisé une classe de Mocks singleton pour synchroniser les différents informations dans notre programme)
+   (Mais aussi, pour réaliser notre démo, avant une version final de notre projet, nous avons utilisé une classe de Mocks Singleton pour synchroniser les différents informations dans notre programme)
 
    ### Le pattern Observer/Observable
    Le pattern Observer/Observable a été implementé dans un filtre de niveau minimal dans l'affichage
    de la liste des signalements pour l'agent qui filtrera les incident selon le niveau d'importance
    (package: agent_signalement_view)
-   Observable : NiveauMinimalSensor
-   Observer:NiveauFilter
+   - Observable : NiveauMinimalSensor
+   - Observer: NiveauFilter
