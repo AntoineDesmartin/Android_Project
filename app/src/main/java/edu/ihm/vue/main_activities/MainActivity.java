@@ -26,6 +26,9 @@ import edu.ihm.vue.user_signalements_view.UserSignalementsDisplayFragment;
 
 
 /*
+GREEN TRACK
+Membres du groupe : Antoine DESMARTIN,Radhi ALOULOU,Jean Paul ASSIMPAH, Logan LUCAS
+
 ---Liste de toutes les dépendances :
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -66,6 +69,11 @@ import edu.ihm.vue.user_signalements_view.UserSignalementsDisplayFragment;
    (package: agent_signalement_view)
    Observable : NiveauMinimalSensor
    Observer:NiveauFilter
+
+   --La sauvegarde d'une donnée est implementé dans le LoginActivity(package:main_activites), cette sauvegarde permet
+   de stocker un token utilisé dans la connexion au WebService permettant ainsi à l'utilisatuer de se connecter
+   sans re-saisir son identifiant et mot de passe à chaque ouverture de l'application
+
 
  */
 public class MainActivity extends AppCompatActivity {
