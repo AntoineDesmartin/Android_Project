@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/datesignalementfragment">
+
 
     <TextView
         android:id="@+id/titresignalement"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.8"
-        android:text="Quel est la date de votre signalement :"
+        android:text="Quel est la date de l'incident:"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.8"
-        android:hint="Selectionner une date"
+        android:hint="Ex: 15/12/2024"
         android:focusable="false"
         android:inputType="none"
         android:onClick="showDatePickerDialog"
@@ -42,6 +44,22 @@
         />
 
 
+    <Button
+        android:id="@+id/suivant"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:drawableEnd="@drawable/arrow_forward"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/jetbrains_mono"
+        android:text="Suivant"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateEditText"
+        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintWidth_percent="0.8"></Button>
 
     <Button
         android:id="@+id/annuler"

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".agent_equipements_view.AgentEquipementsActivity">
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.13"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/titre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/jetbrains_mono"
+        android:text="Equipements"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_bar"
+        android:textAlignment="center">
+    </TextView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_equipements"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.60"
+        app:layout_constraintTop_toBottomOf="@id/titre"
+        android:paddingTop="15dp">
+
+    <EditText
+        android:id="@+id/new_item"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintWidth_percent="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Gants, Pelle .."
+        android:textColor="@color/s_gray"
+        android:background="@drawable/login_edittext"
+        app:layout_constraintTop_toTopOf="@id/view_equipements"
+        android:padding="15dp"
+        android:singleLine="true"
+        android:layout_marginLeft="15dp"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/jetbrains_mono" />
+
+    <Button
+        android:id="@+id/ajouter"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        app:layout_constraintWidth_percent="0.3"
+        app:layout_constraintStart_toEndOf="@id/new_item"
+        app:layout_constraintTop_toTopOf="@id/view_equipements"
+        app:background="@drawable/gradient_color_login"
+        android:backgroundTint="@color/s_red"
+        android:textColor="@color/white"
+        android:text="Ajouter"
+        android:textSize="15dp"
+        android:fontFamily="@font/jetbrains_mono"
+        android:layout_marginLeft="20dp" />
+        <TextView
+            android:id="@+id/indice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jetbrains_mono"
+            android:text="(Clickez sur les équipements pour supprimer)"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ajouter"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp">
+        </TextView>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.005"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/indice"
+        app:layout_constraintWidth_percent="0.9" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:divider="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.005"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_equipements"
+        app:layout_constraintWidth_percent="0.9" />
+
+
+    <Button
+        android:id="@+id/sauvegarder"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:backgroundTint="@color/s_green"
+        android:textColor="@color/white"
+        android:text="Enregister"
+        android:textSize="20dp"
+        android:fontFamily="@font/jetbrains_mono"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        android:drawableEnd="@drawable/file"
+        android:drawableTint="@color/white"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

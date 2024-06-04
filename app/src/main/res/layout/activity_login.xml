@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main_activities.LoginActivity"
+    android:background="@drawable/gradient_green_background">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/eco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:tint="@color/white"></ImageView>
+
+    <EditText
+        android:layout_marginTop="30dp"
+        android:id="@+id/email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        android:hint="nom d'utilisateur"
+        android:textColor="@color/s_gray"
+        android:background="@drawable/login_edittext"
+        android:padding="15dp"
+        android:singleLine="true"
+        android:drawableStart="@drawable/mail_icon"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/jetbrains_mono"
+        >
+    </EditText>
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        android:hint="mot de passe"
+        android:textColor="@color/s_gray"
+        android:background="@drawable/login_edittext"
+        android:padding="15dp"
+        android:singleLine="true"
+        android:drawableStart="@drawable/key_icon"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"
+        android:fontFamily="@font/jetbrains_mono"
+        >
+    </EditText>
+
+    <Button
+        android:id="@+id/connecter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:background="@drawable/gradient_color_login"
+        android:backgroundTint="@color/s_red"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:text="Se connecter"
+        android:textSize="20dp"
+        android:drawableEnd="@drawable/arrow_forward"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/jetbrains_mono"
+        >
+    </Button>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connecter"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+        <TextView
+            android:id="@+id/pasdecompte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:text="Vous n'avez pas de compte ? "
+           >
+        </TextView>
+        <TextView
+            android:id="@+id/enregistrer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:text="@string/underlined_text"
+            android:clickable="true">
+        </TextView>
+    </LinearLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

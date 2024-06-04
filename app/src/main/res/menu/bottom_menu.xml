@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
         android:title="Home"
-        ></item>
-    <item
-        android:id="@+id/nav_notifications"
-        android:icon="@drawable/notification"
-        android:title="Notifications"
         ></item>
     <item
         android:id="@+id/nav_create"
@@ -17,7 +13,7 @@
         android:title="Create"
         ></item>
     <item
-        android:id="@+id/nav_mesSignalement"
+        android:id="@+id/nav_mes_signalements"
         android:icon="@drawable/bars"
         android:title="Signalements"
         ></item>
@@ -26,4 +22,5 @@
         android:icon="@drawable/user"
         android:title="Compte"
         ></item>
+
 </menu>

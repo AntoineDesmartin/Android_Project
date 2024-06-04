@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/commentairesignalementfragment">
+
+    <TextView
+        android:id="@+id/commentairesignalement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        android:text="Ajoutez un commentaire :"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textColor="@color/s_gray"
+        android:gravity="top"
+        />
+
+
+    <EditText
+        android:id="@+id/commentaireEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:inputType="textMultiLine"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintHeight_percent="0.4"
+        android:hint="Ex: Le dêchet dégage beaucoup d'odeurs..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/commentairesignalement"
+        android:textColor="@color/s_gray"
+        android:background="@drawable/edittext_border"
+        android:padding="10dp"
+        android:singleLine="false"
+        android:layout_marginTop="20dp"
+        />
+
+
+
+
+    <Button
+        android:id="@+id/annuler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/s_red"
+        android:text="Annuler"
+        android:drawableEnd="@drawable/close"
+        android:drawableTint="@color/white"
+        >
+    </Button>
+
+    <Button
+        android:id="@+id/retour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/s_red"
+        android:text="Retour"
+        app:icon="@drawable/arrow_back"
+        android:drawableTint="@color/white"
+        >
+    </Button>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:background="@color/green"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="50dp"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/terminerS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:drawableEnd="@drawable/check"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/jetbrains_mono"
+        android:text="Terminer"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commentaireEditText"
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintWidth_percent="0.8">
+
+    </Button>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
